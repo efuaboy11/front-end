@@ -1,0 +1,24 @@
+
+
+.register-page{
+  display: grid;
+  place-items: center; 
+  justify-content: center;
+  height: 100vh; 
+}
+.register-box{
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.register-box-margin{
+  padding: 45px;
+}
+
+@media (max-width: 630px){
+  .register-box-margin{
+    padding: 20px;
+  }
+
+
+}

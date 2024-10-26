@@ -1,0 +1,67 @@
+.otp-page{
+  padding-top: 180px;
+}
+.otp-box{
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.otp-box-margin{
+  padding: 100px 45px;
+}
+
+
+.otp-group {
+  display: flex; 
+  align-items: center; 
+  border: 1px solid #ced4da; 
+  border-radius: 0.25rem; 
+  overflow: hidden; 
+}
+
+.otp-input-text {
+  background-color: #f8f9fa; 
+  border: none; 
+  padding: 12px; 
+  font-size: 1rem; 
+  color: #495057; 
+  border-right: 1px solid #ced4da; 
+}
+
+.otp-input {
+  border: none;
+  outline: none; 
+  padding: 12px; 
+  font-size: 1rem;
+  color: #495057; 
+  flex: 1; 
+}
+
+.otp-input::placeholder {
+  color: #6c757d; 
+  opacity: 1; 
+}
+
+.otp-input:focus {
+  outline: none;
+  border-color: #2c1842; 
+}
+
+
+@media (max-width: 760px){
+  .otp-page{
+    padding-top: 100px;
+  }
+
+
+}
+
+@media (max-width: 630px){
+  .otp-box-margin{
+    padding: 20px;
+    padding-bottom: 60px;
+  }
+
+
+}
+

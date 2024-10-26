@@ -1,0 +1,29 @@
+.login-page{
+  padding-top: 180px;
+}
+.login-box{
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.login-box-margin{
+  padding: 45px;
+}
+
+@media (max-width: 760px){
+  .login-page{
+    padding-top: 100px;
+  }
+
+
+}
+
+@media (max-width: 630px){
+  .login-box-margin{
+    padding: 20px;
+    padding-bottom: 60px;
+  }
+
+
+}
+

@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Register } from './pages/signUp/register';
+import ScrollToTop from './component/scrollToTop';// assuming you're using useLocation here
+import { Login } from './pages/signUp/login';
+import { AuthProvider } from './context/AuthContext';
+import { OTP } from './pages/signUp/otp';
+import { ForgotPasssword } from './pages/signUp/forgetPassword';
+import { ForgotPassWord2 } from './pages/signUp/forgetPassword2';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AuthProvider>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/otp-page" element={<OTP />} />
+          <Route path="/forgot-password" element={<ForgotPasssword />} />
+          <Route path="/forgot-password-2" element={<ForgotPassWord2 />} />
+        </Routes>
+      </AuthProvider>
+    </Router>
   );
 }
 
