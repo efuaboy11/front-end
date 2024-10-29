@@ -23,6 +23,22 @@ export const AuthProvider = ({children}) =>{
 
     const navigate = useNavigate()
     //const [user, setUser] = useState(() => localStorage.getItem("authTokens") ? jwtDecode(localStorage.getItem("authTokens")) : null)
+
+    const [showSidebar, setShowSidebar] = useState(null)
+  
+    const toggleShowSidebar = () =>{
+      setShowSidebar(true)
+    }
+  
+    const toggleCloseSidebar = () =>{
+      setShowSidebar(false)
+    }
+  
+    const OnbodyClick = () =>{
+      if (showSidebar){
+        setShowSidebar(false)
+      }
+    }
     const showAlert = () => {
         setAlertVisible(true);
         setTimeout(() => {
@@ -104,6 +120,7 @@ export const AuthProvider = ({children}) =>{
                 setAuthToken(data)
                 localStorage.setItem("authTokens", JSON.stringify(data));
                 console.log("Successful");
+
                 setIsSuccess(true)
                 localStorage.removeItem("email");
                 localStorage.removeItem('password')
@@ -192,6 +209,7 @@ export const AuthProvider = ({children}) =>{
         const data = await response.json()
 
         if(response.status === 200){
+            console.log("token updated")
             setAuthToken(data)
             localStorage.setItem("authTokens", JSON.stringify(data))
         }else{
@@ -209,7 +227,7 @@ export const AuthProvider = ({children}) =>{
 
 
     useEffect(() => {
-        const mins = 1000 * 60 * 9
+        const mins = 1000 * 60 * 3
         const interval = setInterval(() => {
             if(authTokens){
                 updateToken()
@@ -245,7 +263,11 @@ export const AuthProvider = ({children}) =>{
         setIsSuccess,
         page,
         setPage,
-        ForgotPasssword
+        ForgotPasssword,
+        showSidebar, 
+        setShowSidebar,
+        toggleCloseSidebar,
+        toggleShowSidebar,
 
 
 
