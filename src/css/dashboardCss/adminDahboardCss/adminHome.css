@@ -1,0 +1,56 @@
+.admin-home-header{
+    max-height: 100%;
+}
+.admin-home-dahboard-table{
+    min-height: 370px;
+}
+
+.admin-home-dahboard-table th, .admin-home-dahboard-table td {
+    padding:0px 30px; /* Adjust the value for desired space */
+}
+.admin-home-dahboard-table tr{
+    border-bottom: 1px solid #404040;
+}
+.admin-home-dahboard-table tbody tr:last-child{
+    border-bottom: none;
+}
+
+.admin-home-user-table-icon{
+    background-color: #433878;
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    margin-right: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.admin-home-user-table-arrow{
+    padding: 0px 11px;
+}
+.admin-home-user-table-arrow:hover{
+    background-color: #161616;
+    border-radius: 50%;
+    transition: all ease 0.5s;
+}
+
+.admin-home-verification-chart{
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1200px){
+    .admin-home-dahboard-table{
+        min-height: 370px;
+        position: none;
+    }
+
+}
+
+@media screen and (max-width: 990px){
+    .admin-home-header{
+        padding-top: 35px;
+    }
+
+}

@@ -3,7 +3,7 @@ import '../css/componentCss/dashboardFrame.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../context/AuthContext'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import userIcon from '../img/user-icon.png'
 import existIcon from '../img/box-arrow-in-up-right.svg'
 
@@ -11,13 +11,121 @@ import existIcon from '../img/box-arrow-in-up-right.svg'
 
 
 export const AdminDashFrame = () =>{
-  const { authTokens } = useContext(AuthContext)
-  const {
+  const { authTokens, 
     showSidebar, 
     toggleCloseSidebar,
     toggleShowSidebar,
 
-  }= useContext(AuthContext)
+    depositCount,
+    setDepositCount,
+    successDespositCount,
+    setSuccessDepositCount,
+    pendingDespositCount,
+    setPendingDespositCount,
+    declinedDepositCount,
+    setDeclinedDepositCount,
+    setRecentDeposit,
+    setDepositData,
+    setTotalDeposit,
+    setRecentPendingDeposit,
+    setPendingDepositData,
+    setRecentSuccessDeposit,
+    setSuccessfulDepositData,
+    setRecentDeclinedDeposit,
+    setDeclinedDepositData,
+    setDepositLoader,
+    setPendingDepositLoader,
+    setDeclinedDepositLoader, 
+    setSuccessfulDepositLoader,    
+
+
+    withdrawCount,
+    setWithdrawCount,
+    SuccessWithdrawCount,
+    setSuccessWithdrawCount,
+    pendingWithdrawCount,
+    setPendingWithdrawCount,
+    declinedWithdrawCount,
+    setDeclinedWithdrawCount,
+    setRecentWithdraw,
+    setWithdrawData,
+    setTotalWithdraw,
+    setRecentPendingWithdraw, 
+    setPendingWithdrawData, 
+    setRecentSuccessWithdraw,
+    setSuccessfulWithdrawData,
+    setRecentDeclinedWithdraw, 
+    setDeclinedWithdrawData,
+    setWithdrawLoader, 
+    setPendingWithdrawLoader, 
+    setDeclinedWithdrawLoader, 
+    setSuccessWithdrawLoader,
+
+    investmentCount,
+    setInvestmentCount,
+    activeInvestmentCount,
+    setActiveInvestmentCount,
+    completedInvestmentCount,
+    setCompletednvestmentCount,
+    pendingInvestmentCount,
+    setPendingInvestmentCount,
+    declinedInvestmentCount,
+    setDeclinedInvestmentCount,
+
+
+    usersCount,
+    setUserCount,
+    disableUserCount,
+    setDisableUserCount,
+    userVerificationCount,
+    setUserVerificationCount,
+    pendingUserVerificationCount,
+    setPendingUserVerificationCount,
+    canceledUserVerificationCount,
+    setCanceledUserVerificationCount,
+    unverifiedUserCount,
+    setUnverfiedUserCount,
+    verifiedUserCount,
+    setVerifiedUserCount,
+    setUsersData,
+    setRecentUserData,
+    setUsersDataLoader,
+
+    KYCsCount,
+    setKYCsCount,
+    notUploadKYCsCount,
+    setNotUploadKYCsCount,
+    verifiedKYCsCount,
+    setVerifiedKYCsCount,
+    canceledKYCsCount,
+    setCanceledKYCsCount,
+    pendingKYCsCount,
+    setPendingKYCsCount,
+
+
+    emailCount,
+    setEmailCount,
+    investmentPlanCount,
+    setInvestmentPlanCount,
+    paymentOptionsCount,
+    setPaymentOptionsCount,
+
+    bonusData,
+    setBonusData,
+    setTotalBonus,
+    setBonusCount,
+
+    setBlackListIPData,
+    setBlackListCount,
+
+    setNewLetterData,
+    setNewsLetterCount,
+
+    searchValue,
+
+
+
+  } = useContext(AuthContext)
   const [navDropdown, setNavDropdown] = useState(false)
 
 
@@ -30,30 +138,6 @@ export const AdminDashFrame = () =>{
   const [investmentPlanDropdown, setinvestmentPlanDropdown] = useState(false)
   const [emailDropdown, setEmailDropdown] = useState(false)
 
-  const [depositCount, setDepositCount] = useState(0)
-  const [successDespositCount, setSuccessDepositCount] = useState(0)
-  const [pendingDespositCount, setPendingDespositCount] = useState(0)
-  const [declinedDepositCount, setDeclinedDepositCount] = useState(0)
-  
-
-  const [withdrawCount, setWithdrawCount] = useState(0)
-  const [SuccessWithdrawCount, setSuccessWithdrawCount] = useState(0)
-  const [pendingWithdrawCount, setPendingWithdrawCount] = useState(0)
-  const [declinedWithdrawCount, setDeclinedWithdrawCount] = useState(0)
-  
-  const [investmentCount, setInvestmentCount] = useState(0)
-  const [activeInvestmentCount, setActiveInvestmentCount] = useState(0)
-  const [completedInvestmentCount, setCompletednvestmentCount] = useState(0)
-  const [pendingInvestmentCount, setPendingInvestmentCount] = useState(0)
-  const [declinedInvestmentCount, setDeclinedInvestmentCount] = useState(0)
-
-  const [usersCount, setUserCount] = useState(0)
-  const [disableUserCount, setDisableUserCount] = useState(0)
-  const [userVerificationCount, setUserVerificationCount] = useState(0)
-  const [pendingUserVerificationCount, setPendingUserVerificationCount] = useState(0)
-  const [canceledUserVerificationCount, setCanceledUserVerificationCount] = useState(0)
-  const [unverifiedUserCount, setUnverfiedUserCount] = useState(0)
-  const [verifiedUserCount, setVerifiedUserCount] = useState(0)
 
 
 
@@ -116,11 +200,46 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setDepositCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        // Get the 5 most recent entries
+        const recentData = sortedData.slice(0, 4);
+        setRecentDeposit(recentData)
+        setDepositData(sortedData)
+        setDepositLoader(false)
+
   
+      }else{
+        setDepositLoader(false)
       }
   
   
   
+    }
+
+
+    const filterDeposits = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/deposits/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setDepositData(data)
+      }
     }
 
     const SuccessfulDeposit = async() =>{
@@ -137,7 +256,22 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setSuccessDepositCount(data.length)
         }
+
+        const totalAmount = data.reduce((acc, item) => acc + parseFloat(item.amount), 0)
+        setTotalDeposit(totalAmount)
+
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        // Get the 5 most recent entries
+        const recentData = sortedData.slice(0, 4);
+        setRecentSuccessDeposit(recentData)
+        setSuccessfulDepositData(sortedData)
+        setSuccessfulDepositLoader(false)
+
+
   
+      }else{
+        setSuccessfulDepositLoader(false)
       }
   
     }
@@ -156,8 +290,18 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setDeclinedDepositCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        // Get the 5 most recent entries
+        const recentData = sortedData.slice(0, 4);
+        setRecentDeclinedDeposit(recentData)
+        setDeclinedDepositData(sortedData)
+        setDeclinedDepositLoader(false)
   
+      }else{
+        setDeclinedDepositLoader(false)
       }
+
   
   
   
@@ -177,10 +321,21 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setPendingDespositCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        // Get the 5 most recent entries
+        const recentData = sortedData.slice(0, 4);
+        setRecentPendingDeposit(recentData)
+        setPendingDepositData(sortedData)
+        setPendingDepositLoader(false)
   
+      }else{
+        setPendingDepositLoader(false)
       }
   
     }
+
+
 
     const Withdraw = async() =>{
       let response = await fetch('http://127.0.0.1:8000/api/withdraw/', {
@@ -196,7 +351,16 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setWithdrawCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        // Get the 5 most recent entries
+        const recentData = sortedData.slice(0, 4);
+        setRecentWithdraw(recentData)
+        setWithdrawData(sortedData)
+        setWithdrawLoader(false)
   
+      }else{
+        setWithdrawLoader(false)
       }
   
   
@@ -217,7 +381,19 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setSuccessWithdrawCount(data.length)
         }
+
+        const totalAmount = data.reduce((acc, item) => acc + parseFloat(item.amount), 0)
+        setTotalWithdraw(totalAmount)
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        // Get the 5 most recent entries
+        const recentData = sortedData.slice(0, 4);
+        setRecentSuccessWithdraw(recentData)
+        setSuccessfulWithdrawData(sortedData)
+        setSuccessWithdrawLoader(false)
   
+      }else{
+        setSuccessWithdrawLoader(false)
       }
   
   
@@ -238,10 +414,18 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setPendingWithdrawCount(data.length)
         }
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        // Get the 5 most recent entries
+        const recentData = sortedData.slice(0, 4);
+        setRecentPendingWithdraw(recentData)
+        setPendingWithdrawData(sortedData)
+        setPendingWithdrawLoader(false)
   
+      }else{
+        setPendingWithdrawLoader(false)
       }
-  
-  
+
+
   
     }
 
@@ -259,8 +443,18 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setDeclinedWithdrawCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        // Get the 5 most recent entries
+        const recentData = sortedData.slice(0, 4);
+        setRecentDeclinedWithdraw(recentData)
+        setDeclinedWithdrawData(sortedData)
+        setDeclinedWithdrawLoader(false)
   
+      }else{
+        setDeclinedWithdrawLoader(false)
       }
+  
   
   
   
@@ -365,6 +559,15 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setUserCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => new Date(b.date_joined) - new Date(a.date_joined));
+        // Get the 5 most recent entries
+        const recentData = sortedData.slice(0, 5);
+        setRecentUserData(recentData)
+        setUsersData(sortedData)
+        setUsersDataLoader(false)
+      }else{
+        setUsersDataLoader(false)
       }
     }
 
@@ -471,9 +674,220 @@ export const AdminDashFrame = () =>{
       }
     }
 
+    const KYC = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/user/kyc-verification/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setKYCsCount(data.length)
+        }
+      }
+    }
 
-    if(!depositCount){
+    const NotUploadKYC = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/users/without-KYC-verification/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setNotUploadKYCsCount(data.length)
+        }
+      }
+    }
+
+    const VerifiedKYC = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/users/kyc-verification/verified/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setVerifiedKYCsCount(data.length)
+        }
+      }
+    }
+
+    const CanceledKYC = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/users/kyc-verification/canceled/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setCanceledKYCsCount(data.length)
+        }
+      }
+    }
+
+    const PendingKYC = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/users/kyc-verification/pending/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setPendingKYCsCount(data.length)
+        }
+      }
+    }
+
+    const PaymentOptionsFunction = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/payment-method/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setPaymentOptionsCount(data.length)
+        }
+      }
+    }
+
+    const InvestmentPlan = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/investment-plan/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setInvestmentPlanCount(data.length)
+        }
+      }
+    }
+
+    const Email = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/send-mail/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setEmailCount(data.length)
+        }
+      }
+    }
+
+    const Bonus = async () => {
+      try {
+        let response = await fetch('http://127.0.0.1:8000/api/bonus/', {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens.access}`
+          },
+        });
+    
+        const data = await response.json();
+    
+        if (response.ok) {
+          if(Array.isArray(data) && data.length > 0){
+            setBonusCount(data.length)
+          }
+
+
+          const totalAmount = data.reduce((acc, item) => acc + parseFloat(item.amount), 0);
+          setTotalBonus(totalAmount);
+    
+          const sortedData = data.sort((a, b) => b.id - a.id);
+          setBonusData(sortedData);
+        } else {
+          console.error("Unexpected response:", response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching bonus data:", error);
+      }
+    };
+
+    const BlackList = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/Blacklist-ip/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setBlackListCount(data.length)
+        }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setBlackListIPData(sortedData)
+      }
+    }
+
+    const NewsLetter = async() =>{
+      let response = await fetch('http://127.0.0.1:8000/api/news-letter/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      })
+  
+      const data = await response.json()
+      if(response.ok){
+        if(Array.isArray(data) && data.length > 0){
+          setNewsLetterCount(data.length)
+        }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setNewLetterData(sortedData)
+      }
+    }
+    
+
+
+
+    if(!searchValue){
       Deposit()
+    }else if(searchValue){
+      filterDeposits()
     }
 
     if(!successDespositCount){
@@ -551,10 +965,52 @@ export const AdminDashFrame = () =>{
       verifiedUser()
     }
 
-  }, [depositCount, successDespositCount, declinedDepositCount, pendingDespositCount, 
+    if(!KYCsCount){
+      KYC()
+    }
+
+    if(!notUploadKYCsCount){
+      NotUploadKYC()
+    }
+
+    if(!verifiedKYCsCount){
+      VerifiedKYC()
+    }
+
+    if(!canceledKYCsCount){
+      CanceledKYC()
+    }
+
+    if(!pendingKYCsCount){
+      PendingKYC()
+    }
+
+    if(!emailCount){
+      Email()
+    }
+
+    if(!investmentPlanCount){
+      InvestmentPlan()
+    }
+
+    if(!paymentOptionsCount){
+      PaymentOptionsFunction()
+    }
+
+    if(bonusData){
+      Bonus()
+    }
+    BlackList()
+    NewsLetter()
+
+  }, [searchValue, successDespositCount, declinedDepositCount, pendingDespositCount, 
       withdrawCount, SuccessWithdrawCount, pendingWithdrawCount, declinedWithdrawCount, 
       investmentCount, activeInvestmentCount, pendingInvestmentCount, completedInvestmentCount, declinedInvestmentCount,
-      verifiedUserCount, unverifiedUserCount, canceledUserVerificationCount, pendingUserVerificationCount, userVerificationCount, disableUserCount, usersCount ])
+      verifiedUserCount, unverifiedUserCount, canceledUserVerificationCount, pendingUserVerificationCount, userVerificationCount, disableUserCount, usersCount, 
+      KYCsCount,  notUploadKYCsCount, verifiedKYCsCount, canceledKYCsCount, pendingKYCsCount,
+      emailCount, 
+      investmentCount, paymentOptionsCount,
+    ])
 
   
 
@@ -567,7 +1023,7 @@ export const AdminDashFrame = () =>{
             <hr />
             <ul className="scroll-bar-y dashboard-sidebar-height">
               <li className='mt-3 py-3'>
-                <Link className='dashboard-link'>
+                <Link to='/admin/home' className='dashboard-link'>
                   <div className="d-flex ps-3">
                     <i class="bi bi-speedometer2 sm-text me-3"></i>
                     <p className='pt-1'>Dashboard</p>
@@ -618,7 +1074,7 @@ export const AdminDashFrame = () =>{
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent">All Deposit</Link> 
+                      <Link className='dashboard-link' to="/admin/all-deposits">All Deposit</Link> 
                         <p className='ps-3'>({depositCount})</p>
                       </div>
                     </li>
@@ -877,7 +1333,7 @@ export const AdminDashFrame = () =>{
                   </div>
                   <div className="col-4 ">
                     <div className="d-flex me-2 justify-content-end mt-1" >
-                      <p className='me-1 dahboard-sidebar-count'>0</p>
+                      <p className='me-1 dahboard-sidebar-count'>{KYCsCount}</p>
                       <p className={`${kycDropdown ? 'rotate-90deg': ''}`}><i class="bi bi-chevron-right xsm-text" ></i></p>
                     </div>
                   </div>
@@ -889,21 +1345,21 @@ export const AdminDashFrame = () =>{
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                         <Link className='dashboard-link' to="/admin/addStudent">Not Uploaded</Link> 
-                        <p className='ps-3'>(0)</p>
+                        <p className='ps-3'>({notUploadKYCsCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                       <Link className='dashboard-link' to="/admin/addStudent">Verified</Link> 
-                        <p className='ps-3'>(0)</p>
+                        <p className='ps-3'>({verifiedKYCsCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                         <Link className='dashboard-link' to="/admin/addStudent">Rejected</Link> 
-                        <p className='ps-3'>(0)</p>
+                        <p className='ps-3'>({canceledKYCsCount})</p>
                       </div>
                      
                     </li>
@@ -911,7 +1367,7 @@ export const AdminDashFrame = () =>{
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                         <Link className='dashboard-link' to="/admin/addStudent">Pending</Link> 
-                        <p className='ps-3'>(0)</p>
+                        <p className='ps-3'>({pendingKYCsCount})</p>
                       </div>
                      
                     </li>
@@ -951,7 +1407,7 @@ export const AdminDashFrame = () =>{
                   </div>
                   <div className="col-4 ">
                     <div className="d-flex me-2 justify-content-end mt-1" >
-                      <p className='me-1 dahboard-sidebar-count'>0</p>
+                      <p className='me-1 dahboard-sidebar-count'>{emailCount}</p>
                       <p className={`${emailDropdown ? 'rotate-90deg': ''}`}><i class="bi bi-chevron-right xsm-text" ></i></p>
                     </div>
                   </div>
@@ -972,7 +1428,7 @@ export const AdminDashFrame = () =>{
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                         <Link className='dashboard-link' to="/admin/addStudent">All Email</Link> 
-                        <p className='ps-3'>(0)</p>
+                        <p className='ps-3'>({emailCount})</p>
                       </div>
                      
                     </li>
@@ -1013,7 +1469,7 @@ export const AdminDashFrame = () =>{
                   </div>
                   <div className="col-4 ">
                     <div className="d-flex me-2 justify-content-end mt-1" >
-                      <p className='me-1 dahboard-sidebar-count'>0</p>
+                      <p className='me-1 dahboard-sidebar-count'>{investmentPlanCount}</p>
                       <p className={`${investmentPlanDropdown ? 'rotate-90deg': ''}`}><i class="bi bi-chevron-right xsm-text" ></i></p>
                     </div>
                   </div>
@@ -1025,7 +1481,7 @@ export const AdminDashFrame = () =>{
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                         <Link className='dashboard-link' to="/admin/addStudent">All plans</Link> 
-                        <p className='ps-3'>(0)</p>
+                        <p className='ps-3'>({investmentPlanCount})</p>
                       </div>
                     </li>
 
@@ -1051,7 +1507,7 @@ export const AdminDashFrame = () =>{
                   </div>
                   <div className="col-4 ">
                     <div className="d-flex me-2 justify-content-end mt-1" >
-                      <p className='me-1 dahboard-sidebar-count'>0</p>
+                      <p className='me-1 dahboard-sidebar-count'>{paymentOptionsCount}</p>
                       <p className={`${paymentOptions ? 'rotate-90deg': ''}`}><i class="bi bi-chevron-right xsm-text" ></i></p>
                     </div>
                   </div>
@@ -1063,7 +1519,7 @@ export const AdminDashFrame = () =>{
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                         <Link className='dashboard-link' to="/admin/addStudent">All Payment Options</Link> 
-                        <p className='ps-3'>(0)</p>
+                        <p className='ps-3'>({paymentOptionsCount})</p>
                       </div>
                     </li>
 
@@ -1085,7 +1541,7 @@ export const AdminDashFrame = () =>{
           </div>
 
           <div className="dashboard-content">
-            <nav className="text-light d-flex align-items-center justify-content-between">
+            <nav className="text-light d-flex align-items-center justify-content-between position-sticky">
               <div className="mx-3"><FontAwesomeIcon icon={faBars} onClick={toggleShowSidebar} className=" dashboard-menu-bar cursor-pointer"/></div>
               <div className="d-flex align-items-center">
                 <Link className='light-link dashboard-content-site-link'>

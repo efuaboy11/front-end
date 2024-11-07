@@ -1,0 +1,164 @@
+.main-content{
+    margin-left: 300px;
+    color: #D8D8D8;
+    z-index: 1000;
+    background-color: #161616;
+    min-height: 90.3vh;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.dashboard-boxes{
+    background-color: #1D1D1D;
+    border: 1px solid #404040;
+}
+
+
+
+.dahboard-table th, .dahboard-table td {
+  padding:0px 30px; /* Adjust the value for desired space */
+}
+.dahboard-table tr{
+  border-bottom: 1px solid #404040;
+}
+.dahboard-table tbody tr:last-child{
+  border-bottom: none;
+}
+
+.dahboard-table-arrow-icon{
+  background-color: #31363F;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 13px;
+
+
+}
+
+.dashboard-table-btn{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background: none;
+  padding: 0px;
+  border: 1px solid #404040;
+  border-radius: 5px;
+  overflow: visible;
+}
+
+
+.dashboard-table-menu{
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  
+  background-color: #404040;
+
+  left: -165px;
+  
+  border-radius: 5px;
+
+}
+.dashboard-table-menu-up{
+  top: -120px;
+
+}
+
+.dashboard-table-menu-down{
+  top: 30px;
+
+}
+.dashboard-table-menu-btn{
+  border-bottom: 1px solid #a0a0a0;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 65px;
+}
+.dashboard-table-menu-btn:last-child{
+  border-bottom: none;
+}
+.dashboard-btn{
+  color: #fff;
+  text-decoration: none;
+  background-color: #4A249D;
+  border-radius: 5px;
+  transition: all ease 1s;
+  
+
+}
+.dashboard-btn:hover{
+  background-color: #5B34B0;
+  color: #fff;
+
+
+}
+
+.dashboard-search-input{
+  border: 1px solid #404040;
+
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background-color: #161616;
+  border-radius: 5px;
+  color: #fff;
+  width: 250px;
+
+
+}
+.dashboard-search-input:focus{
+  border-color: #4A249D; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(74, 36, 157, 0.5)
+  ; /* Soft blue shadow */
+
+}
+.pagination {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  gap: 16px;
+}
+
+.pagination__link {
+  padding: 8px 12px;
+  margin: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+}
+.pagination__link:hover{
+  color: #a0a0a0;
+
+}
+
+.pagination__link--active {
+  color: #a0a0a0;
+}
+
+.pagination__link--disabled {
+  color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.dashboard-status{
+  border-radius: 0px 15px;
+}
+
+
+
+
+@media screen and (max-width: 1200px){
+    .main-content{
+      margin-left: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
+
+    }
+
+}
+

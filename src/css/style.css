@@ -26,9 +26,17 @@ p, h1, h2, h3, h4, h5, h6{
 .sm-text{
   font-size: 20px;
 }
+
 .xsm-text{
   font-size: 10px;
 }
+.sm-text-2{
+  font-size: 13px;
+}
+.sm-text-3{
+  font-size: 16px;
+}
+
 
 .font-bold{
   font-weight: bold;
@@ -56,12 +64,78 @@ ul,  li{
   color: #FFF4F4;
 }
 
+.blue-background{
+  background-color: #4A628A;
+}
+
+.red-background{
+  background-color: #E72929;
+}
+.red-text{
+  color: #E72929;
+}
+
+.light-text{
+  color: #a0a0a0;
+}
+
+.light-link{
+  color: #a0a0a0;
+  transition: all ease 0.5s;
+  text-decoration: none;
+}
+
+.light-link:hover{
+  color: #fff;
+}
+
+.green-background{
+  color: #DFD7BF;
+  background-color: green;
+}
+
+.bg-yellow{
+  background-color: rgba(253, 141, 20, 0.2);
+  color: #fff;
+}
+.blue-text{
+  color: #37AFE1;
+}
+
+.red-background{
+  background-color: #c72727;
+  color: #fff;
+}
+
+.sucessfull{
+  background-color: #1E5128;
+
+}
+
+.failed{
+  background-color: #CD1818;
+
+}
+
+.pending{
+  background-color: #FD8D14;
+}
+
+
 .border-radius-50{
   border-radius: 50%;
 }
 
+.border-radius-5px{
+  border-radius: 5px;
+}
+
 .border-radius-10px{
   border-radius: 10px;
+}
+
+.border-bottom1{
+  border-bottom: 1px solid #404040;
 }
 
 .position-sticky1{
@@ -72,8 +146,13 @@ ul,  li{
   
 }
 
+
 .width-100{
   width: 100%;
+}
+
+.height-100{
+  height: 100%;
 }
 .box-shadow{
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -161,15 +240,7 @@ ul,  li{
   background-color: #d3d3d3; 
 }
 
-.light-link{
-  color: #a0a0a0;
-  transition: all ease 0.5s;
-  text-decoration: none;
-}
 
-.light-link:hover{
-  color: #fff;
-}
 
 .non-wrap-text {
   white-space: nowrap; /* Prevent text from wrapping */
@@ -248,8 +319,9 @@ ul,  li{
 
 /* ---- Scroll-bar-y */
 .scroll-bar{
-  overflow: auto;
+  overflow-x: auto;
 }
+
 
 .scroll-bar::-webkit-scrollbar{
   width: 0.5rem;
@@ -261,6 +333,9 @@ ul,  li{
   background-color: #fff5;
   visibility: hidden;
 
+}
+.overflow-auto{
+  overflow: auto;
 }
 
 .scroll-bar:hover::-webkit-scrollbar-thumb{
@@ -292,6 +367,7 @@ ul,  li{
 /* ----- Scroll bar- x */
 .scroll-bar-x{
   overflow-x: auto;
+  overflow-y: inherit;
 
 }
 
@@ -315,5 +391,17 @@ ul,  li{
   transition: transform 0.6s ease;
   transform: rotate(90deg);
 }
+
+.position-sticky{
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+table{
+  width: 100%;
+}
+
+
 
 

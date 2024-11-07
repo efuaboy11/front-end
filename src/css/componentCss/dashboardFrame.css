@@ -1,7 +1,5 @@
 .dashboard-bg{
-  background-color: #161616;
   color: #D8D8D8;
-  min-height: 100vh;
 }
 
 
@@ -14,7 +12,7 @@
   top: 0;
   transition: 1s ease;
   color: #fff;
-  z-index: 10000000000;
+  z-index: 100000;
   border-right: 1px solid #404040;
 
 }
@@ -36,9 +34,11 @@
 }
 
 
+
 .dashboard-content nav{
   position: sticky;
   top: 0;
+  left: 0;
   border-bottom: 1px solid #404040;
   background-color: #1D1D1D;
   height: 75px;
