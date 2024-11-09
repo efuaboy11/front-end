@@ -107,8 +107,12 @@ export const AdminDashFrame = () =>{
     setEmailCount,
     investmentPlanCount,
     setInvestmentPlanCount,
+
+
     paymentOptionsCount,
     setPaymentOptionsCount,
+    setPaymentOptionsData,
+    setPaymentOptionsLoader,
 
     bonusData,
     setBonusData,
@@ -276,6 +280,31 @@ export const AdminDashFrame = () =>{
   
     }
 
+
+    const filterSuccessfulDeposits = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/deposits/successful/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setSuccessfulDepositData(data)
+      }
+    }
+
     const DeclinedDeposit = async() =>{
       let response = await fetch('http://127.0.0.1:8000/api/deposits/declined/', {
         method: "GET",
@@ -307,6 +336,30 @@ export const AdminDashFrame = () =>{
   
     }
 
+    const filterDeclinedDeposits = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/deposits/declined/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setDeclinedDepositData(data)
+      }
+    }
+
     const PendingDeposit = async() =>{
       let response = await fetch('http://127.0.0.1:8000/api/deposits/pending/', {
         method: "GET",
@@ -333,6 +386,30 @@ export const AdminDashFrame = () =>{
         setPendingDepositLoader(false)
       }
   
+    }
+
+    const filterPendingDeposits = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/deposits/pending/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setPendingDepositData(data)
+      }
     }
 
 
@@ -773,7 +850,14 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setPaymentOptionsCount(data.length)
         }
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setPaymentOptionsData(sortedData)
+        setPaymentOptionsLoader(false)
+      }else{
+        setPaymentOptionsLoader(false)
       }
+
+
     }
 
     const InvestmentPlan = async() =>{
@@ -890,15 +974,23 @@ export const AdminDashFrame = () =>{
       filterDeposits()
     }
 
-    if(!successDespositCount){
+    if(!searchValue){
       SuccessfulDeposit()
+    }else if(searchValue){
+      filterSuccessfulDeposits()
     }
 
-    if(!pendingDespositCount){
+    if(!searchValue){
       PendingDeposit()
+    }else if(searchValue){
+      filterPendingDeposits()
     }
-    if(!declinedDepositCount){
+
+
+    if(!searchValue){
       DeclinedDeposit()
+    }else if(searchValue){
+      filterDeclinedDeposits()
     }
 
     if(!withdrawCount){
@@ -1003,7 +1095,7 @@ export const AdminDashFrame = () =>{
     BlackList()
     NewsLetter()
 
-  }, [searchValue, successDespositCount, declinedDepositCount, pendingDespositCount, 
+  }, [searchValue,  
       withdrawCount, SuccessWithdrawCount, pendingWithdrawCount, declinedWithdrawCount, 
       investmentCount, activeInvestmentCount, pendingInvestmentCount, completedInvestmentCount, declinedInvestmentCount,
       verifiedUserCount, unverifiedUserCount, canceledUserVerificationCount, pendingUserVerificationCount, userVerificationCount, disableUserCount, usersCount, 
@@ -1052,21 +1144,21 @@ export const AdminDashFrame = () =>{
                   <ul className={` dropdown-bg ${depositDropdown ? "slide-in" : "slide-out"}`}>
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Confirmed</Link> 
+                        <Link className='dashboard-link' to="/admin/successful-deposits">Confirmed</Link> 
                         <p className='ps-3'>({successDespositCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent">Declined</Link> 
+                      <Link className='dashboard-link' to="/admin/declined-deposits">Declined</Link> 
                         <p className='ps-3'>({declinedDepositCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Pending</Link> 
+                        <Link className='dashboard-link' to="/admin/pending-deposits">Pending</Link> 
                         <p className='ps-3'>({pendingDespositCount})</p>
                       </div>
                      

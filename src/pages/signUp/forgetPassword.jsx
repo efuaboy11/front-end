@@ -1,8 +1,6 @@
 
 import "../../css/signUp/signUp.css"
 import "../../css/signUp/otp.css"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faLock,} from "@fortawesome/free-solid-svg-icons"
 import {useContext} from "react";
 import { useForm } from 'react-hook-form';
 import FloatingAlert from "../../component/alert";

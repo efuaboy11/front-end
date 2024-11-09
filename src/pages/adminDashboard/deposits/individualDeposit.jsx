@@ -1,9 +1,9 @@
-import '../../css/dashboardCss/dashboard.css'
-import AuthContext from "../../context/AuthContext";
-import { AdminDashFrame } from '../../component/adminDashFrame';
+import '../../../css/dashboardCss/dashboard.css'
+import AuthContext from "../../../context/AuthContext";
+import { AdminDashFrame } from '../../../component/adminDashFrame';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import pic from '../../img/Spin.gif'
+import pic from '../../../img/Spin.gif'
 
 
 export const IndividualDeposit = () =>{
@@ -18,9 +18,14 @@ export const IndividualDeposit = () =>{
   } = useContext(AuthContext)
 
   const [details, setDetails] = useState(null)
+  const [typeOfDeposit, setTypeOfDeposit] = useState('')
+  const [typeOfDepositUrl, setTypeOfDepositUrl] = useState('')
 
   useEffect(() =>{
     const data = localStorage.getItem("IndividualDepsoit")
+
+    setTypeOfDeposit(localStorage.getItem('TypeOfDeposit'))
+    setTypeOfDepositUrl(localStorage.getItem('TypeOfDepositUrl'))
     if(data){
       const parsedData = JSON.parse(data)
       setDetails(parsedData)
@@ -41,7 +46,7 @@ export const IndividualDeposit = () =>{
             <div className="col-md-11 col-xl-10">
               <div className="pt-4 pb-2">
                 <div>
-                  <Link to='/admin/all-deposits' className='light-link'><i class="bi bi-arrow-left"></i> ALL Deposits</Link>
+                  <Link to={`${typeOfDepositUrl}`} className='light-link'><i class="bi bi-arrow-left"></i> {typeOfDeposit} Deposits</Link>
                   <p className='lg-text'>Deposit Details</p>
                 </div>
               </div>
@@ -66,7 +71,7 @@ export const IndividualDeposit = () =>{
                           </div>
 
                           <div>
-                            <p className={`${details.status == "pending" ? "pending" : "sucessfull"} ${details.status == "declined" && "failed"} py-2 px-3 border-radius-5px`}>{formatName(details.status)}</p>
+                            <p className={`${details.status === "pending" ? "pending" : "sucessfull"} ${details.status === "declined" && "failed"} py-2 px-3 border-radius-5px`}>{formatName(details.status)}</p>
                           </div>
                         </div>
                       </div>

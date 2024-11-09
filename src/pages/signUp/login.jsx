@@ -114,7 +114,7 @@ export const Login = () =>{
                                     <div className="row g-3">
                                       <div className="col-12">
                                         <label className="form-label">Email</label>
-                                        <input type="email" className={`styled-input ${errors.email ? 'error-input' : ''}`} {...register('email', {required: true})}  value={email} onChange={(e) => setEmail(e.target.value)} placeholder="e.g johnDoe23@gmail.com" />
+                                        <input type="email" className={` ${errors.email ? 'error-input' : ''} styled-input`} {...register('email', {required: true})}  value={email} onChange={(e) => setEmail(e.target.value)} placeholder="e.g johnDoe23@gmail.com" />
                                         {errors.email && <span style={{color: 'red'}}>This Feild is required</span>}
                                       </div>
 

@@ -84,8 +84,11 @@ export const AuthProvider = ({children}) =>{
 
     const [emailCount, setEmailCount] = useState(0)
     const [investmentPlanCount, setInvestmentPlanCount] = useState(0)
-    const [paymentOptionsCount, setPaymentOptionsCount] = useState(0)
 
+    const [paymentOptionsCount, setPaymentOptionsCount] = useState(0)
+    const [paymentOptionsData, setPaymentOptionsData] = useState([])
+    const [paymentOptionsLoader, setPaymentOptionsLoader] = useState(true)
+ 
     const [bonusData, setBonusData] = useState([])
     const [totalBonus, setTotalBonus] = useState(0)
     const [bonusCount, setBonusCount] = useState(0)
@@ -506,8 +509,14 @@ export const AuthProvider = ({children}) =>{
         setEmailCount,
         investmentPlanCount,
         setInvestmentPlanCount,
+
+
+        paymentOptionsData,
+        setPaymentOptionsData,
         paymentOptionsCount,
         setPaymentOptionsCount,
+        paymentOptionsLoader, 
+        setPaymentOptionsLoader,
 
         bonusData,
         setBonusData,

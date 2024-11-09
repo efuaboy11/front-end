@@ -3,7 +3,6 @@ import "../../css/signUp/signUp.css"
 import "../../css/signUp/login.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash, faLock} from "@fortawesome/free-solid-svg-icons"
-import { Link } from "react-router-dom";
 import { useState, useContext} from "react";
 import { useForm } from 'react-hook-form';
 import FloatingAlert from "../../component/alert";
@@ -16,7 +15,6 @@ export const ForgotPassWord2 = () =>{
     messages,
     alertVisible,
     setAlertVisible,
-    RequestOTP,
     showAmimaton, 
     setShowAnimation,
     disablebutton, 

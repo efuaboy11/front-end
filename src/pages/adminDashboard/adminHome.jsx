@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faBan, faChartLine, faCircleDollarToSlot, faCreditCard, faEye, faEyeSlash, faHandHoldingDollar, faMailBulk, faMoneyBillTransfer, faRectangleXmark} from "@fortawesome/free-solid-svg-icons"
+import {faBan, faChartLine, faCircleDollarToSlot, faCreditCard,  faHandHoldingDollar, faMailBulk, faMoneyBillTransfer} from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom";
 import { useState, useContext, useEffect} from "react";
 import AuthContext from "../../context/AuthContext";
@@ -122,8 +122,7 @@ export const AdminHome = () =>{
 
 
 
-  const { authTokens, 
-
+  const {  
     OnbodyClick,
     truncateTime,
     formatCurrency,
@@ -171,7 +170,6 @@ export const AdminHome = () =>{
 
     usersCount,
     disableUserCount,
-    pendingUserVerificationCount,
     unverifiedUserCount,
     verifiedUserCount,
     recentUserData,
