@@ -15,6 +15,8 @@ export const AdminDashFrame = () =>{
     showSidebar, 
     toggleCloseSidebar,
     toggleShowSidebar,
+    OnbodyClick,
+
 
     depositCount,
     setDepositCount,
@@ -444,7 +446,31 @@ export const AdminDashFrame = () =>{
   
     }
 
-    const SuccessfulWithdraw = async() =>{
+    const filterWithdraws = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/withdraw/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setWithdrawData(data)
+      }
+    }
+
+    const SuccessfulWithdraw = async() =>{ 
       let response = await fetch('http://127.0.0.1:8000/api/withdraw/successful/', {
         method: "GET",
         headers: {
@@ -477,6 +503,30 @@ export const AdminDashFrame = () =>{
   
     }
 
+    const filterSuccessfulWithdraws = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/withdraw/successful/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setSuccessfulWithdrawData(data)
+      }
+    }
+
     const PendingWithdraw = async() =>{
       let response = await fetch('http://127.0.0.1:8000/api/withdraw/pending/', {
         method: "GET",
@@ -504,6 +554,31 @@ export const AdminDashFrame = () =>{
 
 
   
+    }
+
+
+    const filterPendingWithdraws = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/withdraw/pending/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setPendingWithdrawData(data)
+      }
     }
 
     const DeclinedWithdraw = async() =>{
@@ -535,6 +610,30 @@ export const AdminDashFrame = () =>{
   
   
   
+    }
+
+    const filterDeclinedWithdraws = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/withdraw/declined/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setDeclinedWithdrawData(data)
+      }
     }
 
     const Investment = async() =>{
@@ -993,20 +1092,28 @@ export const AdminDashFrame = () =>{
       filterDeclinedDeposits()
     }
 
-    if(!withdrawCount){
+    if(!searchValue){
       Withdraw()
+    }else if(searchValue){
+      filterWithdraws()
     }
 
-    if(!SuccessWithdrawCount){
+    if(!searchValue){
       SuccessfulWithdraw()
+    }else if(searchValue){
+      filterSuccessfulWithdraws()
     }
 
-    if(!pendingWithdrawCount){
+    if(!searchValue){
       PendingWithdraw()
+    }else if(searchValue){
+      filterPendingWithdraws()
     }
 
-    if(!declinedWithdrawCount){
+    if(!searchValue){
       DeclinedWithdraw()
+    }else if(searchValue){
+      filterDeclinedWithdraws()
     }
 
     if(!investmentCount){
@@ -1095,8 +1202,7 @@ export const AdminDashFrame = () =>{
     BlackList()
     NewsLetter()
 
-  }, [searchValue,  
-      withdrawCount, SuccessWithdrawCount, pendingWithdrawCount, declinedWithdrawCount, 
+  }, [searchValue,   
       investmentCount, activeInvestmentCount, pendingInvestmentCount, completedInvestmentCount, declinedInvestmentCount,
       verifiedUserCount, unverifiedUserCount, canceledUserVerificationCount, pendingUserVerificationCount, userVerificationCount, disableUserCount, usersCount, 
       KYCsCount,  notUploadKYCsCount, verifiedKYCsCount, canceledKYCsCount, pendingKYCsCount,
@@ -1115,7 +1221,7 @@ export const AdminDashFrame = () =>{
             <hr />
             <ul className="scroll-bar-y dashboard-sidebar-height">
               <li className='mt-3 py-3'>
-                <Link to='/admin/home' className='dashboard-link'>
+                <Link to='/admin/home' className='dashboard-link' onClick={OnbodyClick}>
                   <div className="d-flex ps-3">
                     <i class="bi bi-speedometer2 sm-text me-3"></i>
                     <p className='pt-1'>Dashboard</p>
@@ -1144,21 +1250,21 @@ export const AdminDashFrame = () =>{
                   <ul className={` dropdown-bg ${depositDropdown ? "slide-in" : "slide-out"}`}>
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/successful-deposits">Confirmed</Link> 
+                        <Link className='dashboard-link' to="/admin/successful-deposits" onClick={OnbodyClick}>Confirmed</Link> 
                         <p className='ps-3'>({successDespositCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/declined-deposits">Declined</Link> 
+                      <Link className='dashboard-link' to="/admin/declined-deposits" onClick={OnbodyClick}>Declined</Link> 
                         <p className='ps-3'>({declinedDepositCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/pending-deposits">Pending</Link> 
+                        <Link className='dashboard-link' to="/admin/pending-deposits" onClick={OnbodyClick}>Pending</Link> 
                         <p className='ps-3'>({pendingDespositCount})</p>
                       </div>
                      
@@ -1172,7 +1278,7 @@ export const AdminDashFrame = () =>{
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Add New</Link> 
+                      <Link className='dashboard-link' to="/admin/add-deposits" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
@@ -1204,21 +1310,21 @@ export const AdminDashFrame = () =>{
                   <ul className={` dropdown-bg ${withdrawDropdown ? "slide-in" : "slide-out"}`}>
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Confirmed</Link> 
+                        <Link className='dashboard-link' to="/admin/successful-withdraws" onClick={OnbodyClick}>Confirmed</Link> 
                         <p className='ps-3'>({SuccessWithdrawCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent">Declined</Link> 
+                      <Link className='dashboard-link' to="/admin/declined-withdraws" onClick={OnbodyClick}>Declined</Link> 
                         <p className='ps-3'>({declinedWithdrawCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Pending</Link> 
+                        <Link className='dashboard-link' to="/admin/pending-withdraws" onClick={OnbodyClick}>Pending</Link> 
                         <p className='ps-3'>({pendingWithdrawCount})</p>
                       </div>
                      
@@ -1226,13 +1332,13 @@ export const AdminDashFrame = () =>{
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent">All Withdraw</Link> 
+                      <Link className='dashboard-link' to="/admin/all-withdraws" onClick={OnbodyClick}>All Withdraw</Link> 
                         <p className='ps-3'>({withdrawCount})</p>
                       </div>
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Add New</Link> 
+                      <Link className='dashboard-link' to="/admin/add-withdraw" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
@@ -1264,21 +1370,21 @@ export const AdminDashFrame = () =>{
                   <ul className={` dropdown-bg ${investmentDropdown ? "slide-in" : "slide-out"}`}>
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Active</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Active</Link> 
                         <p className='ps-3'>({activeInvestmentCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent">Completed</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Completed</Link> 
                         <p className='ps-3'>({completedInvestmentCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Canceled</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Canceled</Link> 
                         <p className='ps-3'>({declinedInvestmentCount})</p>
                       </div>
                      
@@ -1286,7 +1392,7 @@ export const AdminDashFrame = () =>{
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Pending</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Pending</Link> 
                         <p className='ps-3'>({pendingInvestmentCount})</p>
                       </div>
                      
@@ -1300,7 +1406,7 @@ export const AdminDashFrame = () =>{
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Add New</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
@@ -1310,7 +1416,7 @@ export const AdminDashFrame = () =>{
      
               </li>
               <li className='pb-3'>
-                <Link className='dashboard-link'>
+                <Link className='dashboard-link' onClick={OnbodyClick}>
                   <div className="d-flex ps-3">
                     <i class="bi bi-coin sm-text me-3"></i>
                     <p className='pt-1'>Interest log</p>
@@ -1319,7 +1425,7 @@ export const AdminDashFrame = () =>{
               </li>
 
               <li className='pb-3'>
-                <Link className='dashboard-link'>
+                <Link className='dashboard-link' onClick={OnbodyClick}>
                   <div className="d-flex ps-3">
                     <FontAwesomeIcon className='sm-text pt-1 me-3' icon={faCoins}/>
                     <p className='pt-1'>Bonus log</p>
@@ -1328,7 +1434,7 @@ export const AdminDashFrame = () =>{
               </li>
 
               <li className='pb-2'>
-                <Link className='dashboard-link'>
+                <Link className='dashboard-link' onClick={OnbodyClick}>
                   <div className="d-flex ps-3">
                     <FontAwesomeIcon className='sm-text pt-1 me-3' icon={faPercent}/>
                     <p className='pt-1'>Comission log</p>
@@ -1358,53 +1464,53 @@ export const AdminDashFrame = () =>{
                   <ul className={` dropdown-bg ${usersDropdown ? "slide-in" : "slide-out"}`}>
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Disable</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Disable</Link> 
                         <p className='ps-3'>({disableUserCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent">Users Verifiaction</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Users Verifiaction</Link> 
                         <p className='ps-3'>({userVerificationCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent">Pending</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Pending</Link> 
                         <p className='ps-3'>({pendingUserVerificationCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Verified Users</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Verified Users</Link> 
                         <p className='ps-3'>({verifiedUserCount})</p>
                       </div>       
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Canceled Verification</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Canceled Verification</Link> 
                         <p className='ps-3'>({canceledUserVerificationCount})</p>
                       </div>       
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Unverified</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Unverified</Link> 
                         <p className='ps-3'>({unverifiedUserCount})</p>
                       </div>
                      
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Users List</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Users List</Link> 
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Add New</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
@@ -1436,21 +1542,21 @@ export const AdminDashFrame = () =>{
                   <ul className={` dropdown-bg ${kycDropdown ? "slide-in" : "slide-out"}`}>
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Not Uploaded</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Not Uploaded</Link> 
                         <p className='ps-3'>({notUploadKYCsCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent">Verified</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Verified</Link> 
                         <p className='ps-3'>({verifiedKYCsCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Rejected</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Rejected</Link> 
                         <p className='ps-3'>({canceledKYCsCount})</p>
                       </div>
                      
@@ -1458,18 +1564,18 @@ export const AdminDashFrame = () =>{
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">Pending</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Pending</Link> 
                         <p className='ps-3'>({pendingKYCsCount})</p>
                       </div>
                      
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">KYCs List</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>KYCs List</Link> 
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Add New</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
@@ -1510,16 +1616,16 @@ export const AdminDashFrame = () =>{
                   <ul className={` dropdown-bg ${emailDropdown ? "slide-in" : "slide-out"}`}>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Send Email</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Send Email</Link> 
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Bulk Email</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Bulk Email</Link> 
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">All Email</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>All Email</Link> 
                         <p className='ps-3'>({emailCount})</p>
                       </div>
                      
@@ -1533,7 +1639,7 @@ export const AdminDashFrame = () =>{
               </li>
 
               <li className='pb-3'>
-                <Link className='dashboard-link'>
+                <Link className='dashboard-link' onClick={OnbodyClick}>
                   <div className="d-flex ps-3">
                     <FontAwesomeIcon className='sm-text pt-1 me-3' icon={faBan}/>
                     <p className='pt-1'>Blacklist IP</p>
@@ -1542,7 +1648,7 @@ export const AdminDashFrame = () =>{
               </li>
 
               <li className='pb-3'>
-                <Link className='dashboard-link'>
+                <Link className='dashboard-link' onClick={OnbodyClick}>
                   <div className="d-flex ps-3">
                     <FontAwesomeIcon className='sm-text pt-1 me-3' icon={faEnvelopesBulk}/>
                     <p className='pt-1'>Newsletter Subscribers</p>
@@ -1572,13 +1678,13 @@ export const AdminDashFrame = () =>{
                   <ul className={` dropdown-bg ${investmentPlanDropdown ? "slide-in" : "slide-out"}`}>
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">All plans</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>All plans</Link> 
                         <p className='ps-3'>({investmentPlanCount})</p>
                       </div>
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Add New</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
@@ -1610,13 +1716,13 @@ export const AdminDashFrame = () =>{
                   <ul className={` dropdown-bg ${paymentOptions ? "slide-in" : "slide-out"}`}>
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent">All Payment Options</Link> 
+                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>All Payment Options</Link> 
                         <p className='ps-3'>({paymentOptionsCount})</p>
                       </div>
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent">Add New</Link> 
+                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>

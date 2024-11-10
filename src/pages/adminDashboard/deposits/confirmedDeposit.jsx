@@ -214,7 +214,7 @@ export const SuccessfulDeposit = () =>{
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link className='dashboard-btn p-3'>
+                  <Link to='/admin/add-deposits' className='dashboard-btn p-3'>
                     <i class="bi bi-plus-circle pe-2"></i>
                     Add deposit
                   </Link>

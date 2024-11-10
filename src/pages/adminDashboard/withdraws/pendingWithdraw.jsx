@@ -1,16 +1,17 @@
 import '../../../css/dashboardCss/dashboard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AuthContext from "../../../context/AuthContext";
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AdminDashFrame } from '../../../component/adminDashFrame';
 import ReactPaginate  from "react-paginate"
 import { Link, useNavigate } from 'react-router-dom';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faX } from '@fortawesome/free-solid-svg-icons';
 import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
+import { useForm } from 'react-hook-form';
 
-export const DeclinedDeposit = () =>{
+export const PendingWithdraw = () =>{
   const { authTokens, 
     messages,
     alertVisible,
@@ -29,10 +30,10 @@ export const DeclinedDeposit = () =>{
     setDisablebutton,
 
 
-    declinedDepositCount,
-    declinedDepositData,
-    setDeclinedDepositData,
-    declinedDepositLoader,
+    pendingWithdrawCount,
+    pendingWithdrawData,
+    setPendingWithdrawData,
+    pendingWithdrawLoader,
 
     searchValue,
     setSearchValue,
@@ -47,13 +48,20 @@ export const DeclinedDeposit = () =>{
   const [showModal, setShowModal] = useState(false)
   const [showDropdownMenu, setShowDropdownMenu] = useState(false)
   const [loader, setLoader] = useState(false)
+  const [status, setStatus] = useState('')
+  const statusModal = useRef(null)
+  const [statusOverlay, setStatusOverlay] = useState(false)
+  
+
+
+  
   
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
-  const pageCount = Math.ceil(declinedDepositData.length / dataPerPage)
+  const pageCount = Math.ceil(pendingWithdrawData.length / dataPerPage)
 
-  const currentData = declinedDepositData.slice(
+  const currentData = pendingWithdrawData.slice(
     currentPage * dataPerPage,
     (currentPage + 1) * dataPerPage
   )
@@ -77,7 +85,7 @@ export const DeclinedDeposit = () =>{
   }
 
   const IndividualDeposit = async() =>{
-    let response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/`, {
+    let response = await fetch(`http://127.0.0.1:8000/api/withdraw/${selectedDataId}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -86,12 +94,12 @@ export const DeclinedDeposit = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('TypeOfDeposit', 'Declined')
-    localStorage.setItem('TypeOfDepositUrl', '/admin/declined-deposits')
-    localStorage.setItem('IndividualDepsoit', JSON.stringify(data))
+    localStorage.setItem('TypeOfWithdraw', 'Pending')
+    localStorage.setItem('TypeOfWithdrawUrl', '/admin/pending-withdraws')
+    localStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
-      navigate(`/admin/all-deposits/${data.id}`)
+      navigate(`/admin/all-withdraws/${data.id}`)
     }
 
   }
@@ -101,12 +109,35 @@ export const DeclinedDeposit = () =>{
     setShowDropdownMenu(false)
   }
 
+  const showStatusModal = () =>{
+    if(statusModal.current){
+      statusModal.current.style.transform = `translateY(${0}px)`
+      statusModal.current.style.transition = `all ${1.5}s ease`
+    }
+
+    setShowDropdownMenu(false)
+    setStatusOverlay(true)
+  }
+
+  const HideStatusModal = () => {
+    if(statusModal.current){
+      statusModal.current.style.transform = `translateY(${-650}%)`
+      statusModal.current.style.transition = `all ${5}s ease`
+    }
+    setSelectedDataId(null)
+
+
+  }
+
+
+
+
   const deleteItem = async () => {
     setDisablebutton(true)
     setLoader(true)
 
     try{
-      let response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/`, {
+      let response = await fetch(`http://127.0.0.1:8000/api/withdraw/${selectedDataId}/`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${authTokens.access}`
@@ -116,10 +147,10 @@ export const DeclinedDeposit = () =>{
       if (response.ok) {
         setLoader(false)
         setDisablebutton(false)
-        setDeclinedDepositData(declinedDepositData.filter(dat => dat.id !== selectedDataId))
+        setPendingWithdrawData(pendingWithdrawData.filter(dat => dat.id !== selectedDataId))
         setShowModal(false)
         showAlert()
-        setMessage('Deposit successfully deleted')
+        setMessage('Withdraw successfully deleted')
       } else {
         const errorData = await response.json()
         const errorMessages = Object.values(errorData)
@@ -148,6 +179,7 @@ export const DeclinedDeposit = () =>{
       setLastData(currentData[currentData.length - 1])
       setSecondToLastData(currentData[currentData.length -2])
 
+
       
     }else{
       setLastData(null)
@@ -155,14 +187,79 @@ export const DeclinedDeposit = () =>{
     }
   }, [currentData])
 
+  const onSubmit = (data, e) =>{
+    setDisablebutton(true)
+    if(isValid){
+      UpdateStatus(e)
+      
+    }else{
+      setDisablebutton(false)
+    }
+  }
 
+  const UpdateStatus = async(e) =>{
+    e.preventDefault()
+    setDisablebutton(true)
 
+    try{
+      const response = await fetch(`http://127.0.0.1:8000/api/withdraw/${selectedDataId}/update-status/`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          status: status,
+        }),
+        headers:{
+          Authorization: `Bearer ${authTokens.access}`,
+          "Content-Type": "application/json"
+        }
+      })
 
+      if(response.ok){
+        showAlert()
+        setMessage("Status updated sucessfully")
+        setDisablebutton(false)
+        setStatus('')
+        setIsSuccess(true)
+        HideStatusModal()
+        setPendingWithdrawData(pendingWithdrawData.filter(dat => dat.id !== selectedDataId))
+      }else{
+        const errorData = await response.json()
+        const errorMessages = Object.values(errorData)
+        .flat()
+        .join(', ');
+        setMessage(errorMessages)
+        setDisablebutton(false)
+        setIsSuccess(false)
+        showAlert()
 
+      }
+    }catch(error){
+      console.log(error)
+      showAlert()
+      setMessage('An unexpected error occurred.');
+      setDisablebutton(false)
+      setIsSuccess(false)
 
-   
+    } 
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm();
+
+  useEffect(() => {
+    let timer;
+    if (selectedDataId == null) {
+      timer = setTimeout(() => {
+        setStatusOverlay(false);
+      }, 1000);
+    }
+
   
-  
+    return () => clearTimeout(timer);
+  }, [selectedDataId]);
+
 
   
   return(
@@ -202,21 +299,61 @@ export const DeclinedDeposit = () =>{
             </section>
           }
 
+          <div className={`pt-5 ${statusOverlay ? 'overlay-background': ''}`}>
+            <div className="dashboard-update-status-container" ref={statusModal}>
+              <div className="row justify-content-center">
+                <div className="col-xl-3 col-lg-5 col-md-6 col-sm-9 col-11">
+                  <div className="dashboard-update-status-content">
+                    <div className="d-flex justify-content-end">
+                      <FontAwesomeIcon className='sm-text cursor-pointer' icon={faX} onClick={HideStatusModal}/>
+                    </div>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      <div>
+                        <label htmlFor="" className="p-2 d-block">Status</label>
+                        <select  className={`${errors.status ? 'error-input' : ''} d-block dashboard-input dashboard-update-status-input`} {...register('status', {required: true})} type="text"   value={status} onChange={(e) => setStatus(e.target.value)}>
+                          <option></option>
+                          <option value='pending'>Pending</option>
+                          <option value='declined'>Declined</option>
+                          <option value='successful'>Successful</option>
+                        </select>
+                        {errors.status && <span style={{color: 'red'}}>This Feild is required</span>} 
+                      </div>
+
+                      <div className="d-flex justify-content-end">
+                        <div className='pt-3'>
+                          <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Submit</button> 
+                        </div>
+                      </div>
+
+
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+
 
           <section className='py-4'>
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='lg-text'>Declined Deposits</p>
-                  <p className='light-text'>Total {declinedDepositCount} declined deposit</p>
+                  <p className='lg-text'>Pending Withdraws</p>
+                  <p className='light-text'>Total {pendingWithdrawCount} pending deposit</p>
                 </div>
               </div>
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link className='dashboard-btn p-3' to='/admin/add-deposits'>
+                  <Link to='/admin/add-withdraw' className='dashboard-btn p-3'>
                     <i class="bi bi-plus-circle pe-2"></i>
-                    Add deposit
+                    Add withdraw
                   </Link>
                 </div>
               </div>
@@ -249,7 +386,7 @@ export const DeclinedDeposit = () =>{
                   <tbody>
                     {currentData.length > 0 ? (
                       currentData.map((data) =>(
-                        <tr key={data.id} className={selectedDataId === data.id ? 'dashboard-active-row' : ''}>
+                        <tr key={data.id} className={selectedDataId === data.id ? 'dashboard-active-row' : ''}> 
                           <td className='py-2'>
                             <div className="d-flex">
                               <div className='dahboard-table-arrow-icon'>
@@ -265,7 +402,7 @@ export const DeclinedDeposit = () =>{
                             
                             
                           </td>
-                          <td >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_details.name}</span></td>
+                          <td >{data.transaction_id} <br /> <span className="sm-text-2">via {data.wallet_name}</span></td>
                           <td>{formatCurrency(data.amount)} USD</td>
                           <td>{truncateTime(data.created_at)}</td>
                           <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>                         
@@ -282,8 +419,13 @@ export const DeclinedDeposit = () =>{
                                     <p className='py-2 dashboard-table-menu-btn cursor-pointer'>
                                       <i class="bi bi-person pe-1"></i> User Profile
                                     </p>
+
+                                    <p className='py-2 dashboard-table-menu-btn cursor-pointer' onClick={showStatusModal}>
+                                      <i class="bi bi-upload pe-1" ></i> Update status
+                                    </p>
+
                                     <p className='py-2 dashboard-table-menu-btn cursor-pointer' onClick={showDeleteModal}>
-                                    <i class="bi bi-trash pe-1" ></i> Delete
+                                      <i class="bi bi-trash pe-1" ></i> Delete
                                     </p>
                                   </div>
                                 </div>
@@ -304,7 +446,7 @@ export const DeclinedDeposit = () =>{
               </div>
 
 
-              {declinedDepositLoader && (
+              {pendingWithdrawLoader && (
                 <div className="d-flex justify-content-center py-4">
                   <img src={spin} alt="" width='60px'/>
                 </div>  

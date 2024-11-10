@@ -6,14 +6,14 @@ import FloatingAlert from '../../../component/alert';
 import { useForm } from 'react-hook-form';
 import { LoadingSpiner } from '../../../component/spin';
 
-export const AddDeposit = () =>{
+export const AddWithdraw = () =>{
 
   const [user, setUser] = useState('')
-  const [paymentOption, setPaymentOption] = useState('')
+  const [walletAdress, setWalletAddress] = useState('')
+  const [walletName, setWalletName] = useState('')
   const [amount, setAmount] = useState('')
   const [date, setDate] = useState('')
   const [status, setStatus] = useState('')
-  const [img, setImg] = useState("")
   const [loader, setLoader] = useState(false)
 
 
@@ -28,18 +28,15 @@ export const AddDeposit = () =>{
 
 
     OnbodyClick,
-    truncateTime,
-    formatCurrency,
-    formatName,
     disablebutton, 
     setDisablebutton,
 
     usersData,
-    paymentOptionsData,
 
 
 
   } = useContext(AuthContext)
+  
   
   const onSubmit = (data, e) =>{
     setDisablebutton(true)
@@ -54,18 +51,19 @@ export const AddDeposit = () =>{
   const addDeposit = async(e) =>{
     e.preventDefault()
     setLoader(true)
+    setDisablebutton(true)
 
     const formData = new FormData()
 
     formData.append('user', user)
     formData.append('amount', amount)
-    formData.append('payment_method', paymentOption)
-    formData.append('payment_proof', img)
+    formData.append('wallet_address', walletAdress)
+    formData.append('wallet_name', walletName)
     formData.append('status', status)
     formData.append('created_at', date)
 
     try{
-      const response = await fetch('http://127.0.0.1:8000/api/deposits/admin/', {
+      const response = await fetch('http://127.0.0.1:8000/api/withdraw/', {
         method: 'POST',
         body: formData,
         headers:{
@@ -76,11 +74,12 @@ export const AddDeposit = () =>{
 
       if(response.ok){
         showAlert()
-        setMessage('Deposit Sucessfully added')
+        setMessage('Withdraw Sucessful')
         setLoader(false)
         setDisablebutton(false)
         setUser('')
-        setPaymentOption('')
+        setWalletAddress('')
+        setWalletName('')
         setAmount('')
         setDate('')
         setStatus('')
@@ -93,8 +92,8 @@ export const AddDeposit = () =>{
         setMessage(errorMessages)
         setDisablebutton(false)
         setIsSuccess(false)
-        setLoader(false)
         showAlert()
+        setLoader(false)
       }
 
       
@@ -105,12 +104,13 @@ export const AddDeposit = () =>{
       setDisablebutton(false)
       setIsSuccess(false)
 
-    }  
+    }    
   }
 
   const ClearInput = () =>{
     setUser('')
-    setPaymentOption('')
+    setWalletAddress('')
+    setWalletName('')
     setAmount('')
     setDate('')
     setStatus('')
@@ -123,15 +123,6 @@ export const AddDeposit = () =>{
     formState: { errors, isValid },
   } = useForm();
 
-
-  const handleImgFile = (event) => {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      setImg(file); 
-    } else {
-      setImg(null); 
-    }
-  };
    
   
   
@@ -163,7 +154,7 @@ export const AddDeposit = () =>{
             <div className="col-md-11 col-xl-10">
               <div>
                 <div>
-                  <p className='lg-text'>Add New Deposit</p>
+                  <p className='lg-text'>Add New Withdraw</p>
                 </div>
               </div>
 
@@ -191,21 +182,15 @@ export const AddDeposit = () =>{
                       </div>
 
                       <div className="col-sm-6">
-                        <label htmlFor="" className="p-2">Payment Method</label>
-                        <select className={`${errors.paymentOption ? 'error-input' : ''} dashboard-input`} {...register('paymentOption', {required: true})} type="text"   value={paymentOption} onChange={(e) => setPaymentOption(e.target.value)}>
-                          <option></option>
-                          {paymentOptionsData.map((data) =>(
-
-                            <option value={data.id} key={data.id}>{data.name}</option>
-                          ))}
-                        </select>
-                        {errors.paymentOption && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        <label htmlFor="" className="p-2">Wallet Address</label>
+                        <input type="text" className={`dashboard-input ${errors.walletAdress ? 'error-input' : ''}`} {...register('walletAdress', {required: true})}  value={walletAdress} onChange={(e) => setWalletAddress(e.target.value)} placeholder="e.g 1DC9GBTv9JNb8K58EdFsg1PAeYRCsVi7Rq" />
+                        {errors.walletAdress && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
                       <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Payment Proof</label>
-                        <input className={`dashboard-input ${errors.img ? 'error-input' : ''} form-control-sm`} {...register('img', {required: true})} type="file" onChange={handleImgFile}/>
-                        {errors.img && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        <label htmlFor="" className="p-2">Wallet Name</label>
+                        <input type="text" className={`dashboard-input ${errors.walletName ? 'error-input' : ''}`} {...register('walletName', {required: true})}  value={walletName} onChange={(e) => setWalletName(e.target.value)} placeholder="e.g bitcoin" />
+                        {errors.walletName && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
                       <div className="col-sm-6">
@@ -227,7 +212,7 @@ export const AddDeposit = () =>{
                       <div className='col-12 pt-4'>
                         <div className="d-flex height-100 align-items-center">
                           <div className='pe-4'>
-                            <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Add Deposit</button> 
+                            <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Add Withdraw</button> 
                           </div>
                           <p onClick={ClearInput} className='light-link cursor-pointer'>Cancel</p>
                         </div>

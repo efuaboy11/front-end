@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 
-export const DeclinedDeposit = () =>{
+export const DeclinedWithdraw = () =>{
   const { authTokens, 
     messages,
     alertVisible,
@@ -29,10 +29,10 @@ export const DeclinedDeposit = () =>{
     setDisablebutton,
 
 
-    declinedDepositCount,
-    declinedDepositData,
-    setDeclinedDepositData,
-    declinedDepositLoader,
+    declinedWithdrawCount,
+    declinedWithdrawData,
+    setDeclinedWithdrawData,
+    declinedWithdrawLoader,
 
     searchValue,
     setSearchValue,
@@ -51,9 +51,9 @@ export const DeclinedDeposit = () =>{
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
-  const pageCount = Math.ceil(declinedDepositData.length / dataPerPage)
+  const pageCount = Math.ceil(declinedWithdrawData.length / dataPerPage)
 
-  const currentData = declinedDepositData.slice(
+  const currentData = declinedWithdrawData.slice(
     currentPage * dataPerPage,
     (currentPage + 1) * dataPerPage
   )
@@ -77,7 +77,7 @@ export const DeclinedDeposit = () =>{
   }
 
   const IndividualDeposit = async() =>{
-    let response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/`, {
+    let response = await fetch(`http://127.0.0.1:8000/api/withdraw/${selectedDataId}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -86,12 +86,12 @@ export const DeclinedDeposit = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('TypeOfDeposit', 'Declined')
-    localStorage.setItem('TypeOfDepositUrl', '/admin/declined-deposits')
-    localStorage.setItem('IndividualDepsoit', JSON.stringify(data))
+    localStorage.setItem('TypeOfWithdraw', 'Declined')
+    localStorage.setItem('TypeOfWithdrawUrl', '/admin/declined-withdraws')
+    localStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
-      navigate(`/admin/all-deposits/${data.id}`)
+      navigate(`/admin/all-withdraws/${data.id}`)
     }
 
   }
@@ -106,7 +106,7 @@ export const DeclinedDeposit = () =>{
     setLoader(true)
 
     try{
-      let response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/`, {
+      let response = await fetch(`http://127.0.0.1:8000/api/withdraw/${selectedDataId}/`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${authTokens.access}`
@@ -116,10 +116,10 @@ export const DeclinedDeposit = () =>{
       if (response.ok) {
         setLoader(false)
         setDisablebutton(false)
-        setDeclinedDepositData(declinedDepositData.filter(dat => dat.id !== selectedDataId))
+        setDeclinedWithdrawData(declinedWithdrawData.filter(dat => dat.id !== selectedDataId))
         setShowModal(false)
         showAlert()
-        setMessage('Deposit successfully deleted')
+        setMessage('Withdraw successfully deleted')
       } else {
         const errorData = await response.json()
         const errorMessages = Object.values(errorData)
@@ -147,6 +147,7 @@ export const DeclinedDeposit = () =>{
     if(currentData.length > 2){
       setLastData(currentData[currentData.length - 1])
       setSecondToLastData(currentData[currentData.length -2])
+
 
       
     }else{
@@ -207,16 +208,16 @@ export const DeclinedDeposit = () =>{
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='lg-text'>Declined Deposits</p>
-                  <p className='light-text'>Total {declinedDepositCount} declined deposit</p>
+                  <p className='lg-text'>Declined Withdraws</p>
+                  <p className='light-text'>Total {declinedWithdrawCount} declined deposit</p>
                 </div>
               </div>
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link className='dashboard-btn p-3' to='/admin/add-deposits'>
+                  <Link to='/admin/add-withdraw' className='dashboard-btn p-3'>
                     <i class="bi bi-plus-circle pe-2"></i>
-                    Add deposit
+                    Add withdraw
                   </Link>
                 </div>
               </div>
@@ -249,7 +250,7 @@ export const DeclinedDeposit = () =>{
                   <tbody>
                     {currentData.length > 0 ? (
                       currentData.map((data) =>(
-                        <tr key={data.id} className={selectedDataId === data.id ? 'dashboard-active-row' : ''}>
+                        <tr key={data.id} className={selectedDataId === data.id ? 'dashboard-active-row' : ''}> 
                           <td className='py-2'>
                             <div className="d-flex">
                               <div className='dahboard-table-arrow-icon'>
@@ -265,7 +266,7 @@ export const DeclinedDeposit = () =>{
                             
                             
                           </td>
-                          <td >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_details.name}</span></td>
+                          <td >{data.transaction_id} <br /> <span className="sm-text-2">via {data.wallet_name}</span></td>
                           <td>{formatCurrency(data.amount)} USD</td>
                           <td>{truncateTime(data.created_at)}</td>
                           <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>                         
@@ -304,7 +305,7 @@ export const DeclinedDeposit = () =>{
               </div>
 
 
-              {declinedDepositLoader && (
+              {declinedWithdrawLoader && (
                 <div className="d-flex justify-content-center py-4">
                   <img src={spin} alt="" width='60px'/>
                 </div>  

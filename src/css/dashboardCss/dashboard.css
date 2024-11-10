@@ -8,6 +8,10 @@
     padding-right: 20px;
 }
 
+.dashboard-header{
+  font-size: 40px;
+}
+
 .dashboard-boxes{
     background-color: #1D1D1D;
     border: 1px solid #404040;
@@ -228,29 +232,35 @@
   background: #FF0000;
 }
 
+.dashboard-update-status-container{
+  position: fixed;
+  transform: translateY(-650%);
+  width: 100%;
 
-
-
-
-
-@media screen and (max-width: 1200px){
-    .main-content{
-      margin-left: 0px;
-      padding-left: 0px;
-      padding-right: 0px;
-
-    }
-
+}
+.dashboard-update-status-content{
+  background-color: #1D1D1D;
+  padding: 20px;
+ 
+}
+.dashboard-update-status-input{
+  width: 100%;
 }
 
 
-@media screen and (max-width: 1080px){
 
+
+
+
+
+
+
+@media screen and (max-width: 1405px){
+  /*  */
   .dash-scroll-bar{
     overflow-x: auto;
   }
-  
-  
+
   .dash-scroll-bar::-webkit-scrollbar{
     width: 0.5rem;
     height: 0.5rem;
@@ -267,5 +277,18 @@
     visibility: visible;
   }
 
+
 }
+
+
+@media screen and (max-width: 1200px){
+    .main-content{
+      margin-left: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
+
+    }
+
+}
+
 

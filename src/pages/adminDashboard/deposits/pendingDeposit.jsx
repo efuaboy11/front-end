@@ -1,14 +1,15 @@
 import '../../../css/dashboardCss/dashboard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AuthContext from "../../../context/AuthContext";
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AdminDashFrame } from '../../../component/adminDashFrame';
 import ReactPaginate  from "react-paginate"
 import { Link, useNavigate } from 'react-router-dom';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faX } from '@fortawesome/free-solid-svg-icons';
 import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
+import { useForm } from 'react-hook-form';
 
 export const PendingDeposit = () =>{
   const { authTokens, 
@@ -47,6 +48,9 @@ export const PendingDeposit = () =>{
   const [showModal, setShowModal] = useState(false)
   const [showDropdownMenu, setShowDropdownMenu] = useState(false)
   const [loader, setLoader] = useState(false)
+  const [status, setStatus] = useState('')
+  const statusModal = useRef(null)
+  const [statusOverlay, setStatusOverlay] = useState(false)
   
   const navigate  = useNavigate()
 
@@ -99,6 +103,25 @@ export const PendingDeposit = () =>{
   const showDeleteModal = () => {
     setShowModal(true)
     setShowDropdownMenu(false)
+  }
+
+  const showStatusModal = () =>{
+    if(statusModal.current){
+      statusModal.current.style.transform = `translateY(${0}px)`
+      statusModal.current.style.transition = `all ${1.5}s ease`
+    }
+
+    setShowDropdownMenu(false)
+    setStatusOverlay(true)
+  }
+
+  const hideStatusModal = () => {
+    if(statusModal.current){
+      statusModal.current.style.transform = `translateY(${-650}%)`
+      statusModal.current.style.transition = `all ${5}s ease`
+    }
+    setSelectedDataId(null)
+
   }
 
   const deleteItem = async () => {
@@ -156,12 +179,79 @@ export const PendingDeposit = () =>{
   }, [currentData])
 
 
+  const onSubmit = (data, e) =>{
+    setDisablebutton(true)
+    if(isValid){
+      UpdateStatus(e)
+      
+    }else{
+      setDisablebutton(false)
+    }
+  }
 
 
+  const UpdateStatus = async(e) =>{
+    e.preventDefault()
+    setDisablebutton(true)
 
+    try{
+      const response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/update-status/`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          status: status,
+        }),
+        headers:{
+          Authorization: `Bearer ${authTokens.access}`,
+          "Content-Type": "application/json"
+        }
+      })
 
-   
+      if(response.ok){
+        showAlert()
+        setMessage("Status updated sucessfully")
+        setDisablebutton(false)
+        setStatus('')
+        setIsSuccess(true)
+        hideStatusModal()
+        setPendingDepositData(pendingDepositData.filter(dat => dat.id !== selectedDataId))
+      }else{
+        const errorData = await response.json()
+        const errorMessages = Object.values(errorData)
+        .flat()
+        .join(', ');
+        setMessage(errorMessages)
+        setDisablebutton(false)
+        setIsSuccess(false)
+        showAlert()
+
+      }
+    }catch(error){
+      console.log(error)
+      showAlert()
+      setMessage('An unexpected error occurred.');
+      setDisablebutton(false)
+      setIsSuccess(false)
+
+    } 
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm();
+
+  useEffect(() => {
+    let timer;
+    if (selectedDataId == null) {
+      timer = setTimeout(() => {
+        setStatusOverlay(false);
+      }, 1000);
+    }
+
   
+    return () => clearTimeout(timer);
+  }, [selectedDataId]);
   
 
   
@@ -202,6 +292,42 @@ export const PendingDeposit = () =>{
             </section>
           }
 
+          <div className={`pt-5 ${statusOverlay ? 'overlay-background': ''}`}>
+            <div className="dashboard-update-status-container" ref={statusModal}>
+              <div className="row justify-content-center">
+                <div className="col-xl-3 col-lg-5 col-md-6 col-sm-9 col-11">
+                  <div className="dashboard-update-status-content">
+                    <div className="d-flex justify-content-end">
+                      <FontAwesomeIcon className='sm-text cursor-pointer' icon={faX} onClick={hideStatusModal}/>
+                    </div>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      <div>
+                        <label htmlFor="" className="p-2 d-block">Status</label>
+                        <select  className={`${errors.status ? 'error-input' : ''} d-block dashboard-input dashboard-update-status-input`} {...register('status', {required: true})} type="text"   value={status} onChange={(e) => setStatus(e.target.value)}>
+                          <option></option>
+                          <option value='pending'>Pending</option>
+                          <option value='declined'>Declined</option>
+                          <option value='successful'>Successful</option>
+                        </select>
+                        {errors.status && <span style={{color: 'red'}}>This Feild is required</span>} 
+                      </div>
+
+                      <div className="d-flex justify-content-end">
+                        <div className='pt-3'>
+                          <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Submit</button> 
+                        </div>
+                      </div>
+
+
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
 
           <section className='py-4'>
             <div className="d-flex justify-content-between align-items-center height-100">
@@ -214,7 +340,7 @@ export const PendingDeposit = () =>{
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link className='dashboard-btn p-3'>
+                  <Link to='/admin/add-deposits' className='dashboard-btn p-3'>
                     <i class="bi bi-plus-circle pe-2"></i>
                     Add deposit
                   </Link>
@@ -282,8 +408,12 @@ export const PendingDeposit = () =>{
                                     <p className='py-2 dashboard-table-menu-btn cursor-pointer'>
                                       <i class="bi bi-person pe-1"></i> User Profile
                                     </p>
+                                    <p className='py-2 dashboard-table-menu-btn cursor-pointer' onClick={showStatusModal}>
+                                      <i class="bi bi-upload pe-1" ></i> Update Status
+                                    </p>
+
                                     <p className='py-2 dashboard-table-menu-btn cursor-pointer' onClick={showDeleteModal}>
-                                    <i class="bi bi-trash pe-1" ></i> Delete
+                                      <i class="bi bi-trash pe-1" ></i> Delete
                                     </p>
                                   </div>
                                 </div>

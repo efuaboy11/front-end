@@ -145,6 +145,10 @@ ul,  li{
   z-index: 100000;
   
 }
+.position-relative1{
+  position: relative;
+  
+}
 
 
 .width-100{
@@ -271,11 +275,7 @@ ul,  li{
   overflow-x: auto;
 
 }
-.k{
-  /* width: 50px; */
-  width: 100%;
-  /* overflow: hidden; */
-}
+
 
 
 .scroll-bar-black::-webkit-scrollbar{

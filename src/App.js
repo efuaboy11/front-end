@@ -15,7 +15,12 @@ import { AddDeposit } from './pages/adminDashboard/deposits/addDeposit';
 import { DeclinedDeposit } from './pages/adminDashboard/deposits/declinedDeposit';
 import { SuccessfulDeposit } from './pages/adminDashboard/deposits/confirmedDeposit';
 import { AdminHome } from './pages/adminDashboard/adminHome';
-
+import { AllWithdraw } from './pages/adminDashboard/withdraws/allWithdraw';
+import { IndividualWithdraw } from './pages/adminDashboard/withdraws/individualWithdraw';
+import { SuccessfulWithdraw } from './pages/adminDashboard/withdraws/confirmedWithdraw';
+import { DeclinedWithdraw } from './pages/adminDashboard/withdraws/declinedWithdraw';
+import { PendingWithdraw } from './pages/adminDashboard/withdraws/pendingWithdraw';
+import { AddWithdraw } from './pages/adminDashboard/withdraws/addWithdraw';
 
 
 function App() {
@@ -33,13 +38,23 @@ function App() {
 
           {/* -----------------------------------ADMIN DASHBOARD ---------------------------------- */}
           <Route path="/dahframe" element={< AdminDashFrame/>} />
-          <Route path="/admin/home" element={< AdminHome/>} />  
+          <Route path="/admin/home" element={< AdminHome/>} /> 
+
+           {/*deposits  */}
           <Route path="/admin/all-deposits" element={< AllDeposit/>} /> 
           <Route path="/admin/all-deposits/:id" element={< IndividualDeposit/>} /> 
           <Route path="/admin/successful-deposits" element={< SuccessfulDeposit/>} /> 
           <Route path="/admin/pending-deposits" element={< PendingDeposit/>} /> 
           <Route path="/admin/declined-deposits" element={< DeclinedDeposit/>} /> 
-          <Route path="/admin/add-deposits" element={< AddDeposit/>} /> 
+          <Route path="/admin/add-deposits" element={< AddDeposit/>} /> \
+
+          {/* withdraws */}
+          <Route path="/admin/all-withdraws" element={< AllWithdraw/>} /> 
+          <Route path="/admin/all-withdraws/:id" element={< IndividualWithdraw/>} /> 
+          <Route path="/admin/successful-withdraws" element={< SuccessfulWithdraw/>} />
+          <Route path="/admin/declined-withdraws" element={< DeclinedWithdraw/>} />
+          <Route path="/admin/pending-withdraws" element={<PendingWithdraw/>} />
+          <Route path="/admin/add-withdraw" element={<AddWithdraw/>} />
         </Routes>
       </AuthProvider>
     </Router>
