@@ -73,6 +73,16 @@ export const AdminDashFrame = () =>{
     setPendingInvestmentCount,
     declinedInvestmentCount,
     setDeclinedInvestmentCount,
+    setInvestmentData,
+    setPendingInvestment,
+    setActiveInvestment,
+    setCompletedInvestment,
+    setCompletedInvestmentLoader,
+    setDecinedInvestment,
+    setInvestmentLoader,
+    setPendingInvestmentLoader,
+    setActiveInvestmentLoader,
+    setDeclinedInvestmentLoader,
 
 
     usersCount,
@@ -650,6 +660,12 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setInvestmentCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setInvestmentData(sortedData)
+        setInvestmentLoader(false)
+      }else{
+        setInvestmentLoader(false)
       }
     }
   
@@ -667,6 +683,13 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setActiveInvestmentCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setActiveInvestment(sortedData)
+        setActiveInvestmentLoader(false)
+
+      }else{
+        setActiveInvestmentLoader(false)
       }
     }
   
@@ -684,6 +707,12 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setPendingInvestmentCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setPendingInvestment(sortedData)
+        setPendingInvestmentLoader(false)
+      }else{
+        setPendingInvestmentLoader(false)
       }
     }
   
@@ -701,6 +730,13 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setCompletednvestmentCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setCompletedInvestment(sortedData)
+        setCompletedInvestmentLoader(false)
+        
+      }else{
+        setCompletedInvestmentLoader(false)
       }
     }
   
@@ -718,6 +754,12 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setDeclinedInvestmentCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setDecinedInvestment(sortedData)
+        setDeclinedInvestmentLoader(false)
+      }else{
+        setDeclinedInvestmentLoader(false)
       }
     }
 
@@ -1210,6 +1252,14 @@ export const AdminDashFrame = () =>{
       investmentCount, paymentOptionsCount,
     ])
 
+  useEffect(() =>{
+    document.body.style.backgroundColor = "#161616"
+
+    return() =>{
+      document.body.style.backgroundColor = "#f4f4f4"
+    }
+  }) 
+
   
 
   return(
@@ -1272,7 +1322,7 @@ export const AdminDashFrame = () =>{
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/all-deposits">All Deposit</Link> 
+                      <Link className='dashboard-link' to="/admin/all-deposits" onClick={OnbodyClick}>All Deposit</Link> 
                         <p className='ps-3'>({depositCount})</p>
                       </div>
                     </li>
@@ -1400,7 +1450,7 @@ export const AdminDashFrame = () =>{
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent">All Investment</Link> 
+                      <Link className='dashboard-link' to="/admin/all-investment">All Investment</Link> 
                         <p className='ps-3'>({investmentCount})</p>
                       </div>
                     </li>

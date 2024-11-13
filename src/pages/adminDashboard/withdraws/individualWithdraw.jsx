@@ -9,7 +9,7 @@ import pic from '../../../img/Spin.gif'
 export const IndividualWithdraw = () =>{
   const { authTokens, 
     OnbodyClick,
-    truncateTime,
+    formatDate,
     formatCurrency,
     formatName,
     depositCount,
@@ -35,7 +35,7 @@ export const IndividualWithdraw = () =>{
 
   return(
     <div>
-      <div className="position-sticky">
+      <div className="position-sticky1">
         <AdminDashFrame />
       </div>
 
@@ -47,7 +47,7 @@ export const IndividualWithdraw = () =>{
               <div className="pt-4 pb-2">
                 <div>
                   <Link to={`${typeOfWithdrawUrl}`} className='light-link'><i class="bi bi-arrow-left"></i> {typeOfWithdraw} Withdraw</Link>
-                  <p className='lg-text'>Withdraw Details</p>
+                  <p className='dashboard-header'>Withdraw Details</p>
                 </div>
               </div>
               <div className="py-4">
@@ -65,7 +65,7 @@ export const IndividualWithdraw = () =>{
                             </div>
                             <div>
                               <p className='sm-text'>{formatCurrency(details.amount)} <span className='sm-text-3'>USD</span></p>
-                              <p className='sm-text-2'>{truncateTime(details.created_at)}</p>
+                              <p className='sm-text-2'>{formatDate(details.created_at)}</p>
                             </div>
 
                           </div>
@@ -92,7 +92,7 @@ export const IndividualWithdraw = () =>{
                             </div>
 
                             <div className='pb-3'>
-                              <p className="sm-text-2 light-text">Payment To</p>
+                              <p className="sm-text-2 light-text">Wallet Address</p>
                               <p>{details.wallet_address}</p>
                             </div>
                           </div>
@@ -104,8 +104,8 @@ export const IndividualWithdraw = () =>{
                             </div>
 
                             <div className='pb-3'>
-                              <p className="sm-text-2 light-text pb-1">Payment Method</p>
-                              <p><span className='bg-yellow sm-text-2 py-1 px-2'><i class="bi bi-currency-bitcoin"></i>Bitcoin</span></p>
+                              <p className="sm-text-2 light-text pb-1">Wallet Name </p>
+                              <p><span className='bg-yellow sm-text-2 py-1 px-2'><i class="bi bi-currency-bitcoin"></i>{details.wallet_name ? formatName(details.wallet_name): 'null'}</span></p>
                             </div>
                           </div>
 

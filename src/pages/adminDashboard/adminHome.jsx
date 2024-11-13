@@ -124,7 +124,7 @@ export const AdminHome = () =>{
 
   const {  
     OnbodyClick,
-    truncateTime,
+    formatDate,
     formatCurrency,
     formatName,
     shortName,
@@ -222,7 +222,7 @@ export const AdminHome = () =>{
 
   return(
     <div>
-      <div className="position-sticky">
+      <div className="position-sticky1">
         <AdminDashFrame />
       </div>
       <div className="main-content" onClick={OnbodyClick}>
@@ -485,7 +485,7 @@ export const AdminHome = () =>{
                                 <tr key={deposit.id}>
                                   <td className="ps-4 py-2">{deposit.user_details.full_name}<br /> <span className="sm-text-2">{deposit.user_details.email}</span></td>
                                   <td>+{deposit.amount}<span className="sm-text-2">USD</span></td>
-                                  <td>{truncateTime(deposit.created_at)}</td>
+                                  <td>{formatDate(deposit.created_at)}</td>
                                 </tr>
                               ))
                             ): (
@@ -505,7 +505,7 @@ export const AdminHome = () =>{
                               <tr key={deposit.id}>
                                 <td className="ps-4 py-2">{deposit.user_details.full_name}<br /> <span className="sm-text-2">{deposit.user_details.email}</span></td>
                                 <td>+{deposit.amount}<span className="sm-text-2">USD</span></td>
-                                <td>{truncateTime(deposit.created_at)}</td>
+                                <td>{formatDate(deposit.created_at)}</td>
                               </tr>
                             ))
                           ): (
@@ -526,7 +526,7 @@ export const AdminHome = () =>{
                               <tr key={deposit.id}>
                                 <td className="ps-4 py-2">{deposit.user_details.full_name}<br /> <span className="sm-text-2">{deposit.user_details.email}</span></td>
                                 <td>+{deposit.amount}<span className="sm-text-2">USD</span></td>
-                                <td>{truncateTime(deposit.created_at)}</td>
+                                <td>{formatDate(deposit.created_at)}</td>
                               </tr>
                             ))
                           ): (
@@ -546,7 +546,7 @@ export const AdminHome = () =>{
                               <tr key={deposit.id}>
                                 <td className="ps-4 py-2">{deposit.user_details.full_name}<br /> <span className="sm-text-2">{deposit.user_details.email}</span></td>
                                 <td>+{deposit.amount}<span className="sm-text-2">USD</span></td>
-                                <td>{truncateTime(deposit.created_at)}</td>
+                                <td>{formatDate(deposit.created_at)}</td>
                               </tr>
                             ))
                           ): (
@@ -621,7 +621,7 @@ export const AdminHome = () =>{
                               <tr key={withdraw.id}>
                                 <td className="ps-4 py-2">{withdraw.user_details.full_name}<br /> <span className="sm-text-2">{withdraw.user_details.email}</span></td>
                                 <td>-{withdraw.amount}<span className="sm-text-2">USD</span></td>
-                                <td>{truncateTime(withdraw.created_at)}</td>
+                                <td>{formatDate(withdraw.created_at)}</td>
                               </tr>
                             ))
                           ): (
@@ -640,7 +640,7 @@ export const AdminHome = () =>{
                               <tr key={withdraw.id}>
                                 <td className="ps-4 py-2">{withdraw.user_details.full_name}<br /> <span className="sm-text-2">{withdraw.user_details.email}</span></td>
                                 <td>-{withdraw.amount}<span className="sm-text-2">USD</span></td>
-                                <td>{truncateTime(withdraw.created_at)}</td>
+                                <td>{formatDate(withdraw.created_at)}</td>
                               </tr>
                             ))
                           ): (
@@ -661,7 +661,7 @@ export const AdminHome = () =>{
                               <tr key={withdraw.id}>
                                 <td className="ps-4 py-2">{withdraw.user_details.full_name}<br /> <span className="sm-text-2">{withdraw.user_details.email}</span></td>
                                 <td>-{withdraw.amount}<span className="sm-text-2">USD</span></td>
-                                <td>{truncateTime(withdraw.created_at)}</td>
+                                <td>{formatDate(withdraw.created_at)}</td>
                               </tr>
                             ))
                           ): (
@@ -681,7 +681,7 @@ export const AdminHome = () =>{
                               <tr key={withdraw.id}>
                                 <td className="ps-4 py-2">{withdraw.user_details.full_name}<br /> <span className="sm-text-2">{withdraw.user_details.email}</span></td>
                                 <td>-{withdraw.amount}<span className="sm-text-2">USD</span></td>
-                                <td>{truncateTime(withdraw.created_at)}</td>
+                                <td>{formatDate(withdraw.created_at)}</td>
                               </tr>
                             ))
                           ): (

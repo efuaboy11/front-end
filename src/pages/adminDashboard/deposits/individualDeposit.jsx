@@ -9,7 +9,7 @@ import pic from '../../../img/Spin.gif'
 export const IndividualDeposit = () =>{
   const { authTokens, 
     OnbodyClick,
-    truncateTime,
+    formatDate,
     formatCurrency,
     formatName,
     depositCount,
@@ -35,7 +35,7 @@ export const IndividualDeposit = () =>{
 
   return(
     <div>
-      <div className="position-sticky">
+      <div className="position-sticky1">
         <AdminDashFrame />
       </div>
 
@@ -47,7 +47,7 @@ export const IndividualDeposit = () =>{
               <div className="pt-4 pb-2">
                 <div>
                   <Link to={`${typeOfDepositUrl}`} className='light-link'><i class="bi bi-arrow-left"></i> {typeOfDeposit} Deposits</Link>
-                  <p className='lg-text'>Deposit Details</p>
+                  <p className='dashboard-header'>Deposit Details</p>
                 </div>
               </div>
               <div className="py-4">
@@ -65,7 +65,7 @@ export const IndividualDeposit = () =>{
                             </div>
                             <div>
                               <p className='sm-text'>{formatCurrency(details.amount)} <span className='sm-text-3'>USD</span></p>
-                              <p className='sm-text-2'>{truncateTime(details.created_at)}</p>
+                              <p className='sm-text-2'>{formatDate(details.created_at)}</p>
                             </div>
 
                           </div>

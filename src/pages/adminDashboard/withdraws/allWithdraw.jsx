@@ -22,7 +22,7 @@ export const AllWithdraw = () =>{
 
 
     OnbodyClick,
-    truncateTime,
+    formatDate,
     formatCurrency,
     formatName,
     disablebutton, 
@@ -168,7 +168,7 @@ export const AllWithdraw = () =>{
   
   return(
     <div>
-      <div className="position-sticky">
+      <div className="position-sticky1">
         <AdminDashFrame />
       </div>
 
@@ -208,7 +208,7 @@ export const AllWithdraw = () =>{
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='lg-text'>All Withdraws</p>
+                  <p className='dashboard-header'>All Withdraws</p>
                   <p className='light-text'>Total {withdrawCount} all deposit</p>
                 </div>
               </div>
@@ -268,7 +268,7 @@ export const AllWithdraw = () =>{
                           </td>
                           <td >{data.transaction_id} <br /> <span className="sm-text-2">via {data.wallet_name}</span></td>
                           <td>{formatCurrency(data.amount)} USD</td>
-                          <td>{truncateTime(data.created_at)}</td>
+                          <td>{formatDate(data.created_at)}</td>
                           <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>                         
                           <td>
                             <div className='dashboard-table-btn'>

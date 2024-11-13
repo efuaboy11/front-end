@@ -28,7 +28,7 @@ export const AddDeposit = () =>{
 
 
     OnbodyClick,
-    truncateTime,
+    formatDate,
     formatCurrency,
     formatName,
     disablebutton, 
@@ -139,7 +139,7 @@ export const AddDeposit = () =>{
   
   return(
     <div>
-      <div className="position-sticky">
+      <div className="position-sticky1">
         <AdminDashFrame />
       </div>
 
@@ -163,7 +163,7 @@ export const AddDeposit = () =>{
             <div className="col-md-11 col-xl-10">
               <div>
                 <div>
-                  <p className='lg-text'>Add New Deposit</p>
+                  <p className='dashboard-header'>Add New Deposit</p>
                 </div>
               </div>
 

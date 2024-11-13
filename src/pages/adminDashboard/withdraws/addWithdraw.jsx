@@ -130,7 +130,7 @@ export const AddWithdraw = () =>{
   
   return(
     <div>
-      <div className="position-sticky">
+      <div className="position-sticky1">
         <AdminDashFrame />
       </div>
 
@@ -154,7 +154,7 @@ export const AddWithdraw = () =>{
             <div className="col-md-11 col-xl-10">
               <div>
                 <div>
-                  <p className='lg-text'>Add New Withdraw</p>
+                  <p className='dashboard-header'>Add New Withdraw</p>
                 </div>
               </div>
 

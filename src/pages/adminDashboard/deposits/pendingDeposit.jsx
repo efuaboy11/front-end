@@ -23,7 +23,7 @@ export const PendingDeposit = () =>{
 
 
     OnbodyClick,
-    truncateTime,
+    formatDate,
     formatCurrency,
     formatName,
     disablebutton, 
@@ -257,7 +257,7 @@ export const PendingDeposit = () =>{
   
   return(
     <div>
-      <div className="position-sticky">
+      <div className="position-sticky1">
         <AdminDashFrame />
       </div>
 
@@ -333,7 +333,7 @@ export const PendingDeposit = () =>{
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='lg-text'>Pending Deposits</p>
+                  <p className='dashboard-header'>Pending Deposits</p>
                   <p className='light-text'>Total {pendingDespositCount} pending deposit</p>
                 </div>
               </div>
@@ -393,7 +393,7 @@ export const PendingDeposit = () =>{
                           </td>
                           <td >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_details.name}</span></td>
                           <td>{formatCurrency(data.amount)} USD</td>
-                          <td>{truncateTime(data.created_at)}</td>
+                          <td>{formatDate(data.created_at)}</td>
                           <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>                         
                           <td>
                             <div className='dashboard-table-btn'>

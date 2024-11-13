@@ -121,6 +121,10 @@ ul,  li{
   background-color: #FD8D14;
 }
 
+.completed{
+  background-color: #6482AD;
+}
+
 
 .border-radius-50{
   border-radius: 50%;
@@ -142,11 +146,12 @@ ul,  li{
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 100000;
+  z-index: 1000;
   
 }
 .position-relative1{
   position: relative;
+  z-index: 1;
   
 }
 

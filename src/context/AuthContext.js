@@ -64,6 +64,18 @@ export const AuthProvider = ({children}) =>{
     const [completedInvestmentCount, setCompletednvestmentCount] = useState(0)
     const [pendingInvestmentCount, setPendingInvestmentCount] = useState(0)
     const [declinedInvestmentCount, setDeclinedInvestmentCount] = useState(0)
+    const [investmentData, setInvestmentData] = useState([])
+    const [totalInvestment, setTotalInvestment] = useState([])
+    const [pendingInvestment, setPendingInvestment] = useState([])
+    const [activeInvestment, setActiveInvestment] = useState([])
+    const [completedInvestment, setCompletedInvestment] = useState([])
+    const [declinedInvestment, setDecinedInvestment] = useState([])
+    const [investmentLoader, setInvestmentLoader] = useState(true)
+    const [pendingInvestmentLoader, setPendingInvestmentLoader] = useState(true)
+    const [activeInvestmentLoader, setActiveInvestmentLoader] = useState(true)
+    const [completedInvestmentLoader, setCompletedInvestmentLoader] = useState(true)
+    const [declinedInvestmentLoader, setDeclinedInvestmentLoader] = useState(true)
+    
 
     const [usersCount, setUserCount] = useState(0)
     const [disableUserCount, setDisableUserCount] = useState(0)
@@ -108,7 +120,7 @@ export const AuthProvider = ({children}) =>{
 
     const [showSidebar, setShowSidebar] = useState(null)
     
-    const truncateTime = (dateString) => {
+    const formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = date.getDate();
         const month = date.toLocaleString('en-US', { month: 'short' });
@@ -116,12 +128,32 @@ export const AuthProvider = ({children}) =>{
         return `${day} ${month} ${year}`;
     };
 
+
+    const formatDateTime = (dateString) => {
+        const date = new Date(dateString);
+        
+        const day = date.getDate();
+        const month = date.toLocaleString('en-US', { month: 'short' });
+        const year = date.getFullYear();
+        
+        const hours = date.getHours();
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12; // Convert to 12-hour format, making 0 into 12
+        
+        return `${day} ${month} ${year} ${formattedHours}:${minutes} ${period}`;
+    };
+
     const formatCurrency = (amount) => {
         return parseFloat(amount).toLocaleString('en-US', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         });
-      };
+    };
+
+    function roundUp(value) {
+        return Math.ceil(value);
+      }
 
 
     const toggleShowSidebar = () =>{
@@ -381,7 +413,9 @@ export const AuthProvider = ({children}) =>{
         toggleCloseSidebar,
         toggleShowSidebar,
         OnbodyClick,
-        truncateTime,
+        formatDate,
+        formatDateTime,
+        roundUp,
         formatCurrency,
         formatName,
         shortName,
@@ -469,6 +503,32 @@ export const AuthProvider = ({children}) =>{
         setPendingInvestmentCount,
         declinedInvestmentCount,
         setDeclinedInvestmentCount,
+        investmentData,
+        setInvestmentData,
+        totalInvestment,
+        setTotalInvestment,
+        pendingInvestment,
+        setPendingInvestment,
+        activeInvestment,
+        setActiveInvestment,
+        completedInvestment,
+        setCompletedInvestment,
+        declinedInvestment,
+        setDecinedInvestment,
+        investmentLoader,
+        setInvestmentLoader,
+        pendingInvestmentLoader,
+        setPendingInvestmentLoader,
+        activeInvestmentLoader,
+        setActiveInvestmentLoader,
+        completedInvestmentLoader,
+        setCompletedInvestmentLoader,
+        declinedInvestmentLoader,
+        setDeclinedInvestmentLoader,
+
+
+
+
 
 
         usersCount,

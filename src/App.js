@@ -21,6 +21,8 @@ import { SuccessfulWithdraw } from './pages/adminDashboard/withdraws/confirmedWi
 import { DeclinedWithdraw } from './pages/adminDashboard/withdraws/declinedWithdraw';
 import { PendingWithdraw } from './pages/adminDashboard/withdraws/pendingWithdraw';
 import { AddWithdraw } from './pages/adminDashboard/withdraws/addWithdraw';
+import { AllInvestment } from './pages/adminDashboard/investment/allInvestment';
+import { IndividualInvestment } from './pages/adminDashboard/investment/individualInvestment';
 
 
 function App() {
@@ -55,6 +57,10 @@ function App() {
           <Route path="/admin/declined-withdraws" element={< DeclinedWithdraw/>} />
           <Route path="/admin/pending-withdraws" element={<PendingWithdraw/>} />
           <Route path="/admin/add-withdraw" element={<AddWithdraw/>} />
+
+          {/* Investment */}
+          <Route path="/admin/all-investment" element={<AllInvestment/>} />
+          <Route path="/admin/all-investment/:1d" element={<IndividualInvestment/>} />
         </Routes>
       </AuthProvider>
     </Router>

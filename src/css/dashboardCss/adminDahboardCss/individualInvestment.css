@@ -1,0 +1,80 @@
+.investment-individual-btn{
+    padding: 10px 20px;
+}
+
+.investment-header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.investment-individual-menu-bar{
+    color: #fff;
+    text-decoration: none;
+    background-color: #4A249D;
+    border-radius: 5px;
+    transition: all ease 1s;
+    border: none;
+    
+}
+
+
+.investment-individual-menu-bar:hover{
+    background-color: #5B34B0;
+    color: #fff;
+  
+  
+}
+
+.investment-individual-menu{
+    position: absolute;
+    top: 40px;
+}
+.investment-individual-menu-container{
+    background-color: #1D1D1D;
+    border-radius: 5px;
+    border: 1px solid #404040;
+    margin-top: 10px;
+}
+
+@media (max-width: 700px){
+    .investment-individual-btn{
+        display: none;
+    }
+
+    .investment-header-container{
+        display: block;
+    }
+
+    .investment-individual-menu-bar-container{
+        display: flex;
+        justify-content: end;
+        width: 100%;
+    }
+
+
+    .investment-individual-menu-bar{
+        margin-top: 30px;
+        color: #fff;
+        text-decoration: none;
+        background-color: #1D1D1D;
+        border: 1px solid #404040;
+        transition: all ease 1s;
+        
+    }
+    
+    .investment-individual-menu-bar:hover{
+        background-color: #161616;
+        color: #fff;
+      
+      
+    }
+
+    .investment-individual-menu{
+        margin-top: 30px;
+    }
+    
+
+}
+

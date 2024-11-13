@@ -9,8 +9,9 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
+import { selectClasses } from '@mui/material';
 
-export const DeclinedDeposit = () =>{
+export const AllInvestment = () =>{
   const { authTokens, 
     messages,
     alertVisible,
@@ -29,10 +30,10 @@ export const DeclinedDeposit = () =>{
     setDisablebutton,
 
 
-    declinedDepositCount,
-    declinedDepositData,
-    setDeclinedDepositData,
-    declinedDepositLoader,
+    investmentCount,
+    investmentData,
+    setInvestmentData,
+    investmentLoader,
 
     searchValue,
     setSearchValue,
@@ -42,18 +43,15 @@ export const DeclinedDeposit = () =>{
 
   const [currentPage, setCurrentPage] = useState(0)
   const [selectedDataId, setSelectedDataId] = useState(null);
-  const [lastData, setLastData] = useState(null)
-  const [secondToLastData, setSecondToLastData] = useState(null);
   const [showModal, setShowModal] = useState(false)
-  const [showDropdownMenu, setShowDropdownMenu] = useState(false)
   const [loader, setLoader] = useState(false)
   
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
-  const pageCount = Math.ceil(declinedDepositData.length / dataPerPage)
+  const pageCount = Math.ceil(investmentData.length / dataPerPage)
 
-  const currentData = declinedDepositData.slice(
+  const currentData = investmentData.slice(
     currentPage * dataPerPage,
     (currentPage + 1) * dataPerPage
   )
@@ -62,22 +60,18 @@ export const DeclinedDeposit = () =>{
     setCurrentPage(selected)
   }
 
-  const toggleDropdown = (id) => {
-    // Toggle the dropdown for the selected ID
-    setSelectedDataId(selectedDataId === id ? null : id);
-    setShowDropdownMenu(true)
-  };
+
 
 
   const hideDeleteModal = () => {
     setShowModal(false)
     setSelectedDataId(null)
-    setShowDropdownMenu(true)
 
   }
 
-  const IndividualDeposit = async() =>{
-    let response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/`, {
+  const IndividualInvestment = async(id) =>{
+    setSelectedDataId(id)
+    let response = await fetch(`http://127.0.0.1:8000/api/user-investment/${id}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -86,19 +80,18 @@ export const DeclinedDeposit = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('TypeOfDeposit', 'Declined')
-    localStorage.setItem('TypeOfDepositUrl', '/admin/declined-deposits')
-    localStorage.setItem('IndividualDepsoit', JSON.stringify(data))
+    localStorage.setItem('urlName', 'All')
+    localStorage.setItem('urlLink', '/admin/all-investment')
+    localStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
-      navigate(`/admin/all-deposits/${data.id}`)
+      navigate(`/admin/all-investment/${data.id}`)
     }
 
   }
 
   const showDeleteModal = () => {
     setShowModal(true)
-    setShowDropdownMenu(false)
   }
 
   const deleteItem = async () => {
@@ -106,7 +99,7 @@ export const DeclinedDeposit = () =>{
     setLoader(true)
 
     try{
-      let response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/`, {
+      let response = await fetch(`http://127.0.0.1:8000/api/user-investment/${selectedDataId}/`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${authTokens.access}`
@@ -116,7 +109,7 @@ export const DeclinedDeposit = () =>{
       if (response.ok) {
         setLoader(false)
         setDisablebutton(false)
-        setDeclinedDepositData(declinedDepositData.filter(dat => dat.id !== selectedDataId))
+        setInvestmentData(investmentData.filter(dat => dat.id !== selectedDataId))
         setShowModal(false)
         showAlert()
         setMessage('Deposit successfully deleted')
@@ -143,26 +136,6 @@ export const DeclinedDeposit = () =>{
     }
   }
 
-  useEffect(() =>{
-    if(currentData.length > 2){
-      setLastData(currentData[currentData.length - 1])
-      setSecondToLastData(currentData[currentData.length -2])
-
-      
-    }else{
-      setLastData(null)
-      setSecondToLastData(null)
-    }
-  }, [currentData])
-
-
-
-
-
-
-   
-  
-  
 
   
   return(
@@ -207,16 +180,16 @@ export const DeclinedDeposit = () =>{
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='dashboard-header'>Declined Deposits</p>
-                  <p className='light-text'>Total {declinedDepositCount} declined deposit</p>
+                  <p className='dashboard-header'>All Investment</p>
+                  <p className='light-text'>Total {investmentCount} all Investment</p>
                 </div>
               </div>
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link className='dashboard-btn p-3' to='/admin/add-deposits'>
+                  <Link to='/admin/add-deposits' className='dashboard-btn p-3'>
                     <i class="bi bi-plus-circle pe-2"></i>
-                    Add deposit
+                    Add investment
                   </Link>
                 </div>
               </div>
@@ -236,12 +209,12 @@ export const DeclinedDeposit = () =>{
                 <table>
                   <thead>
                     <tr>
-                      <th className='sm-text-2 py-2'>Name</th>
-                      <th className='sm-text-2'>Trnx/Coin</th>
-                      <th className='sm-text-2'>Amount</th>
-                      <th className='sm-text-2'>Date</th>
+                      <th className='sm-text-2 py-2'>Details</th>
+                      <th className='sm-text-2'>Name</th>
+                      <th className='sm-text-2'>Invested Amount</th>
+                      <th className='sm-text-2'>Investment Type</th>
+                      <th className='sm-text-2'>Start Date</th>
                       <th className='sm-text-2'>Status</th>
-
                       <th></th>
                     </tr>
                   </thead>
@@ -249,7 +222,7 @@ export const DeclinedDeposit = () =>{
                   <tbody>
                     {currentData.length > 0 ? (
                       currentData.map((data) =>(
-                        <tr key={data.id} className={selectedDataId === data.id ? 'dashboard-active-row' : ''}>
+                        <tr key={data.id} className={selectedDataId === data.id ? 'dashboard-active-row' : ''}> 
                           <td className='py-2'>
                             <div className="d-flex">
                               <div className='dahboard-table-arrow-icon'>
@@ -258,37 +231,20 @@ export const DeclinedDeposit = () =>{
 
 
                               <div>
-                                {formatName(data.user_details.full_name)} <br /> <span className="sm-text-2">{data.user_details.email}</span>
+                                {formatName(data.plan_details.plan_name)} <br /> <span className="sm-text-2">{data.investment_id}</span>
                               </div>
 
                             </div>
                             
                             
                           </td>
-                          <td >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_details.name}</span></td>
+                          <td>{formatName(data.user_details.full_name)}</td>
                           <td>{formatCurrency(data.amount)} USD</td>
-                          <td>{formatDate(data.created_at)}</td>
-                          <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>                         
-                          <td>
-                            <div className='dashboard-table-btn'>
-                              <i onClick={() => toggleDropdown(data.id)} class="bi bi-three-dots cursor-pointer"></i>
-
-                              {(selectedDataId === data.id && showDropdownMenu) && (
-                                <div className={`dashboard-table-menu ${(data.id === lastData?.id || data.id === secondToLastData?.id)? 'dashboard-table-menu-up': 'dashboard-table-menu-down'}`}>
-                                  <div>
-                                    <p onClick={IndividualDeposit} className='py-2 dashboard-table-menu-btn cursor-pointer'>
-                                      <i class="bi bi-eye-fill pe-1"></i> View Details
-                                    </p>
-                                    <p className='py-2 dashboard-table-menu-btn cursor-pointer'>
-                                      <i class="bi bi-person pe-1"></i> User Profile
-                                    </p>
-                                    <p className='py-2 dashboard-table-menu-btn cursor-pointer' onClick={showDeleteModal}>
-                                    <i class="bi bi-trash pe-1" ></i> Delete
-                                    </p>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
+                          <td>{formatName(data.investment_type)}</td>            
+                          <td>{formatDate(data.investment_begins)}</td>
+                          <td><p p className={`dashboard-status ps-3 ${data.investment_status === 'awaiting' && 'pending'} ${data.investment_status === 'canceled' && 'failed'} ${data.investment_status === 'active' && 'sucessfull'} ${data.investment_status === 'completed' && 'completed'}`}>{formatName(data.investment_status)}</p></td>
+                          <td onClick={() => IndividualInvestment(data.id)}>
+                            <p className='dashboard-table-arrow cursor-pointer'><i class=" bi bi-chevron-right sm-text"></i></p>
                           </td>
                         </tr>
                       ))
@@ -304,7 +260,7 @@ export const DeclinedDeposit = () =>{
               </div>
 
 
-              {declinedDepositLoader && (
+              {investmentLoader && (
                 <div className="d-flex justify-content-center py-4">
                   <img src={spin} alt="" width='60px'/>
                 </div>  
