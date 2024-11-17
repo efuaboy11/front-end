@@ -117,14 +117,18 @@ export const AdminDashFrame = () =>{
 
     emailCount,
     setEmailCount,
+
     investmentPlanCount,
     setInvestmentPlanCount,
+
+    setInvestPlanData,
 
 
     paymentOptionsCount,
     setPaymentOptionsCount,
     setPaymentOptionsData,
     setPaymentOptionsLoader,
+
 
     bonusData,
     setBonusData,
@@ -1137,6 +1141,9 @@ export const AdminDashFrame = () =>{
         if(Array.isArray(data) && data.length > 0){
           setInvestmentPlanCount(data.length)
         }
+
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setInvestPlanData(sortedData)
       }
     }
 
@@ -1580,15 +1587,15 @@ export const AdminDashFrame = () =>{
                      
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/all-investment") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                       <Link className='dashboard-link' to="/admin/all-investment">All Investment</Link> 
                         <p className='ps-3'>({investmentCount})</p>
                       </div>
                     </li>
 
-                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
+                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/add-investment") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/add-investment" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>

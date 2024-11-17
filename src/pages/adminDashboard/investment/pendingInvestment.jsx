@@ -62,12 +62,6 @@ export const PendingInvestment = () =>{
 
 
 
-  const hideDeleteModal = () => {
-    setShowModal(false)
-    setSelectedDataId(null)
-
-  }
-
   const InvestmentIntrest = async(user, investment_id) =>{
 
     let response = await fetch(`http://127.0.0.1:8000/api/investment-intrest/filter/?user=${user}&investment_id=${investment_id}`, {
@@ -97,6 +91,7 @@ export const PendingInvestment = () =>{
 
   const IndividualInvestment = async(id) =>{
     setSelectedDataId(id)
+    setDisablebutton(true)
     let response = await fetch(`http://127.0.0.1:8000/api/user-investment/${id}/`, {
       method: "GET",
       headers: {
@@ -113,52 +108,12 @@ export const PendingInvestment = () =>{
     if (response.ok){
       const interestData = await InvestmentIntrest(data.user, data.investment_id);
       navigate(`/admin/all-investment/${data.id}`)
-
-    }
-
-  }
-
-  const deleteItem = async () => {
-    setDisablebutton(true)
-    setLoader(true)
-
-    try{
-      let response = await fetch(`http://127.0.0.1:8000/api/user-investment/${selectedDataId}/`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${authTokens.access}`
-        }
-      })
-
-      if (response.ok) {
-        setLoader(false)
-        setDisablebutton(false)
-        setPendingInvestment(pendingInvestment.filter(dat => dat.id !== selectedDataId))
-        setShowModal(false)
-        showAlert()
-        setIsSuccess(true)
-        setMessage('Investment successfully deleted')
-      } else {
-        const errorData = await response.json()
-        const errorMessages = Object.values(errorData)
-        .flat()
-        .join(', ');
-        setMessage(errorMessages)
-        setLoader(false)
-        setDisablebutton(false)
-        showAlert()
-        setIsSuccess(false)
-        setDisablebutton(false)
-      }
-
-    }catch{
-      showAlert()
-      setMessage('An unexpected error occurred.');
       setDisablebutton(false)
-      setIsSuccess(false)
-      setLoader(false)
 
+    }else{
+      setDisablebutton(false)
     }
+
   }
 
 
@@ -180,25 +135,6 @@ export const PendingInvestment = () =>{
               successs={isSuccess}
             />
           </div>
-
-          {showModal &&
-            <section className="overlay-background">
-              <div className="dashboard-modal-container">
-                <div className="dashboard-modal-content">
-                  <h5>Delete Item?</h5>
-                  <hr />
-                  <p>This will delete the Item.</p>
-                  <div className="d-flex justify-content-between py-3">
-                    <div></div>
-                    <div>
-                      <button className="dashboard-modal-close mx-3" onClick={hideDeleteModal}>Cancel</button>
-                      <button className="dashboard-modal-delete" disabled={disablebutton} onClick={deleteItem}>{loader ? <CircularProgress color="inherit" size={20} /> : "Delete"}</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          }
 
 
           <section className='py-4'>
@@ -266,10 +202,12 @@ export const PendingInvestment = () =>{
                           <td>{formatName(data.user_details.full_name)}</td>
                           <td>{formatCurrency(data.amount)} USD</td>
                           <td>{formatName(data.investment_type)}</td>            
-                          <td>{formatDate(data.investment_begins)}</td>
+                          <td>{data.investment_begins !== null ? formatDate(data.investment_begins) : <i class="bi bi-three-dots"></i>}</td>
                           <td><p p className={`dashboard-status ps-3 ${data.investment_status === 'awaiting' && 'pending'} ${data.investment_status === 'canceled' && 'failed'} ${data.investment_status === 'active' && 'sucessfull'} ${data.investment_status === 'completed' && 'completed'}`}>{formatName(data.investment_status)}</p></td>
-                          <td onClick={() => IndividualInvestment(data.id)}>
-                            <p className='dashboard-table-arrow cursor-pointer'><i class=" bi bi-chevron-right sm-text"></i></p>
+                          <td>
+                            <button disabled={disablebutton} className='Button' onClick={() => IndividualInvestment(data.id)}>
+                              <p className='dashboard-table-arrow'><i class=" bi bi-chevron-right sm-text"></i></p>
+                            </button>                    
                           </td>
                         </tr>
                       ))

@@ -84,7 +84,8 @@ export const PendingWithdraw = () =>{
 
   }
 
-  const IndividualDeposit = async() =>{
+  const IndividualWithdraw = async() =>{
+    setDisablebutton(true)
     let response = await fetch(`http://127.0.0.1:8000/api/withdraw/${selectedDataId}/`, {
       method: "GET",
       headers: {
@@ -100,6 +101,9 @@ export const PendingWithdraw = () =>{
 
     if (response.ok){
       navigate(`/admin/all-withdraws/${data.id}`)
+      setDisablebutton(false)
+    }else{
+      setDisablebutton(false)
     }
 
   }
@@ -424,11 +428,16 @@ export const PendingWithdraw = () =>{
                               {(selectedDataId === data.id && showDropdownMenu) && (
                                 <div className={`dashboard-table-menu ${(data.id === lastData?.id || data.id === secondToLastData?.id)? 'dashboard-table-menu-up': 'dashboard-table-menu-down'}`}>
                                   <div>
-                                    <p onClick={IndividualDeposit} className='py-2 dashboard-table-menu-btn cursor-pointer'>
-                                      <i class="bi bi-eye-fill pe-1"></i> View Details
+                                    <p onClick={IndividualWithdraw} className='dashboard-table-menu-btn cursor-pointer'>
+                                      <button disabled={disablebutton} className='Button py-2 '>
+                                        <i class="bi bi-eye-fill pe-1"></i> View Details
+                                      </button>
+
                                     </p>
-                                    <p className='py-2 dashboard-table-menu-btn cursor-pointer'>
-                                      <i class="bi bi-person pe-1"></i> User Profile
+                                    <p className='dashboard-table-menu-btn cursor-pointer'>
+                                      <button disabled={disablebutton} className='Button py-2'>
+                                        <i class="bi bi-person pe-1"></i> User Profile
+                                      </button>
                                     </p>
 
                                     <p className='py-2 dashboard-table-menu-btn cursor-pointer' onClick={showStatusModal}>

@@ -923,7 +923,7 @@ export const IndividualInvestment = () =>{
                       <Link to={`${urlLink}`} className='light-link '><i class="bi bi-arrow-left"></i> {urlName} Investments</Link>
                       <p className='dashboard-header my-2'>{formatName(details.plan_details.plan_name)} Plan {roundUp(details.plan_details.percentage_return)}% - {formatName(details.plan_details.time_rate)}</p>
                       <div className='d-flex'>
-                        <p className='me-4'>Last Updated: {details.last_update_time ? formatDateTime(details.last_update_time) : 'null'}</p>
+                        <p className='me-4'>Last Updated: {details.last_update_time ? formatDateTime(details.last_update_time) : <i class="bi bi-three-dots"></i>}</p>
                         <div>
                           <p className={`sucessfull p-1 sm-text-2  border-radius-5px ${details.investment_status === 'awaiting' && 'pending'} ${details.investment_status === 'canceled' && 'failed'} ${details.investment_status === 'active' && 'sucessfull'} ${details.investment_status === 'completed' && 'completed'}`}>{details.investment_status}</p>
                         </div>
@@ -1096,14 +1096,14 @@ export const IndividualInvestment = () =>{
                     <div className="col-xl-4 col-md-6 border-bottom1 py-1">
                       <div className="d-flex justify-content-between">
                         <p className='light-text'>Term Starts At:</p>
-                        <p>{details.investment_begins ? formatDate(details.investment_begins) : 'null'}</p>
+                        <p>{details.investment_begins ? formatDate(details.investment_begins) : <i class="bi bi-three-dots"></i>}</p>
                       </div>
                     </div>
 
                     <div className="col-xl-4 col-md-6 border-bottom1 py-1">
                       <div className="d-flex justify-content-between">
                         <p className='light-text'>Date Created:</p>
-                        <p>{details.created_at ? formatDate(details.created_at): 'null'}</p>
+                        <p>{details.created_at ? formatDate(details.created_at): <i class="bi bi-three-dots"></i>}</p>
                       </div>
                     </div>
                     <div className="col-xl-4 col-md-6 border-bottom1 py-1">
@@ -1116,14 +1116,14 @@ export const IndividualInvestment = () =>{
                     <div className="col-xl-4 col-md-6 border-bottom1 py-1">
                       <div className="d-flex justify-content-between">
                         <p className='light-text'>Term End At:</p>
-                        <p>{details.investment_ends ? formatDate(details.investment_ends): 'null'}</p>
+                        <p>{details.investment_ends ? formatDate(details.investment_ends): <i class="bi bi-three-dots"></i>}</p>
                       </div>
                     </div>
 
                     <div className="col-xl-4 col-md-6 border-bottom1 py-1">
                       <div className="d-flex justify-content-between">
                         <p className='light-text'>Last Growth:</p>
-                        <p>{details.last_update_time ? formatDate(details.investment_ends): 'null'}</p>
+                        <p>{details.last_update_time ? formatDate(details.investment_ends): <i class="bi bi-three-dots"></i>}</p>
                       </div>
                     </div>
 

@@ -95,7 +95,10 @@ export const AuthProvider = ({children}) =>{
     const [pendingKYCsCount, setPendingKYCsCount] = useState(0)
 
     const [emailCount, setEmailCount] = useState(0)
+
+
     const [investmentPlanCount, setInvestmentPlanCount] = useState(0)
+    const [investmentPlanData, setInvestPlanData] = useState([])
 
     const [paymentOptionsCount, setPaymentOptionsCount] = useState(0)
     const [paymentOptionsData, setPaymentOptionsData] = useState([])
@@ -567,8 +570,12 @@ export const AuthProvider = ({children}) =>{
 
         emailCount,
         setEmailCount,
+
+
         investmentPlanCount,
         setInvestmentPlanCount,
+        investmentPlanData, 
+        setInvestPlanData,
 
 
         paymentOptionsData,

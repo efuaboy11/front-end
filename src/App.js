@@ -27,6 +27,7 @@ import { ActiveInvestment } from './pages/adminDashboard/investment/activeInvest
 import { CompeletedInvestment } from './pages/adminDashboard/investment/completedInvestment';
 import { CanceledInvestment } from './pages/adminDashboard/investment/canceled';
 import { PendingInvestment } from './pages/adminDashboard/investment/pendingInvestment';
+import { AddInvestment } from './pages/adminDashboard/investment/addInvestment';
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
           <Route path="/admin/compeleted-investment" element={<CompeletedInvestment/>} />
           <Route path="/admin/canceled-investment" element={<CanceledInvestment/>} />
           <Route path="/admin/pending-investment" element={<PendingInvestment/>} />
+          <Route path="/admin/add-investment" element={<AddInvestment/>} />
         </Routes>
       </AuthProvider>
     </Router>

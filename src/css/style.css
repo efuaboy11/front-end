@@ -248,6 +248,18 @@ ul,  li{
   background-color: #d3d3d3; 
 }
 
+.Button{
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  padding: 0px;
+  margin: 0px;
+}
+
+.Button:disabled{
+  cursor: not-allowed;
+}
+
 
 
 .non-wrap-text {

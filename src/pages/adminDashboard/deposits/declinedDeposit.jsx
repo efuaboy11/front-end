@@ -76,6 +76,7 @@ export const DeclinedDeposit = () =>{
   }
 
   const IndividualDeposit = async() =>{
+    setDisablebutton(true)
     let response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/`, {
       method: "GET",
       headers: {
@@ -91,6 +92,9 @@ export const DeclinedDeposit = () =>{
 
     if (response.ok){
       navigate(`/admin/all-deposits/${data.id}`)
+      setDisablebutton(false)
+    }else{
+      setDisablebutton(false)
     }
 
   }
@@ -279,11 +283,16 @@ export const DeclinedDeposit = () =>{
                               {(selectedDataId === data.id && showDropdownMenu) && (
                                 <div className={`dashboard-table-menu ${(data.id === lastData?.id || data.id === secondToLastData?.id)? 'dashboard-table-menu-up': 'dashboard-table-menu-down'}`}>
                                   <div>
-                                    <p onClick={IndividualDeposit} className='py-2 dashboard-table-menu-btn cursor-pointer'>
-                                      <i class="bi bi-eye-fill pe-1"></i> View Details
+                                    <p onClick={IndividualDeposit} className='dashboard-table-menu-btn cursor-pointer'>
+                                      <button disabled={disablebutton} className='Button py-2 '>
+                                        <i class="bi bi-eye-fill pe-1"></i> View Details
+                                      </button>
+
                                     </p>
-                                    <p className='py-2 dashboard-table-menu-btn cursor-pointer'>
-                                      <i class="bi bi-person pe-1"></i> User Profile
+                                    <p className='dashboard-table-menu-btn cursor-pointer'>
+                                      <button disabled={disablebutton} className='Button py-2'>
+                                        <i class="bi bi-person pe-1"></i> User Profile
+                                      </button>
                                     </p>
                                     <p className='py-2 dashboard-table-menu-btn cursor-pointer' onClick={showDeleteModal}>
                                     <i class="bi bi-trash pe-1" ></i> Delete
