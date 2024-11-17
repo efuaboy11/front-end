@@ -13,6 +13,10 @@
   font-size: 40px;
 }
 
+.dashboard-primary-bg{
+  background-color: #6482AD;
+}
+
 .dashboard-boxes{
     background-color: #1D1D1D;
     border: 1px solid #404040;
@@ -142,6 +146,46 @@
   color: #fff;
 
 
+}
+
+
+.dashboard-submit-btn{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  
+}
+
+.dashboard-submit-btn:disabled{
+  background-color: #6c757d;
+  cursor: not-allowed;
+
+}
+.dashboard-submit-btn-visiblity {
+  visibility: hidden;
+}
+
+.dashboard-submit-spinner{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid transparent;
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: submitspin 1s linear infinite;
+}
+
+@keyframes submitspin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .dashboard-search-input{

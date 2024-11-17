@@ -668,6 +668,30 @@ export const AdminDashFrame = () =>{
         setInvestmentLoader(false)
       }
     }
+
+    const filterInvestment = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/user-investment/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setInvestmentData(data)
+      }
+    }
   
     const ActiveInvestment = async() =>{
       let response = await fetch('http://127.0.0.1:8000/api/user-investment/active/', {
@@ -692,6 +716,32 @@ export const AdminDashFrame = () =>{
         setActiveInvestmentLoader(false)
       }
     }
+
+
+    const filterActiveInvestment = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/user-investment/active/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setActiveInvestment(data)
+      }
+    }
+
   
     const PendingInvestment = async() =>{
       let response = await fetch('http://127.0.0.1:8000/api/user-investment/pending/', {
@@ -713,6 +763,30 @@ export const AdminDashFrame = () =>{
         setPendingInvestmentLoader(false)
       }else{
         setPendingInvestmentLoader(false)
+      }
+    }
+
+    const filterPendingInvestment = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/user-investment/pending/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setPendingInvestment(data)
       }
     }
   
@@ -739,6 +813,30 @@ export const AdminDashFrame = () =>{
         setCompletedInvestmentLoader(false)
       }
     }
+
+    const filterCompletedInvestment = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/user-investment/completed/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setCompletedInvestment(data)
+      }
+    }
   
     const DeclinedInvestment = async() =>{
       let response = await fetch('http://127.0.0.1:8000/api/user-investment/declined/', {
@@ -760,6 +858,30 @@ export const AdminDashFrame = () =>{
         setDeclinedInvestmentLoader(false)
       }else{
         setDeclinedInvestmentLoader(false)
+      }
+    }
+
+    const filterDeclinedInvestment = async() =>{
+      let url;
+  
+      if(searchValue.length !== 0){
+        url = `http://127.0.0.1:8000/api/user-investment/declined/?search=${searchValue}`
+      }
+  
+  
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+  
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setDecinedInvestment(data)
       }
     }
 
@@ -1158,25 +1280,36 @@ export const AdminDashFrame = () =>{
       filterDeclinedWithdraws()
     }
 
-    if(!investmentCount){
+    if(!searchValue){
       Investment()
+    }else if(searchValue){
+      filterInvestment()
     }
 
-    if(!activeInvestmentCount){
+    if(!searchValue){
       ActiveInvestment()
+    }else if(searchValue){
+      filterActiveInvestment()
     }
 
-    if(!pendingInvestmentCount){
+    if(!searchValue){
       PendingInvestment()
+    }else if(searchValue){
+      filterPendingInvestment()
     }
 
-    if(!completedInvestmentCount){
+    if(!searchValue){
       CompletedInvestment()
+    }else if(searchValue){
+      filterCompletedInvestment()
     }
 
-    if(!declinedInvestmentCount){
+    if(!searchValue){
       DeclinedInvestment()
+    }else if(searchValue){
+      filterDeclinedInvestment()
     }
+
 
     if(!usersCount){
       Users()
@@ -1245,7 +1378,6 @@ export const AdminDashFrame = () =>{
     NewsLetter()
 
   }, [searchValue,   
-      investmentCount, activeInvestmentCount, pendingInvestmentCount, completedInvestmentCount, declinedInvestmentCount,
       verifiedUserCount, unverifiedUserCount, canceledUserVerificationCount, pendingUserVerificationCount, userVerificationCount, disableUserCount, usersCount, 
       KYCsCount,  notUploadKYCsCount, verifiedKYCsCount, canceledKYCsCount, pendingKYCsCount,
       emailCount, 
@@ -1418,31 +1550,31 @@ export const AdminDashFrame = () =>{
 
                 <div>
                   <ul className={` dropdown-bg ${investmentDropdown ? "slide-in" : "slide-out"}`}>
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/active-investment") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Active</Link> 
+                        <Link className='dashboard-link' to="/admin/active-investment" onClick={OnbodyClick}>Active</Link> 
                         <p className='ps-3'>({activeInvestmentCount})</p>
                       </div>
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/compeleted-investment") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Completed</Link> 
+                      <Link className='dashboard-link' to="/admin/compeleted-investment" onClick={OnbodyClick}>Completed</Link> 
                         <p className='ps-3'>({completedInvestmentCount})</p>
                       </div>
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/canceled-investment") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Canceled</Link> 
+                        <Link className='dashboard-link' to="/admin/canceled-investment" onClick={OnbodyClick}>Canceled</Link> 
                         <p className='ps-3'>({declinedInvestmentCount})</p>
                       </div>
                      
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/pending-investment") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Pending</Link> 
+                        <Link className='dashboard-link' to="/admin/pending-investment" onClick={OnbodyClick}>Pending</Link> 
                         <p className='ps-3'>({pendingInvestmentCount})</p>
                       </div>
                      

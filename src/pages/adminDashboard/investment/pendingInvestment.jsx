@@ -1,15 +1,16 @@
 import '../../../css/dashboardCss/dashboard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AuthContext from "../../../context/AuthContext";
-import { useContext, useEffect, useState } from 'react';
+import { useContext,  useState } from 'react';
 import { AdminDashFrame } from '../../../component/adminDashFrame';
 import ReactPaginate  from "react-paginate"
 import { Link, useNavigate } from 'react-router-dom';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 
-export const AllDeposit = () =>{
+export const PendingInvestment = () =>{
   const { authTokens, 
     messages,
     alertVisible,
@@ -28,10 +29,10 @@ export const AllDeposit = () =>{
     setDisablebutton,
 
 
-    depositCount,
-    depositData,
-    setDepositData,
-    depositLoader,
+    pendingInvestmentCount,
+    pendingInvestment,
+    setPendingInvestment,
+    pendingInvestmentLoader,
 
     searchValue,
     setSearchValue,
@@ -41,18 +42,15 @@ export const AllDeposit = () =>{
 
   const [currentPage, setCurrentPage] = useState(0)
   const [selectedDataId, setSelectedDataId] = useState(null);
-  const [lastData, setLastData] = useState(null)
-  const [secondToLastData, setSecondToLastData] = useState(null);
   const [showModal, setShowModal] = useState(false)
-  const [showDropdownMenu, setShowDropdownMenu] = useState(false)
   const [loader, setLoader] = useState(false)
   
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
-  const pageCount = Math.ceil(depositData.length / dataPerPage)
+  const pageCount = Math.ceil(pendingInvestment.length / dataPerPage)
 
-  const currentData = depositData.slice(
+  const currentData = pendingInvestment.slice(
     currentPage * dataPerPage,
     (currentPage + 1) * dataPerPage
   )
@@ -61,22 +59,45 @@ export const AllDeposit = () =>{
     setCurrentPage(selected)
   }
 
-  const toggleDropdown = (id) => {
-    // Toggle the dropdown for the selected ID
-    setSelectedDataId(selectedDataId === id ? null : id);
-    setShowDropdownMenu(true)
-  };
+
 
 
   const hideDeleteModal = () => {
     setShowModal(false)
     setSelectedDataId(null)
-    setShowDropdownMenu(true)
 
   }
 
-  const IndividualDeposit = async() =>{
-    let response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/`, {
+  const InvestmentIntrest = async(user, investment_id) =>{
+
+    let response = await fetch(`http://127.0.0.1:8000/api/investment-intrest/filter/?user=${user}&investment_id=${investment_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+      
+    })
+
+    if(response.ok){
+      const data = await response.json()
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      localStorage.setItem('InvestmentInterestData', JSON.stringify(sortedData))
+      console.log(data)
+
+    }else{
+      localStorage.setItem('InvestmentInterestData', null)
+
+    }
+
+    
+  }
+
+
+
+  const IndividualInvestment = async(id) =>{
+    setSelectedDataId(id)
+    let response = await fetch(`http://127.0.0.1:8000/api/user-investment/${id}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -85,19 +106,16 @@ export const AllDeposit = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('TypeOfDeposit', 'All')
-    localStorage.setItem('TypeOfDepositUrl', '/admin/all-deposits')
-    localStorage.setItem('IndividualDepsoit', JSON.stringify(data))
+    localStorage.setItem('urlName', 'Pending')
+    localStorage.setItem('urlLink', '/admin/pending-investment')
+    localStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
-      navigate(`/admin/all-deposits/${data.id}`)
+      const interestData = await InvestmentIntrest(data.user, data.investment_id);
+      navigate(`/admin/all-investment/${data.id}`)
+
     }
 
-  }
-
-  const showDeleteModal = () => {
-    setShowModal(true)
-    setShowDropdownMenu(false)
   }
 
   const deleteItem = async () => {
@@ -105,7 +123,7 @@ export const AllDeposit = () =>{
     setLoader(true)
 
     try{
-      let response = await fetch(`http://127.0.0.1:8000/api/deposits/${selectedDataId}/`, {
+      let response = await fetch(`http://127.0.0.1:8000/api/user-investment/${selectedDataId}/`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${authTokens.access}`
@@ -115,11 +133,11 @@ export const AllDeposit = () =>{
       if (response.ok) {
         setLoader(false)
         setDisablebutton(false)
-        setDepositData(depositData.filter(dat => dat.id !== selectedDataId))
+        setPendingInvestment(pendingInvestment.filter(dat => dat.id !== selectedDataId))
         setShowModal(false)
         showAlert()
         setIsSuccess(true)
-        setMessage('Deposit successfully deleted')
+        setMessage('Investment successfully deleted')
       } else {
         const errorData = await response.json()
         const errorMessages = Object.values(errorData)
@@ -143,27 +161,6 @@ export const AllDeposit = () =>{
     }
   }
 
-  useEffect(() =>{
-    if(currentData.length > 2){
-      setLastData(currentData[currentData.length - 1])
-      setSecondToLastData(currentData[currentData.length -2])
-
-
-      
-    }else{
-      setLastData(null)
-      setSecondToLastData(null)
-    }
-  }, [currentData])
-
-
-
-
-
-
-   
-  
-  
 
   
   return(
@@ -193,12 +190,9 @@ export const AllDeposit = () =>{
                   <p>This will delete the Item.</p>
                   <div className="d-flex justify-content-between py-3">
                     <div></div>
-                    <div className='d-flex align-items-center height-100 pe-2'>
-                      <button  className="dashboard-submit-btn  dashboard-btn px-4 py-2 me-3" disabled={disablebutton} onClick={deleteItem}>    
-                        <span class={`${loader ? 'dashboard-submit-spinner': ''}`}></span>
-                        <span class={`${loader ? 'dashboard-submit-btn-visiblity': ''}`}>Delete</span>
-                      </button> 
-                      <p className="light-link cursor-pointer" onClick={hideDeleteModal}>Cancel</p>
+                    <div>
+                      <button className="dashboard-modal-close mx-3" onClick={hideDeleteModal}>Cancel</button>
+                      <button className="dashboard-modal-delete" disabled={disablebutton} onClick={deleteItem}>{loader ? <CircularProgress color="inherit" size={20} /> : "Delete"}</button>
                     </div>
                   </div>
                 </div>
@@ -211,8 +205,8 @@ export const AllDeposit = () =>{
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='dashboard-header'>All Deposits</p>
-                  <p className='light-text'>Total {depositCount} all deposit</p>
+                  <p className='dashboard-header'>Pending Investment</p>
+                  <p className='light-text'>Total {pendingInvestmentCount} Pending Investment</p>
                 </div>
               </div>
 
@@ -220,7 +214,7 @@ export const AllDeposit = () =>{
                 <div className='d-none d-sm-block'>
                   <Link to='/admin/add-deposits' className='dashboard-btn p-3'>
                     <i class="bi bi-plus-circle pe-2"></i>
-                    Add deposit
+                    Add investment
                   </Link>
                 </div>
               </div>
@@ -240,12 +234,12 @@ export const AllDeposit = () =>{
                 <table>
                   <thead>
                     <tr>
-                      <th className='sm-text-2 py-2'>Name</th>
-                      <th className='sm-text-2'>Trnx/Coin</th>
-                      <th className='sm-text-2'>Amount</th>
-                      <th className='sm-text-2'>Date</th>
+                      <th className='sm-text-2 py-2'>Details</th>
+                      <th className='sm-text-2'>Name</th>
+                      <th className='sm-text-2'>Invested Amount</th>
+                      <th className='sm-text-2'>Investment Type</th>
+                      <th className='sm-text-2'>Start Date</th>
                       <th className='sm-text-2'>Status</th>
-
                       <th></th>
                     </tr>
                   </thead>
@@ -262,37 +256,20 @@ export const AllDeposit = () =>{
 
 
                               <div>
-                                {formatName(data.user_details.full_name)} <br /> <span className="sm-text-2">{data.user_details.email}</span>
+                                {formatName(data.plan_details.plan_name)} <br /> <span className="sm-text-2">{data.investment_id}</span>
                               </div>
 
                             </div>
                             
                             
                           </td>
-                          <td >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_details.name}</span></td>
+                          <td>{formatName(data.user_details.full_name)}</td>
                           <td>{formatCurrency(data.amount)} USD</td>
-                          <td>{formatDate(data.created_at)}</td>
-                          <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td> 
-                          <td>
-                            <div className='dashboard-table-btn'>
-                              <i onClick={() => toggleDropdown(data.id)} class="bi bi-three-dots cursor-pointer"></i>
-
-                              {(selectedDataId === data.id && showDropdownMenu) && (
-                                <div className={`dashboard-table-menu ${(data.id === lastData?.id || data.id === secondToLastData?.id)? 'dashboard-table-menu-up': 'dashboard-table-menu-down'}`}>
-                                  <div>
-                                    <p onClick={IndividualDeposit} className='py-2 dashboard-table-menu-btn cursor-pointer'>
-                                      <i class="bi bi-eye-fill pe-1"></i> View Details
-                                    </p>
-                                    <p className='py-2 dashboard-table-menu-btn cursor-pointer'>
-                                      <i class="bi bi-person pe-1"></i> User Profile
-                                    </p>
-                                    <p className='py-2 dashboard-table-menu-btn cursor-pointer' onClick={showDeleteModal}>
-                                    <i class="bi bi-trash pe-1" ></i> Delete
-                                    </p>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
+                          <td>{formatName(data.investment_type)}</td>            
+                          <td>{formatDate(data.investment_begins)}</td>
+                          <td><p p className={`dashboard-status ps-3 ${data.investment_status === 'awaiting' && 'pending'} ${data.investment_status === 'canceled' && 'failed'} ${data.investment_status === 'active' && 'sucessfull'} ${data.investment_status === 'completed' && 'completed'}`}>{formatName(data.investment_status)}</p></td>
+                          <td onClick={() => IndividualInvestment(data.id)}>
+                            <p className='dashboard-table-arrow cursor-pointer'><i class=" bi bi-chevron-right sm-text"></i></p>
                           </td>
                         </tr>
                       ))
@@ -308,7 +285,7 @@ export const AllDeposit = () =>{
               </div>
 
 
-              {depositLoader && (
+              {pendingInvestmentLoader && (
                 <div className="d-flex justify-content-center py-4">
                   <img src={spin} alt="" width='60px'/>
                 </div>  

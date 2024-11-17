@@ -6,7 +6,6 @@ import { AdminDashFrame } from '../../../component/adminDashFrame';
 import ReactPaginate  from "react-paginate"
 import { Link, useNavigate } from 'react-router-dom';
 import { faChevronLeft, faChevronRight, faX } from '@fortawesome/free-solid-svg-icons';
-import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import { useForm } from 'react-hook-form';
@@ -49,6 +48,7 @@ export const PendingWithdraw = () =>{
   const [showDropdownMenu, setShowDropdownMenu] = useState(false)
   const [loader, setLoader] = useState(false)
   const [status, setStatus] = useState('')
+  const [statusLoader, setStatusLoader] = useState(false)
   const statusModal = useRef(null)
   const [statusOverlay, setStatusOverlay] = useState(false)
   
@@ -160,6 +160,7 @@ export const PendingWithdraw = () =>{
         setLoader(false)
         setDisablebutton(false)
         showAlert()
+        setIsSuccess(true)
         setIsSuccess(false)
         setDisablebutton(false)
       }
@@ -189,6 +190,7 @@ export const PendingWithdraw = () =>{
 
   const onSubmit = (data, e) =>{
     setDisablebutton(true)
+    setStatusLoader(true)
     if(isValid){
       UpdateStatus(e)
       
@@ -219,6 +221,7 @@ export const PendingWithdraw = () =>{
         setDisablebutton(false)
         setStatus('')
         setIsSuccess(true)
+        setStatusLoader(false)
         HideStatusModal()
         setPendingWithdrawData(pendingWithdrawData.filter(dat => dat.id !== selectedDataId))
       }else{
@@ -229,6 +232,7 @@ export const PendingWithdraw = () =>{
         setMessage(errorMessages)
         setDisablebutton(false)
         setIsSuccess(false)
+        setStatusLoader(false)
         showAlert()
 
       }
@@ -237,6 +241,7 @@ export const PendingWithdraw = () =>{
       showAlert()
       setMessage('An unexpected error occurred.');
       setDisablebutton(false)
+      setStatusLoader(false)
       setIsSuccess(false)
 
     } 
@@ -289,9 +294,12 @@ export const PendingWithdraw = () =>{
                   <p>This will delete the Item.</p>
                   <div className="d-flex justify-content-between py-3">
                     <div></div>
-                    <div>
-                      <button className="dashboard-modal-close mx-3" onClick={hideDeleteModal}>Cancel</button>
-                      <button className="dashboard-modal-delete" disabled={disablebutton} onClick={deleteItem}>{loader ? <CircularProgress color="inherit" size={20} /> : "Delete"}</button>
+                    <div className='d-flex align-items-center height-100 pe-2'>
+                      <button  className="dashboard-submit-btn  dashboard-btn px-4 py-2 me-3" disabled={disablebutton} onClick={deleteItem}>    
+                        <span class={`${loader ? 'dashboard-submit-spinner': ''}`}></span>
+                        <span class={`${loader ? 'dashboard-submit-btn-visiblity': ''}`}>Delete</span>
+                      </button> 
+                      <p className="light-link cursor-pointer" onClick={hideDeleteModal}>Cancel</p>
                     </div>
                   </div>
                 </div>
@@ -321,7 +329,10 @@ export const PendingWithdraw = () =>{
 
                       <div className="d-flex justify-content-end">
                         <div className='pt-3'>
-                          <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Submit</button> 
+                          <button  className="dashboard-submit-btn  dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>    
+                            <span class={`${statusLoader ? 'dashboard-submit-spinner': ''}`}></span>
+                            <span class={`${statusLoader ? 'dashboard-submit-btn-visiblity': ''}`}>Submit</span>
+                          </button> 
                         </div>
                       </div>
 

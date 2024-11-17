@@ -155,7 +155,6 @@ ul,  li{
   
 }
 
-
 .width-100{
   width: 100%;
 }
@@ -227,7 +226,7 @@ ul,  li{
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
-  z-index: 100;
+  z-index: 100000;
   transition: all 0.5s;
 }
 

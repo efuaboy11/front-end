@@ -77,6 +77,7 @@ export const AddDeposit = () =>{
       if(response.ok){
         showAlert()
         setMessage('Deposit Sucessfully added')
+        setIsSuccess(true)
         setLoader(false)
         setDisablebutton(false)
         setUser('')
@@ -227,6 +228,7 @@ export const AddDeposit = () =>{
                       <div className='col-12 pt-4'>
                         <div className="d-flex height-100 align-items-center">
                           <div className='pe-4'>
+                            
                             <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Add Deposit</button> 
                           </div>
                           <p onClick={ClearInput} className='light-link cursor-pointer'>Cancel</p>

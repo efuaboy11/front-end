@@ -6,7 +6,6 @@ import { AdminDashFrame } from '../../../component/adminDashFrame';
 import ReactPaginate  from "react-paginate"
 import { Link, useNavigate } from 'react-router-dom';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 
@@ -119,6 +118,7 @@ export const AllWithdraw = () =>{
         setWithdrawData(withdrawData.filter(dat => dat.id !== selectedDataId))
         setShowModal(false)
         showAlert()
+        setIsSuccess(true)
         setMessage('Withdraw successfully deleted')
       } else {
         const errorData = await response.json()
@@ -193,9 +193,12 @@ export const AllWithdraw = () =>{
                   <p>This will delete the Item.</p>
                   <div className="d-flex justify-content-between py-3">
                     <div></div>
-                    <div>
-                      <button className="dashboard-modal-close mx-3" onClick={hideDeleteModal}>Cancel</button>
-                      <button className="dashboard-modal-delete" disabled={disablebutton} onClick={deleteItem}>{loader ? <CircularProgress color="inherit" size={20} /> : "Delete"}</button>
+                    <div className='d-flex align-items-center height-100 pe-2'>
+                      <button  className="dashboard-submit-btn  dashboard-btn px-4 py-2 me-3" disabled={disablebutton} onClick={deleteItem}>    
+                        <span class={`${loader ? 'dashboard-submit-spinner': ''}`}></span>
+                        <span class={`${loader ? 'dashboard-submit-btn-visiblity': ''}`}>Delete</span>
+                      </button> 
+                      <p className="light-link cursor-pointer" onClick={hideDeleteModal}>Cancel</p>
                     </div>
                   </div>
                 </div>

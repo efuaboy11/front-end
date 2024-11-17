@@ -38,6 +38,53 @@
     margin-top: 10px;
 }
 
+
+
+
+.progress-container {
+    position: relative;
+}
+
+.progress-ring{
+    position: relative;
+}
+
+.progress-ring-svg {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    stroke: #e6e6e6;
+}
+
+.progress-ring-fill {
+    stroke: #4caf50;
+    transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+.progress-ring-fill-1{
+    stroke: #6482AD;
+    transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.current-amount {
+    font-size: 35px;
+}
+
+.net-profit {
+    font-size: 14px;
+    color: #777;
+}
+
+
 @media (max-width: 700px){
     .investment-individual-btn{
         display: none;

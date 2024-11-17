@@ -9,7 +9,6 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
-import { selectClasses } from '@mui/material';
 
 export const AllInvestment = () =>{
   const { authTokens, 
@@ -69,6 +68,33 @@ export const AllInvestment = () =>{
 
   }
 
+  const InvestmentIntrest = async(user, investment_id) =>{
+
+    let response = await fetch(`http://127.0.0.1:8000/api/investment-intrest/filter/?user=${user}&investment_id=${investment_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+      
+    })
+
+    if(response.ok){
+      const data = await response.json()
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      localStorage.setItem('InvestmentInterestData', JSON.stringify(sortedData))
+      console.log(data)
+
+    }else{
+      localStorage.setItem('InvestmentInterestData', null)
+
+    }
+
+    
+  }
+
+
+
   const IndividualInvestment = async(id) =>{
     setSelectedDataId(id)
     let response = await fetch(`http://127.0.0.1:8000/api/user-investment/${id}/`, {
@@ -85,13 +111,11 @@ export const AllInvestment = () =>{
     localStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
+      const interestData = await InvestmentIntrest(data.user, data.investment_id);
       navigate(`/admin/all-investment/${data.id}`)
+
     }
 
-  }
-
-  const showDeleteModal = () => {
-    setShowModal(true)
   }
 
   const deleteItem = async () => {
@@ -112,7 +136,8 @@ export const AllInvestment = () =>{
         setInvestmentData(investmentData.filter(dat => dat.id !== selectedDataId))
         setShowModal(false)
         showAlert()
-        setMessage('Deposit successfully deleted')
+        setIsSuccess(true)
+        setMessage('Investment successfully deleted')
       } else {
         const errorData = await response.json()
         const errorMessages = Object.values(errorData)

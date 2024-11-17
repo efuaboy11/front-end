@@ -74,6 +74,7 @@ export const AddWithdraw = () =>{
 
       if(response.ok){
         showAlert()
+        setIsSuccess(true)
         setMessage('Withdraw Sucessful')
         setLoader(false)
         setDisablebutton(false)
