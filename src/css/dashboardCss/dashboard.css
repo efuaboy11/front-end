@@ -13,10 +13,16 @@
   font-size: 40px;
 }
 
-.dashboard-primary-bg{
-  background-color: #6482AD;
+.verified-kyc-1{
+  background-color: #1F4529;
+  border: 1px solid #00712D;
 }
 
+
+.dashboard-boxes-2{
+  background-color: #2A2A2A   ;
+  border: 1px solid #404040;
+}
 .dashboard-boxes{
     background-color: #1D1D1D;
     border: 1px solid #404040;

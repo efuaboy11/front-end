@@ -88,6 +88,9 @@ export const AllDataProvider =  ({ children }) =>{
   const [interestLoader, setInterestLoader] = useState(true)
   const [interestsearchValue, setInterestSearchValue] = useState('')
 
+  const [commission, setCommission] = useState('')
+  const [comissionLoader, setCommissionLoader] = useState('')
+
   const [usersCount, setUserCount] = useState(0)
   const [disableUserCount, setDisableUserCount] = useState(0)
   const [userVerificationCount, setUserVerificationCount] = useState(0)
@@ -111,6 +114,18 @@ export const AllDataProvider =  ({ children }) =>{
   const [verifiedKYCsCount, setVerifiedKYCsCount] = useState(0)
   const [canceledKYCsCount, setCanceledKYCsCount] = useState(0)
   const [pendingKYCsCount, setPendingKYCsCount] = useState(0)
+
+  const [KYCData, setKYCData] = useState([])
+  const [notUploadKYCData, setNotUploadKYCData] = useState([])
+  const [verifiedKYCData, setVerifiedKYCData] = useState([])
+  const [canceledKYCData, setCanceledKYCData] = useState([])
+  const [pendingKYCData, setPendingKYCData] = useState([])
+
+  const [KYCloader, setKYCLoader] = useState(true)
+  const [notUploadKYCLoader, setNotUploadKYCLoader] = useState(true)
+  const [verifiedKYCLoader, setVerifiedKYCLoader] = useState(true)
+  const [canceledKYCLoader, setCanceledKYCLoader] = useState(true)
+  const [pendingKYCLoader, setPendingKYCLoader] = useState(true)
 
   const [KYCSeacrh, setKYCSearch] = useState('')
   const [notUploadKYCSearch, setNotUploadKYCSearch] = useState('')
@@ -1060,6 +1075,36 @@ export const AllDataProvider =  ({ children }) =>{
         setKYCsCount(data.length)
         localStorage.setItem("KYCsCount", data.length);
       }
+
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setKYCData(sortedData)
+      setKYCLoader(false)
+    }else{
+      setKYCLoader(false)
+    }
+  }
+
+  const filterKYC = async() =>{
+    let url;
+
+    if(KYCSeacrh.length !== 0){
+      url = `http://127.0.0.1:8000/api/user/kyc-verification/?search=${KYCSeacrh}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setKYCData(data)
     }
   }
 
@@ -1078,6 +1123,36 @@ export const AllDataProvider =  ({ children }) =>{
         setNotUploadKYCsCount(data.length)
         localStorage.setItem("notUploadKYCsCount", data.length);
       }
+
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setNotUploadKYCData(sortedData)
+      setNotUploadKYCLoader(false)
+    }else{
+      setNotUploadKYCLoader(false)
+    }
+  }
+
+  const filterNotUploadedKYC = async() =>{
+    let url;
+
+    if(notUploadKYCSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/users/without-KYC-verification/?search=${notUploadKYCSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setNotUploadKYCData(data)
     }
   }
 
@@ -1096,6 +1171,37 @@ export const AllDataProvider =  ({ children }) =>{
         setVerifiedKYCsCount(data.length)
         localStorage.setItem("verifiedKYCsCount", data.length);
       }
+
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setVerifiedKYCData(sortedData)
+      setVerifiedKYCLoader(false)
+    }else{
+      setVerifiedKYCLoader(false)
+    }
+    
+  }
+
+  const filterVerifiedKYC = async() =>{
+    let url;
+
+    if(verifiedKYCSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/users/kyc-verification/verified/?search=${verifiedKYCSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setVerifiedKYCData(data)
     }
   }
 
@@ -1114,6 +1220,36 @@ export const AllDataProvider =  ({ children }) =>{
         setCanceledKYCsCount(data.length)
         localStorage.setItem("canceledKYCsCount", data.length);
       }
+
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setCanceledKYCData(sortedData)
+      setCanceledKYCLoader(false)
+    }else{
+      setCanceledKYCLoader(false)
+    }
+  }
+
+  const filterCanceledKYC = async() =>{
+    let url;
+
+    if(canceledKYCSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/users/kyc-verification/canceled/?search=${canceledKYCSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setCanceledKYCData(data)
     }
   }
 
@@ -1132,6 +1268,37 @@ export const AllDataProvider =  ({ children }) =>{
         setPendingKYCsCount(data.length)
         localStorage.setItem("pendingKYCsCount", data.length);
       }
+
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setPendingKYCData(sortedData)
+      setPendingKYCLoader(false)
+    }else{
+      setPendingKYCLoader(false)
+    }
+    
+  }
+
+  const filterPendingKYC = async() =>{
+    let url;
+
+    if(pendingKYCSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/users/kyc-verification/pending/?search=${pendingKYCSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setPendingKYCData(data)
     }
   }
 
@@ -1255,6 +1422,33 @@ export const AllDataProvider =  ({ children }) =>{
       setBonusData(data)
     }
   }
+
+
+  const CommissionFunction = async () => {
+    try {
+      let response = await fetch('http://127.0.0.1:8000/api/commission/', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        },
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        setCommissionLoader(false)
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setCommission(sortedData);
+      } else {
+        console.error("Unexpected response:", response.status, response.statusText);
+        setCommissionLoader(false)
+      }
+    } catch (error) {
+      console.error("Error fetching bonus data:", error);
+      setCommissionLoader(false)
+    }
+  };
 
   const BlackListFunction = async() =>{
     let response = await fetch('http://127.0.0.1:8000/api/Blacklist-ip/', {
@@ -1435,6 +1629,13 @@ export const AllDataProvider =  ({ children }) =>{
 
         interestSearch,
         setInterestSearch,
+
+  // -------------------------------COMMISSION --------------------//
+        commission,
+        setCommission,
+        comissionLoader,
+        setCommissionLoader,
+        CommissionFunction,
   // ---------------------------- INVESTMENT ----------------------//
 
         investmentCount,
@@ -1532,12 +1733,7 @@ export const AllDataProvider =  ({ children }) =>{
         CanceledUserVerificationFunction,
         UnverifiedUserFunction,
         verifiedUserFunction,
-        KYCFunction,
-        NotUploadKYCFunction,
-        VerifiedKYCFunction,
-        CanceledKYCFunction,
-        PendingKYCFunction,
-        PaymentOptionsFunction,
+
 
   // ---------------------------- KYC ----------------------//
 
@@ -1552,6 +1748,57 @@ export const AllDataProvider =  ({ children }) =>{
         setCanceledKYCsCount,
         pendingKYCsCount,
         setPendingKYCsCount,
+
+
+        KYCData, 
+        setKYCData,
+        notUploadKYCData, 
+        setNotUploadKYCData,
+        verifiedKYCData, 
+        setVerifiedKYCData,
+        canceledKYCData, 
+        setCanceledKYCData,
+        pendingKYCData, 
+        setPendingKYCData,
+
+
+        KYCloader, 
+        setKYCLoader,
+        notUploadKYCLoader, 
+        setNotUploadKYCLoader,
+        verifiedKYCLoader, 
+        setVerifiedKYCLoader,
+        canceledKYCLoader, 
+        setCanceledKYCLoader,
+        pendingKYCLoader, 
+        setPendingKYCLoader,
+
+        KYCSeacrh, 
+        setKYCSearch,
+        notUploadKYCSearch, 
+        setNotUploadKYCSearch,
+        verifiedKYCSearch, 
+        setVerifiedKYCSearch,
+        canceledKYCSearch, 
+        setCanceledKYCSearch,
+        pendingKYCSearch, 
+        setPendingKYCSearch,
+
+
+        KYCFunction,
+        filterKYC,
+        NotUploadKYCFunction,
+        filterNotUploadedKYC,
+        VerifiedKYCFunction,
+        filterVerifiedKYC,
+        CanceledKYCFunction,
+        filterCanceledKYC,
+        PendingKYCFunction,
+        filterPendingKYC,
+
+
+        
+
 
 // ---------------------------- EMAIL ----------------------//
         emailCount,
@@ -1574,6 +1821,7 @@ export const AllDataProvider =  ({ children }) =>{
         setPaymentOptionsCount,
         paymentOptionsLoader, 
         setPaymentOptionsLoader,
+        PaymentOptionsFunction,
 
   // ---------------------------- BONUS ----------------------//
         bonusData,

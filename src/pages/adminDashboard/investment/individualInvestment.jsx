@@ -1305,7 +1305,7 @@ export const IndividualInvestment = () =>{
 
               <div className='width-100'>
                 <table className='border-radius-5px dahboard-table'>
-                  <thead className='dashboard-primary-bg'>
+                  <thead className='blue-bg'>
                     <tr>
                       <th className='py-2'>Date & Time</th>               
                       <th>Amount</th>

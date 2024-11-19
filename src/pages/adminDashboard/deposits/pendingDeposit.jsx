@@ -317,7 +317,7 @@ export const PendingDeposit = () =>{
             </section>
           }
 
-          <div className={`pt-5 ${statusOverlay ? 'overlay-background': ''}`}>
+          <div className={`${statusOverlay ? 'overlay-background pt-5 ': ''}`}>
             <div className="dashboard-update-status-container" ref={statusModal}>
               <div className="row justify-content-center">
                 <div className="col-xl-3 col-lg-5 col-md-6 col-sm-9 col-11">

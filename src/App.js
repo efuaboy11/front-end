@@ -31,6 +31,9 @@ import { AddInvestment } from './pages/adminDashboard/investment/addInvestment';
 import { AllInterest } from './pages/adminDashboard/interest/interest';
 import { AllDataProvider } from './context/Alldata';
 import { AllBonus } from './pages/adminDashboard/bonus/bonus';
+import { Commission } from './pages/adminDashboard/commission/commission';
+import { NotUploadedKYC } from './pages/adminDashboard/KYC/notUploadedKYC';
+import { VerifiedKYC } from './pages/adminDashboard/KYC/verifiedKYC';
 
 
 function App() {
@@ -83,6 +86,13 @@ function App() {
 
           {/* Bonus */}
           <Route path="/admin/all-bonus" element={<AllBonus/>} />
+
+          {/* Commission */}
+          <Route path="/admin/all-commission" element={<Commission/>} />
+
+          {/* KYC */}
+          <Route path="/admin/KYC/not-uploaded" element={<NotUploadedKYC/>} />
+          <Route path="/admin/KYC/verified" element={<VerifiedKYC/>} />
         </Routes>
         </AllDataProvider>
       </AuthProvider>

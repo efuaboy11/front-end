@@ -390,7 +390,7 @@ export const AdminDashFrame = () =>{
               </li>
 
               <li className='pb-2'>
-                <Link className='dashboard-link' onClick={OnbodyClick}>
+                <Link to='/admin/all-commission' className='dashboard-link ' onClick={OnbodyClick}>
                   <div className="d-flex ps-3">
                     <FontAwesomeIcon className='sm-text pt-1 me-3' icon={faPercent}/>
                     <p className='pt-1'>Comission</p>
@@ -496,16 +496,16 @@ export const AdminDashFrame = () =>{
 
                 <div>
                   <ul className={` dropdown-bg ${kycDropdown ? "slide-in" : "slide-out"}`}>
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/KYC/not-uploaded") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Not Uploaded</Link> 
+                        <Link className='dashboard-link' to="/admin/KYC/not-uploaded" onClick={OnbodyClick}>Not Uploaded</Link> 
                         <p className='ps-3'>({notUploadKYCsCount})</p>
                       </div>
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Verified</Link> 
+                      <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>Verified</Link> 
                         <p className='ps-3'>({verifiedKYCsCount})</p>
                       </div>
                     </li>

@@ -289,32 +289,6 @@ export const AdminHome = () =>{
     NewsLetterFunction()
 
   }, [
-    // depositCount, successDespositCount, pendingDespositCount, declinedDepositCount,
-    
-    // withdrawCount, SuccessWithdrawCount, pendingWithdrawCount, declinedWithdrawCount,
-
-    // investmentCount, activeInvestmentCount, completedInvestmentCount, pendingInvestmentCount, declinedInvestmentCount,
-
-    // usersCount, disableUserCount, userVerificationCount, pendingUserVerificationCount, canceledUserVerificationCount, unverifiedUserCount, verifiedUserCount,
-
-    // KYCsCount, notUploadKYCsCount, verifiedKYCsCount, canceledKYCsCount, pendingKYCsCount,
-
-    // emailCount, investmentPlanCount, paymentOptionsCount,
-
-    // DepositFunction, SuccessfulDepositFunction, DeclinedDepositFunction, PendingDepositFunction,
-
-    // WithdrawFunction, SuccessfulWithdrawFunction, PendingWithdrawFunction, DeclinedWithdrawFunction,
-
-    // InvestmentFunction, ActiveInvestmentFunction, PendingInvestmentFunction, CompletedInvestmentFunction,DeclinedInvestmentFunction,
-
-    // UsersFunction, DisableUsersFunction, PendingUserVerficationFunction, CanceledUserVerificationFunction, UnverifiedUserFunction, verifiedUserFunction,
-
-    // KYCFunction, NotUploadKYCFunction, VerifiedKYCFunction, CanceledKYCFunction, PendingKYCFunction,
-
-    // PaymentOptionsFunction, InvestmentPlanFunction,
-    // EmailFunction, BonusFunction,
-    // BlackListFunction,
-    // NewsLetterFunction,
 
   ])
 
