@@ -5,6 +5,7 @@ import { AdminDashFrame } from '../../../component/adminDashFrame';
 import FloatingAlert from '../../../component/alert';
 import { useForm } from 'react-hook-form';
 import { LoadingSpiner } from '../../../component/spin';
+import AllDataContext from '../../../context/Alldata';
 
 export const AddDeposit = () =>{
 
@@ -28,18 +29,29 @@ export const AddDeposit = () =>{
 
 
     OnbodyClick,
-    formatDate,
-    formatCurrency,
-    formatName,
     disablebutton, 
     setDisablebutton,
 
-    usersData,
-    paymentOptionsData,
+
 
 
 
   } = useContext(AuthContext)
+
+
+  const {
+    usersData,
+    paymentOptionsData,
+    PaymentOptionsFunction,
+    UsersFunction
+
+  } = useContext(AllDataContext)
+
+  useEffect(() =>{
+    UsersFunction()
+    PaymentOptionsFunction()
+
+  }, [])
   
   const onSubmit = (data, e) =>{
     setDisablebutton(true)
@@ -228,7 +240,7 @@ export const AddDeposit = () =>{
                       <div className='col-12 pt-4'>
                         <div className="d-flex height-100 align-items-center">
                           <div className='pe-4'>
-                            
+
                             <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Add Deposit</button> 
                           </div>
                           <p onClick={ClearInput} className='light-link cursor-pointer'>Cancel</p>

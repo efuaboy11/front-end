@@ -1,0 +1,23 @@
+.admin-interest-modal-conatiner{
+  position: fixed; 
+  z-index: 1000000; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+}
+
+.admin-interest-modal-content{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #1D1D1D;
+  border: 1px solid #404040;
+  border-radius: 5px;
+  width:100%;
+  max-width: 700px;
+  min-height: 250px;
+  color: inherit;
+}

@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
+import AllDataContext from '../../../context/Alldata';
 
 export const SuccessfulWithdraw = () =>{
   const { authTokens, 
@@ -27,16 +28,29 @@ export const SuccessfulWithdraw = () =>{
     disablebutton, 
     setDisablebutton,
 
+  } = useContext(AuthContext)
+
+
+  const {
 
     SuccessWithdrawCount,
     successfulWithdrawData,
     setSuccessfulWithdrawData,
     successfulWithdrawLoader,
+    successfulWithdrawSearch,
+    setSuccessWithdrawSearch,
+    SuccessfulWithdrawFunction,
+    filterSuccessfulWithdraws,
 
-    searchValue,
-    setSearchValue,
+  } = useContext(AllDataContext)
 
-  } = useContext(AuthContext)
+  useEffect(() =>{
+    if(!successfulWithdrawSearch){
+      SuccessfulWithdrawFunction()
+    }else if(successfulWithdrawSearch){
+      filterSuccessfulWithdraws()
+    }
+  }, [successfulWithdrawSearch])
 
 
   const [currentPage, setCurrentPage] = useState(0)
@@ -236,7 +250,7 @@ export const SuccessfulWithdraw = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={successfulWithdrawSearch} onChange={(e) => setSuccessWithdrawSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>

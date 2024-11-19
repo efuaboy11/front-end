@@ -28,12 +28,18 @@ import { CompeletedInvestment } from './pages/adminDashboard/investment/complete
 import { CanceledInvestment } from './pages/adminDashboard/investment/canceled';
 import { PendingInvestment } from './pages/adminDashboard/investment/pendingInvestment';
 import { AddInvestment } from './pages/adminDashboard/investment/addInvestment';
+import { AllInterest } from './pages/adminDashboard/interest/interest';
+import { AllDataProvider } from './context/Alldata';
+import { AllBonus } from './pages/adminDashboard/bonus/bonus';
 
 
 function App() {
   return (
     <Router>
       <AuthProvider>
+        <AllDataProvider>
+
+
         <ScrollToTop />
         <Routes>
           <Route path="/register" element={<Register />} />
@@ -71,7 +77,14 @@ function App() {
           <Route path="/admin/canceled-investment" element={<CanceledInvestment/>} />
           <Route path="/admin/pending-investment" element={<PendingInvestment/>} />
           <Route path="/admin/add-investment" element={<AddInvestment/>} />
+
+          {/* Interest */}
+          <Route path="/admin/all-interest" element={<AllInterest/>} />
+
+          {/* Bonus */}
+          <Route path="/admin/all-bonus" element={<AllBonus/>} />
         </Routes>
+        </AllDataProvider>
       </AuthProvider>
     </Router>
   );

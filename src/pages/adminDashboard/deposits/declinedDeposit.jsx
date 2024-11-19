@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
+import AllDataContext from '../../../context/Alldata';
 
 export const DeclinedDeposit = () =>{
   const { authTokens, 
@@ -27,16 +28,29 @@ export const DeclinedDeposit = () =>{
     disablebutton, 
     setDisablebutton,
 
+  } = useContext(AuthContext)
+
+  const {
+
 
     declinedDepositCount,
     declinedDepositData,
     setDeclinedDepositData,
     declinedDepositLoader,
+    declinedDepositSearch,
+    setDeclinedDepositSearch,
+    DeclinedDepositFunction,
+    filterDeclinedDeposits,
 
-    searchValue,
-    setSearchValue,
+  } = useContext(AllDataContext)
 
-  } = useContext(AuthContext)
+  useEffect(() =>{
+    if(!declinedDepositSearch){
+      DeclinedDepositFunction()
+    }else if(declinedDepositSearch){
+      filterDeclinedDeposits()
+    }
+  }, [declinedDepositSearch])
 
 
   const [currentPage, setCurrentPage] = useState(0)
@@ -235,7 +249,7 @@ export const DeclinedDeposit = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={declinedDepositSearch} onChange={(e) => setDeclinedDepositSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>

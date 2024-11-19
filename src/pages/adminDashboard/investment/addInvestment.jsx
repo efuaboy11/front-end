@@ -5,6 +5,7 @@ import { AdminDashFrame } from '../../../component/adminDashFrame';
 import FloatingAlert from '../../../component/alert';
 import { useForm } from 'react-hook-form';
 import { LoadingSpiner } from '../../../component/spin';
+import AllDataContext from '../../../context/Alldata';
 
 export const AddInvestment = () =>{
 
@@ -34,12 +35,23 @@ export const AddInvestment = () =>{
     disablebutton, 
     setDisablebutton,
 
-    usersData,
-    investmentPlanData, 
-
 
 
   } = useContext(AuthContext)
+
+  const {
+    usersData,
+    investmentPlanData, 
+    InvestmentPlanFunction,
+    UsersFunction
+
+  } = useContext(AllDataContext)
+
+  useEffect(() =>{
+    UsersFunction()
+    InvestmentPlanFunction()
+
+  }, [])
   
   const onSubmit = (data, e) =>{
     setDisablebutton(true)

@@ -9,6 +9,7 @@ import { faChevronLeft, faChevronRight, faX } from '@fortawesome/free-solid-svg-
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import { useForm } from 'react-hook-form';
+import AllDataContext from '../../../context/Alldata';
 
 export const PendingWithdraw = () =>{
   const { authTokens, 
@@ -28,16 +29,28 @@ export const PendingWithdraw = () =>{
     disablebutton, 
     setDisablebutton,
 
+  } = useContext(AuthContext)
+
+  const {
 
     pendingWithdrawCount,
     pendingWithdrawData,
     setPendingWithdrawData,
     pendingWithdrawLoader,
+    pendingWithdrawSearch,
+    setPendingWithdrawSearch,
+    PendingWithdrawFunction,
+    filterPendingWithdraws,
 
-    searchValue,
-    setSearchValue,
+  } = useContext(AllDataContext)
 
-  } = useContext(AuthContext)
+  useEffect(() =>{
+    if(!pendingWithdrawSearch){
+      PendingWithdrawFunction()
+    }else if(pendingWithdrawSearch){
+      filterPendingWithdraws()
+    }
+  }, [pendingWithdrawSearch])
 
 
   const [currentPage, setCurrentPage] = useState(0)
@@ -380,7 +393,7 @@ export const PendingWithdraw = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={pendingWithdrawSearch} onChange={(e) => setPendingWithdrawSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>

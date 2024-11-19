@@ -10,6 +10,7 @@ import '../../css/style.css'
 import headerPic from '../../img/headerPic.png'
 import { DepositBarChart, KYCDoughnutChart, UserChart, WithdrawtBarChart } from "../../component/chatFrame";
 import spin from '../../img/Spin.gif'
+import AllDataContext from '../../context/Alldata';
 export const AdminHome = () =>{
   const [timeofDay, setTimeOfDay] = useState('')
 
@@ -130,6 +131,11 @@ export const AdminHome = () =>{
     shortName,
 
 
+  } = useContext(AuthContext)
+
+
+
+  const {
     depositCount,
     successDespositCount,
     pendingDespositCount,
@@ -160,43 +166,157 @@ export const AdminHome = () =>{
     totalWithdraw,
 
 
-
+    investmentCount,
     activeInvestmentCount,
     completedInvestmentCount,
     pendingInvestmentCount,
     declinedInvestmentCount,
-    
 
-
-    usersCount,
-    disableUserCount,
-    unverifiedUserCount,
-    verifiedUserCount,
     recentUserData,
     usersDataLoader,
-    canceledUserVerificationCount,
+    usersCount,
+    disableUserCount,
     userVerificationCount,
+    pendingUserVerificationCount,
+    canceledUserVerificationCount,
+    unverifiedUserCount,
+    verifiedUserCount,
 
     KYCsCount,
     notUploadKYCsCount,
     verifiedKYCsCount,
     canceledKYCsCount,
+    pendingKYCsCount,
+
+
+    emailCount,
+    investmentPlanCount,
+    paymentOptionsCount,
 
     totalBonus,
     bonusData,
 
-    investmentPlanCount,
-    paymentOptionsCount,
 
     blackListCount,
     newsLetterCount,
 
+    DepositFunction,
+    SuccessfulDepositFunction,
+    DeclinedDepositFunction,
+    PendingDepositFunction,
 
 
-  } = useContext(AuthContext)
+    WithdrawFunction,
+    SuccessfulWithdrawFunction,
+    PendingWithdrawFunction,
+    DeclinedWithdrawFunction,
+
+    InvestmentFunction,
+    ActiveInvestmentFunction,
+    PendingInvestmentFunction,
+    CompletedInvestmentFunction,
+    DeclinedInvestmentFunction,
+
+    UsersFunction,
+    DisableUsersFunction,
+    PendingUserVerficationFunction,
+    CanceledUserVerificationFunction,
+    UnverifiedUserFunction,
+    verifiedUserFunction,
+    UserVerificationFunction,
+
+    KYCFunction,
+    NotUploadKYCFunction,
+    VerifiedKYCFunction,
+    CanceledKYCFunction,
+    PendingKYCFunction,
+
+    PaymentOptionsFunction,
+
+    InvestmentPlanFunction,
+    EmailFunction,
+    BonusFunction,
+    BlackListFunction,
+    NewsLetterFunction,
 
 
-  console.log(bonusData)
+
+
+
+
+  } = useContext(AllDataContext)
+
+
+  useEffect(() =>{
+    DepositFunction()
+    SuccessfulDepositFunction()
+    DeclinedDepositFunction()
+    PendingDepositFunction()
+
+
+    WithdrawFunction()
+    SuccessfulWithdrawFunction()
+    PendingWithdrawFunction()
+    DeclinedWithdrawFunction()
+
+
+    InvestmentFunction()
+    ActiveInvestmentFunction()
+    PendingInvestmentFunction()
+    CompletedInvestmentFunction()
+    DeclinedInvestmentFunction()
+
+    UsersFunction()
+    DisableUsersFunction()
+    PendingUserVerficationFunction()
+    CanceledUserVerificationFunction()
+    UnverifiedUserFunction()
+    verifiedUserFunction()
+    UserVerificationFunction()
+
+    KYCFunction()
+    NotUploadKYCFunction()
+    VerifiedKYCFunction()
+    CanceledKYCFunction()
+    PendingKYCFunction()
+
+    PaymentOptionsFunction()
+
+    InvestmentPlanFunction()
+    EmailFunction()
+    BonusFunction()
+    BlackListFunction()
+    NewsLetterFunction()
+
+  }, [
+    // depositCount, successDespositCount, pendingDespositCount, declinedDepositCount,
+    
+    // withdrawCount, SuccessWithdrawCount, pendingWithdrawCount, declinedWithdrawCount,
+
+    // investmentCount, activeInvestmentCount, completedInvestmentCount, pendingInvestmentCount, declinedInvestmentCount,
+
+    // usersCount, disableUserCount, userVerificationCount, pendingUserVerificationCount, canceledUserVerificationCount, unverifiedUserCount, verifiedUserCount,
+
+    // KYCsCount, notUploadKYCsCount, verifiedKYCsCount, canceledKYCsCount, pendingKYCsCount,
+
+    // emailCount, investmentPlanCount, paymentOptionsCount,
+
+    // DepositFunction, SuccessfulDepositFunction, DeclinedDepositFunction, PendingDepositFunction,
+
+    // WithdrawFunction, SuccessfulWithdrawFunction, PendingWithdrawFunction, DeclinedWithdrawFunction,
+
+    // InvestmentFunction, ActiveInvestmentFunction, PendingInvestmentFunction, CompletedInvestmentFunction,DeclinedInvestmentFunction,
+
+    // UsersFunction, DisableUsersFunction, PendingUserVerficationFunction, CanceledUserVerificationFunction, UnverifiedUserFunction, verifiedUserFunction,
+
+    // KYCFunction, NotUploadKYCFunction, VerifiedKYCFunction, CanceledKYCFunction, PendingKYCFunction,
+
+    // PaymentOptionsFunction, InvestmentPlanFunction,
+    // EmailFunction, BonusFunction,
+    // BlackListFunction,
+    // NewsLetterFunction,
+
+  ])
 
   useEffect(() =>{
     const updateGreeting = () =>{

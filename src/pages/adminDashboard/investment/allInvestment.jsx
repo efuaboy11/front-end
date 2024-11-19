@@ -9,6 +9,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
+import AllDataContext from '../../../context/Alldata';
 
 export const AllInvestment = () =>{
   const { authTokens, 
@@ -28,16 +29,27 @@ export const AllInvestment = () =>{
     disablebutton, 
     setDisablebutton,
 
+  } = useContext(AuthContext)
+
+  const {
 
     investmentCount,
     investmentData,
-    setInvestmentData,
     investmentLoader,
+    investmentSearch,
+    setInvestmentSearch,
+    InvestmentFunction,
+    filterInvestment,
 
-    searchValue,
-    setSearchValue,
+  } = useContext(AllDataContext)
 
-  } = useContext(AuthContext)
+  useEffect(() =>{
+    if(!investmentSearch){
+      InvestmentFunction()
+    }else if(investmentSearch){
+      filterInvestment()
+    }
+  }, [investmentSearch])
 
 
   const [currentPage, setCurrentPage] = useState(0)
@@ -161,7 +173,7 @@ export const AllInvestment = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={investmentSearch} onChange={(e) => setInvestmentSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>

@@ -251,9 +251,6 @@ export const IndividualInvestment = () =>{
       setDisablebutton(false)
     }
 
-
-
-
   }
 
   const onIncreaseInvestmentSubmit = (data, e) =>{
@@ -707,13 +704,13 @@ export const IndividualInvestment = () =>{
 
       <div className="main-content " onClick={OnbodyClick}>
         <section>
-        <div>
-          <FloatingAlert
-            message={messages}
-            isVisible={alertVisible}
-            onClose={() => setAlertVisible(false)}
-            successs={isSuccess}
-          />
+          <div>
+            <FloatingAlert
+              message={messages}
+              isVisible={alertVisible}
+              onClose={() => setAlertVisible(false)}
+              successs={isSuccess}
+            />
           </div>
           {deleteModal &&
             <section className="overlay-background">

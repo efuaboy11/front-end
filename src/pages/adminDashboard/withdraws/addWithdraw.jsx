@@ -5,6 +5,7 @@ import { AdminDashFrame } from '../../../component/adminDashFrame';
 import FloatingAlert from '../../../component/alert';
 import { useForm } from 'react-hook-form';
 import { LoadingSpiner } from '../../../component/spin';
+import AllDataContext from '../../../context/Alldata';
 
 export const AddWithdraw = () =>{
 
@@ -31,11 +32,20 @@ export const AddWithdraw = () =>{
     disablebutton, 
     setDisablebutton,
 
-    usersData,
-
 
 
   } = useContext(AuthContext)
+
+  const {
+    usersData,
+    UsersFunction
+
+  } = useContext(AllDataContext)
+
+  useEffect(() =>{
+    UsersFunction()
+
+  }, [])
   
   
   const onSubmit = (data, e) =>{

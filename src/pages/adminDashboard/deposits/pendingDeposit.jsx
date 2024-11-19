@@ -9,6 +9,7 @@ import { faChevronLeft, faChevronRight, faX } from '@fortawesome/free-solid-svg-
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import { useForm } from 'react-hook-form';
+import AllDataContext from '../../../context/Alldata';
 
 export const PendingDeposit = () =>{
   const { authTokens, 
@@ -28,16 +29,28 @@ export const PendingDeposit = () =>{
     disablebutton, 
     setDisablebutton,
 
+  } = useContext(AuthContext)
+
+  const {
 
     pendingDespositCount,
     pendingDepositData,
     setPendingDepositData,
     pendingDepositLoader,
+    pendingDepositSearch,
+    setPendingDepositSearch,
+    PendingDepositFunction,
+    filterPendingDeposits,
 
-    searchValue,
-    setSearchValue,
+  } = useContext(AllDataContext)
 
-  } = useContext(AuthContext)
+  useEffect(() =>{
+    if(!pendingDepositSearch){
+      PendingDepositFunction()
+    }else if(pendingDepositSearch){
+      filterPendingDeposits()
+    }
+  }, [pendingDepositSearch])
 
 
   const [currentPage, setCurrentPage] = useState(0)
@@ -369,7 +382,7 @@ export const PendingDeposit = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={pendingDepositSearch} onChange={(e) => setPendingDepositSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>

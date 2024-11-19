@@ -10,6 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import { selectClasses } from '@mui/material';
+import AllDataContext from '../../../context/Alldata';
 
 export const ActiveInvestment = () =>{
   const { authTokens, 
@@ -30,16 +31,29 @@ export const ActiveInvestment = () =>{
     setDisablebutton,
 
 
-    activeInvestmentCount,
-    activeInvestment,
-    setActiveInvestment,
-    activeInvestmentLoader,
-
-    searchValue,
-    setSearchValue,
-
   } = useContext(AuthContext)
 
+
+  const {
+
+
+    activeInvestmentCount,
+    activeInvestment,
+    activeInvestmentLoader,
+    activeInvestmentSearch,
+    setActiveInvestmentSearch,
+    ActiveInvestmentFunction,
+    filterActiveInvestment,
+
+  } = useContext(AllDataContext)
+  
+  useEffect(() =>{
+    if(!activeInvestmentSearch){
+      ActiveInvestmentFunction()
+    }else if(activeInvestmentSearch){
+      filterActiveInvestment()
+    }
+  }, [activeInvestmentSearch])
 
   const [currentPage, setCurrentPage] = useState(0)
   const [selectedDataId, setSelectedDataId] = useState(null);
@@ -161,7 +175,7 @@ export const ActiveInvestment = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={activeInvestmentSearch} onChange={(e) => setActiveInvestmentSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
