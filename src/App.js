@@ -34,6 +34,18 @@ import { AllBonus } from './pages/adminDashboard/bonus/bonus';
 import { Commission } from './pages/adminDashboard/commission/commission';
 import { NotUploadedKYC } from './pages/adminDashboard/KYC/notUploadedKYC';
 import { VerifiedKYC } from './pages/adminDashboard/KYC/verifiedKYC';
+import { IndividualKYC } from './pages/adminDashboard/KYC/individualKYC';
+import { RejectedKYC } from './pages/adminDashboard/KYC/rejected';
+import { KYCList } from './pages/adminDashboard/KYC/kycList';
+import { AddKYC } from './pages/adminDashboard/KYC/addKYC';
+import { PendingKYC } from './pages/adminDashboard/KYC/pendingKYC';
+import { DisableUser } from './pages/adminDashboard/user/disableUser';
+import { UserVerification } from './pages/adminDashboard/user/userVerification';
+import { PendingUserVerification } from './pages/adminDashboard/user/pendingUserVerification';
+import { CanceledUserVerification } from './pages/adminDashboard/user/canceledUserVerification';
+import { VerifiedUser } from './pages/adminDashboard/user/verifiedUser';
+import { UnverifiedUser } from './pages/adminDashboard/user/unverifiedUser';
+import { UserList } from './pages/adminDashboard/user/userList';
 
 
 function App() {
@@ -91,8 +103,22 @@ function App() {
           <Route path="/admin/all-commission" element={<Commission/>} />
 
           {/* KYC */}
+          <Route path="/admin/KYC/list" element={<KYCList/>} />
+          <Route path="/admin/KYC/:id" element={<IndividualKYC/>} />
           <Route path="/admin/KYC/not-uploaded" element={<NotUploadedKYC/>} />
           <Route path="/admin/KYC/verified" element={<VerifiedKYC/>} />
+          <Route path="/admin/KYC/rejected" element={<RejectedKYC/>} />
+          <Route path="/admin/KYC/pending" element={<PendingKYC/>} />
+          <Route path="/admin/KYC/add" element={<AddKYC/>} />
+
+          {/* User */}
+          <Route path="/admin/user/list" element={<UserList/>} />
+          <Route path="/admin/user/disable" element={<DisableUser/>} />
+          <Route path="/admin/user-verification" element={<UserVerification/>} />
+          <Route path="/admin/user-verification/pending" element={<PendingUserVerification/>} />
+          <Route path="/admin/user-verification/canceled" element={<CanceledUserVerification/>} />
+          <Route path="/admin/user-verification/verified" element={<VerifiedUser/>} />
+          <Route path="/admin/user-verification/unverified" element={<UnverifiedUser/>} />
         </Routes>
         </AllDataProvider>
       </AuthProvider>

@@ -100,13 +100,26 @@ export const AllDataProvider =  ({ children }) =>{
   const [verifiedUserCount, setVerifiedUserCount] = useState(0)
   const [usersData, setUsersData] = useState([])
   const [recentUserData, setRecentUserData] = useState([])
+  const [disableUserData, setDisableUserData] = useState([])
+  const [userVerificationData, setUserVerificationData] = useState([])
+  const [pendingUserVerificationData, setPendingUserVerificationData] = useState([])
+  const [canaceledUserVerificationData, setCanceledUserVerificationData] = useState([])
+  const [verifiedUserData, setVerifiedUserData] = useState([])
+  const [unverifiedUserData, setUnverfiedUserData] = useState([])
   const [usersDataLoader, setUsersDataLoader] = useState(true)
+  const [userDisableLoader, setUserDisableLoader] = useState(true)
+  const [userVerificationLoader, setUserVerificationLoader] = useState(true)
+  const [pendingUserVerificationLoader, setPendingUserVerificationLoader] = useState(true)
+  const [canceledUserVerificationLoader, setCanceledUserVerificationLoader] = useState(true)
+  const [verifiedUserLoader, setVerifiedUserLoader] = useState(true)
+  const [unverifiedUserLoader, setUnverfiedUserLoader] = useState(true)
 
   const [userSearch, setUserSearch] = useState('')
   const [disableUserSeacrh, setDisableUserSearch] = useState('')
   const [userVerificationSearch, setUserVerificationSearch] = useState('')
   const [pendingUserVerificationSearch, setPendingUserVerificationSearch] = useState('')
   const [canceledUserVerificationsearch, setCanceledUserVerificationSearch] = useState('')
+  const [verifiedUserSearch, setVerifiedUserSearch] = useState('')
   const [unverifiedUserSearch, setUnverfiedUserSearch] = useState('')
   
   const [KYCsCount, setKYCsCount] = useState(0)
@@ -187,8 +200,8 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setDepositCount(data.length)
-        localStorage.setItem("depositCount", data.length);
       }
+      localStorage.setItem("depositCount", data.length);
 
 
 
@@ -244,10 +257,9 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
-        setSuccessDepositCount(data.length)
-        localStorage.setItem('successDespositCount', data.length)
-        
+        setSuccessDepositCount(data.length)       
       }
+      localStorage.setItem('successDespositCount', data.length)
 
       const totalAmount = data.reduce((acc, item) => acc + parseFloat(item.amount), 0)
       setTotalDeposit(totalAmount)
@@ -305,8 +317,8 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setDeclinedDepositCount(data.length)
-        localStorage.setItem("declinedDeposit", data.length);
       }
+      localStorage.setItem("declinedDeposit", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       // Get the 5 most recent entries
@@ -361,8 +373,8 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setPendingDespositCount(data.length)
-        localStorage.setItem("pendingDespositCount", data.length);
       }
+      localStorage.setItem("pendingDespositCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       // Get the 5 most recent entries
@@ -415,8 +427,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setWithdrawCount(data.length)
-        localStorage.setItem("withdrawCount", data.length);
+
       }
+      localStorage.setItem("withdrawCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       // Get the 5 most recent entries
@@ -470,8 +483,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setSuccessWithdrawCount(data.length)
-        localStorage.setItem("SuccessWithdrawCount", data.length);
+        
       }
+      localStorage.setItem("SuccessWithdrawCount", data.length);
 
       const totalAmount = data.reduce((acc, item) => acc + parseFloat(item.amount), 0)
       setTotalWithdraw(totalAmount)
@@ -528,8 +542,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setPendingWithdrawCount(data.length)
-        localStorage.setItem("pendingWithdrawCount", data.length);
+        
       }
+      localStorage.setItem("pendingWithdrawCount", data.length);
       const sortedData = data.sort((a, b) => b.id - a.id);
       // Get the 5 most recent entries
       const recentData = sortedData.slice(0, 4);
@@ -583,8 +598,8 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setDeclinedWithdrawCount(data.length)
-        localStorage.setItem("declinedWithdrawCount", data.length);
       }
+      localStorage.setItem("declinedWithdrawCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       // Get the 5 most recent entries
@@ -690,8 +705,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setInvestmentCount(data.length)
-        localStorage.setItem("investmentCount", data.length);
+ 
       }
+      localStorage.setItem("investmentCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setInvestmentData(sortedData)
@@ -738,8 +754,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setActiveInvestmentCount(data.length)
-        localStorage.setItem("activeInvestmentCount", data.length);
+
       }
+      localStorage.setItem("activeInvestmentCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setActiveInvestment(sortedData)
@@ -787,8 +804,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setPendingInvestmentCount(data.length)
-        localStorage.setItem("pendingInvestmentCount", data.length);
+        
       }
+      localStorage.setItem("pendingInvestmentCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setPendingInvestment(sortedData)
@@ -836,8 +854,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setCompletednvestmentCount(data.length)
-        localStorage.setItem("completedInvestmentCount", data.length);
+        
       }
+      localStorage.setItem("completedInvestmentCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setCompletedInvestment(sortedData)
@@ -887,8 +906,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setDeclinedInvestmentCount(data.length)
-        localStorage.setItem("declinedInvestmentCount", data.length);
+        
       }
+      localStorage.setItem("declinedInvestmentCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setDecinedInvestment(sortedData)
@@ -937,8 +957,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setUserCount(data.length)
-        localStorage.setItem("usersCount", data.length);
+
       }
+      localStorage.setItem("usersCount", data.length);
 
       const sortedData = data.sort((a, b) => new Date(b.date_joined) - new Date(a.date_joined));
       // Get the 5 most recent entries
@@ -948,6 +969,30 @@ export const AllDataProvider =  ({ children }) =>{
       setUsersDataLoader(false)
     }else{
       setUsersDataLoader(false)
+    }
+  }
+
+  const filterUser = async() =>{
+    let url;
+
+    if(userSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/users/?search=${userSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setUsersData(data)
     }
   }
 
@@ -964,10 +1009,40 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setDisableUserCount(data.length)
-        localStorage.setItem("disableUserCount", data.length);
+
       }
+      localStorage.setItem("disableUserCount", data.length);
+
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setDisableUserData(sortedData)
+      setUserDisableLoader(false)
     }
   }
+  
+  const filterDisableUsersFunction = async() =>{
+    let url;
+
+    if(disableUserSeacrh.length !== 0){
+      url = `http://127.0.0.1:8000/api/disable-account/?search=${disableUserSeacrh}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setDisableUserData(data)
+    }
+  }
+  
 
   const UserVerificationFunction = async() =>{
     let response = await fetch('http://127.0.0.1:8000/api/user/verification/', {
@@ -982,8 +1057,36 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setUserVerificationCount(data.length)
-        localStorage.setItem("userVerificationCount", data.length);
+       
       }
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setUserVerificationData(sortedData)
+      setUserVerificationLoader(false)
+      localStorage.setItem("userVerificationCount", data.length);
+    }
+  }
+
+  const filterUserVerification = async() =>{
+    let url;
+
+    if(userVerificationSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/user/verification/?search=${userVerificationSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setUserVerificationData(data)
     }
   }
 
@@ -1000,8 +1103,36 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setPendingUserVerificationCount(data.length)
-        localStorage.setItem("pendingUserVerificationCount", data.length);
+        
       }
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setPendingUserVerificationData(sortedData)
+      setPendingUserVerificationLoader(false)
+      localStorage.setItem("pendingUserVerificationCount", data.length);
+    }
+  }
+
+  const filterPendingUserVerfication = async() =>{
+    let url;
+
+    if(pendingUserVerificationSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/users/verification/pending/?search=${pendingUserVerificationSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setPendingUserVerificationData(data)
     }
   }
 
@@ -1019,8 +1150,36 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setCanceledUserVerificationCount(data.length)
-        localStorage.setItem("canceledUserVerificationCount", data.length);
+        
       }
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setCanceledUserVerificationData(sortedData)
+      setCanceledUserVerificationLoader(false)
+      localStorage.setItem("canceledUserVerificationCount", data.length);
+    }
+  }
+
+  const filterCanceledUserVerification = async() =>{
+    let url;
+
+    if(canceledUserVerificationsearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/users/verification/canceled/?search=${canceledUserVerificationsearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setCanceledUserVerificationData(data)
     }
   }
 
@@ -1037,8 +1196,36 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setUnverfiedUserCount(data.length)
-        localStorage.setItem("unverifiedUserCount", data.length);
+       
       }
+      localStorage.setItem("unverifiedUserCount", data.length);
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setUnverfiedUserData(sortedData)
+      setUnverfiedUserLoader(false)
+    }
+  }
+
+  const filterUnverifiedUser = async() =>{
+    let url;
+
+    if(unverifiedUserSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/users/without-verification/?search=${unverifiedUserSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setUnverfiedUserData(data)
     }
   }
 
@@ -1055,8 +1242,37 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setVerifiedUserCount(data.length)
-        localStorage.setItem("verifiedUserCount", data.length);
+        
       }
+      localStorage.setItem("verifiedUserCount", data.length);
+
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setVerifiedUserData(sortedData)
+      setVerifiedUserLoader(false)
+    }
+  }
+
+  const filteverifiedUser = async() =>{
+    let url;
+
+    if(verifiedUserSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/users/verification/verified/?search=${verifiedUserSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setVerifiedUserData(data)
     }
   }
 
@@ -1073,8 +1289,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setKYCsCount(data.length)
-        localStorage.setItem("KYCsCount", data.length);
+
       }
+      localStorage.setItem("KYCsCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setKYCData(sortedData)
@@ -1121,8 +1338,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setNotUploadKYCsCount(data.length)
-        localStorage.setItem("notUploadKYCsCount", data.length);
+        
       }
+      localStorage.setItem("notUploadKYCsCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setNotUploadKYCData(sortedData)
@@ -1169,8 +1387,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setVerifiedKYCsCount(data.length)
-        localStorage.setItem("verifiedKYCsCount", data.length);
+       
       }
+      localStorage.setItem("verifiedKYCsCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setVerifiedKYCData(sortedData)
@@ -1218,8 +1437,10 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setCanceledKYCsCount(data.length)
-        localStorage.setItem("canceledKYCsCount", data.length);
+        
       }
+
+      localStorage.setItem("canceledKYCsCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setCanceledKYCData(sortedData)
@@ -1266,8 +1487,8 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setPendingKYCsCount(data.length)
-        localStorage.setItem("pendingKYCsCount", data.length);
       }
+      localStorage.setItem("pendingKYCsCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setPendingKYCData(sortedData)
@@ -1316,8 +1537,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setPaymentOptionsCount(data.length)
-        localStorage.setItem("paymentOptionsCount", data.length);
+        
       }
+      localStorage.setItem("paymentOptionsCount", data.length);
       const sortedData = data.sort((a, b) => b.id - a.id);
       setPaymentOptionsData(sortedData)
       setPaymentOptionsLoader(false)
@@ -1341,8 +1563,9 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setInvestmentPlanCount(data.length)
-        localStorage.setItem("investmentPlanCount", data.length);
+       
       }
+      localStorage.setItem("investmentPlanCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setInvestPlanData(sortedData)
@@ -1362,8 +1585,10 @@ export const AllDataProvider =  ({ children }) =>{
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
         setEmailCount(data.length)
-        localStorage.setItem("emailCount", data.length);
+
       }
+
+      localStorage.setItem("emailCount", data.length);
     }
   }
 
@@ -1723,16 +1948,66 @@ export const AllDataProvider =  ({ children }) =>{
         setUsersData,
         recentUserData,
         setRecentUserData,
+        disableUserData,
+        setDisableUserData,
+        userVerificationData, 
+        setUserVerificationData,
+        pendingUserVerificationData, 
+        setPendingUserVerificationData,
+        canaceledUserVerificationData, 
+        setCanceledUserVerificationData,
+        verifiedUserData, 
+        setVerifiedUserData,
+        unverifiedUserData, 
+        setUnverfiedUserData,
+        
+
         usersDataLoader,
         setUsersDataLoader,
+        userDisableLoader,
+        setUserDisableLoader,
+        userVerificationLoader, 
+        setUserVerificationLoader,
+        pendingUserVerificationLoader, 
+        setPendingUserVerificationLoader,
+        canceledUserVerificationLoader, 
+        setCanceledUserVerificationLoader,
+        verifiedUserLoader, 
+        setVerifiedUserLoader,
+        unverifiedUserLoader, 
+        setUnverfiedUserLoader,
+
+
+        userSearch, 
+        setUserSearch,
+        disableUserSeacrh,
+        setDisableUserSearch,
+        userVerificationSearch, 
+        setUserVerificationSearch,
+        pendingUserVerificationSearch, 
+        setPendingUserVerificationSearch,
+        canceledUserVerificationsearch, 
+        setCanceledUserVerificationSearch,
+        verifiedUserSearch,
+        setVerifiedUserSearch,
+        unverifiedUserSearch, 
+        setUnverfiedUserSearch,
 
         UsersFunction,
+        filterUser,
         DisableUsersFunction,
+        filterDisableUsersFunction,
         UserVerificationFunction,
+        filterUserVerification,
         PendingUserVerficationFunction,
+        filterPendingUserVerfication,
         CanceledUserVerificationFunction,
+        filterCanceledUserVerification,
         UnverifiedUserFunction,
+        filterUnverifiedUser,
         verifiedUserFunction,
+        filteverifiedUser,
+
 
 
   // ---------------------------- KYC ----------------------//

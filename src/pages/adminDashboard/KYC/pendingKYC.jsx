@@ -13,7 +13,7 @@ import { selectClasses } from '@mui/material';
 import AllDataContext from '../../../context/Alldata';
 import '../../../css/dashboardCss/adminDahboardCss/kyc.css'
 
-export const VerifiedKYC = () =>{
+export const PendingKYC = () =>{
   const {authTokens, 
     OnbodyClick,
     formatName,
@@ -28,23 +28,23 @@ export const VerifiedKYC = () =>{
   const {
 
 
-    verifiedKYCsCount,
-    verifiedKYCData,
-    verifiedKYCLoader,
-    verifiedKYCSearch, 
-    setVerifiedKYCSearch,
-    VerifiedKYCFunction,
-    filterVerifiedKYC,
+    pendingKYCsCount,
+    pendingKYCData,
+    pendingKYCLoader, 
+    pendingKYCSearch, 
+    setPendingKYCSearch,
+    PendingKYCFunction,
+    filterPendingKYC,
 
   } = useContext(AllDataContext)
   
   useEffect(() =>{
-    if(!verifiedKYCSearch){
-      VerifiedKYCFunction()
-    }else if(verifiedKYCSearch){
-      filterVerifiedKYC()
+    if(!pendingKYCSearch){
+      PendingKYCFunction()
+    }else if(pendingKYCSearch){
+      filterPendingKYC()
     }
-  }, [verifiedKYCSearch])
+  }, [pendingKYCSearch])
 
   const [currentPage, setCurrentPage] = useState(0)
   const [selectedDataId, setSelectedDataId] = useState(null);
@@ -52,9 +52,9 @@ export const VerifiedKYC = () =>{
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
-  const pageCount = Math.ceil(verifiedKYCData.length / dataPerPage)
+  const pageCount = Math.ceil(pendingKYCData.length / dataPerPage)
 
-  const currentData = verifiedKYCData.slice(
+  const currentData = pendingKYCData.slice(
     currentPage * dataPerPage,
     (currentPage + 1) * dataPerPage
   )
@@ -76,8 +76,8 @@ export const VerifiedKYC = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'Verified KYC')
-    localStorage.setItem('urlLink', '/admin/KYC/verified')
+    localStorage.setItem('urlName', 'Pending KYC')
+    localStorage.setItem('urlLink', '/admin/KYC/pending')
     localStorage.setItem('IndividualData', JSON.stringify(data))
 
     if(response.ok){
@@ -102,8 +102,8 @@ export const VerifiedKYC = () =>{
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='dashboard-header'>KYCs Verified</p>
-                  <p className='light-text'>Total {verifiedKYCsCount} KYCs verified</p>
+                  <p className='dashboard-header'>KYCs Pending</p>
+                  <p className='light-text'>Total {pendingKYCsCount} Pending KYCs </p>
                 </div>
               </div>
 
@@ -123,7 +123,7 @@ export const VerifiedKYC = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={verifiedKYCSearch} onChange={(e) => setVerifiedKYCSearch(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={pendingKYCSearch} onChange={(e) => setPendingKYCSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
@@ -151,7 +151,7 @@ export const VerifiedKYC = () =>{
                             </div>    
                           </td>
                           <td>
-                            <p className='d-inline py-2 px-3 border-radius-5px verified-kyc-1'>Verified</p>
+                            <p className='d-inline py-2 px-3 border-radius-5px pending-kyc'>Pending</p>
                           </td>
                           <td>
                             <div className="d-flex justify-content-end">
@@ -175,7 +175,7 @@ export const VerifiedKYC = () =>{
               </div>
 
 
-              {verifiedKYCLoader && (
+              {pendingKYCLoader && (
                 <div className="d-flex justify-content-center py-4">
                   <img src={spin} alt="" width='60px'/>
                 </div>  

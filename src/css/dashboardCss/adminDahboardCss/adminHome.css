@@ -26,6 +26,23 @@
     align-items: center;
 
 }
+.admin-home-user-table-img{
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    margin-right: 14px;
+}
+
+.admin-home-user-table-icon-status{
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    top: 30px;
+    left: 30px;
+
+}
 .admin-home-user-table-arrow{
     padding: 0px 11px;
 }

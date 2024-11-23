@@ -80,7 +80,7 @@ export const NotUploadedKYC = () =>{
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link to='/admin/add-deposits' className='dashboard-btn p-3'>
+                  <Link to='/admin/KYC/add' className='dashboard-btn p-3'>
                     <i class="bi bi-upload pe-3"></i>
                     Upload KYC
                   </Link>
@@ -113,7 +113,7 @@ export const NotUploadedKYC = () =>{
                         <tr key={data.id}> 
                           <td className='py-2'>
                             <div className="d-flex">
-                              <h5 className="admin-home-user-table-icon">{shortName(data.full_name)}</h5>
+                              <h6 className="admin-home-user-table-icon">{shortName(data.full_name)}</h6>
                               <div className='ms-1'>
                                 {formatName(data.full_name)} <br /> <span className="sm-text-2">{data.email}</span>
                               </div>

@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import FloatingAlert from '../../../component/alert';
-
+import spin from '../../../img/Spin.gif'
+import AllDataContext from '../../../context/Alldata';
 
 export const IndividualInvestment = () =>{
   const { authTokens, 
@@ -21,8 +22,7 @@ export const IndividualInvestment = () =>{
     disablebutton, 
     setDisablebutton,
 
-    investmentData,
-    setInvestmentData,
+
 
     messages,
     alertVisible,
@@ -34,6 +34,11 @@ export const IndividualInvestment = () =>{
 
 
   } = useContext(AuthContext)
+
+  const {
+    investmentData,
+    setInvestmentData,
+  }= useContext(AllDataContext)
 
   const navigate = useNavigate()
 
@@ -482,7 +487,7 @@ export const IndividualInvestment = () =>{
         showAlert()
         setIsSuccess(true)
         setMessage('Investment successfully deleted')
-        navigate('/admin/all-investment')
+        navigate(`${urlLink}`)
       } else {
         const errorData = await response.json()
         const errorMessages = Object.values(errorData)
@@ -715,7 +720,9 @@ export const IndividualInvestment = () =>{
           {deleteModal &&
             <section className="overlay-background">
               <div className="dashboard-modal-container">
-                <div className="dashboard-modal-content">
+                <div className="dashboard-delete-modal-content
+
+">
                   <h5>Delete Item?</h5>
                   <hr />
                   <p>This will delete the Item.</p>
@@ -737,7 +744,9 @@ export const IndividualInvestment = () =>{
           {cashoutModal &&
             <section className="overlay-background">
               <div className="dashboard-modal-container">
-                <div className="dashboard-modal-content">
+                <div className="dashboard-delete-modal-content
+
+">
                   <h5>Cashout?</h5>
                   <hr />
                   <p>This will add your interest to your balance.</p>
@@ -953,10 +962,10 @@ export const IndividualInvestment = () =>{
                         <div>
                           <div className="investment-individual-menu-container">
                             <div>
-                              {urlName === 'Pending' &&
+                              {details?.approval_status === 'pending' &&
                                 <div className="d-flex py-2 border-bottom1 ps-3 cursor-pointer" onClick={showStatusModal}>
-                                  <i class="bi bi-send-arrow-down"></i>
-                                  <p className="light-link ms-3">Update Sataus</p>
+                                  <i class="bi bi-send"></i>
+                                  <p className="light-link ms-3">Update Status</p>
                                 </div>                     
                               }
 
@@ -1342,7 +1351,11 @@ export const IndividualInvestment = () =>{
 
             </div>
           ): (
-            <div></div>
+            <div>
+              <div className="d-flex justify-content-center  align-items-center height-90vh">
+                <img src={spin} alt="" width='60px'/>
+              </div>                         
+            </div>
           )
         }
 

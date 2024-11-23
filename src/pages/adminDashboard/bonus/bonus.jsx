@@ -9,7 +9,6 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import AllDataContext from '../../../context/Alldata';
-import '../../../css/dashboardCss/adminDahboardCss/interest.css'
 import { useForm } from 'react-hook-form';
 
 export const AllBonus = () =>{
@@ -43,6 +42,9 @@ export const AllBonus = () =>{
     setBonusSearch,
     BonusFunction,
     filterBonus,
+
+    usersData,
+    UsersFunction
 
   } = useContext(AllDataContext)
 
@@ -131,11 +133,6 @@ export const AllBonus = () =>{
     }
   }
 
-  const {
-    usersData,
-    UsersFunction
-
-  } = useContext(AllDataContext)
 
 
   useEffect(() =>{
@@ -175,10 +172,10 @@ export const AllBonus = () =>{
               successs={isSuccess}
             />
           </div>
-        {addBonusModal &&
+          {addBonusModal &&
             <section className="overlay-background">
-              <div className="admin-interest-modal-conatiner">
-                <div className="admin-interest-modal-content">
+              <div className="dashboard-modal-conatiner">
+                <div className="dashboard-modal-content">
                   <div>
                     <p className='dashboard-header'> Add Bonus</p>
                   </div>
@@ -228,7 +225,7 @@ export const AllBonus = () =>{
           }
 
           <section className='py-4'>
-            <div className="d-flex justify-content-between align-items-center height-100">
+            <div className="d-block d-md-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
                   <p className='dashboard-header'>All Bonus</p>
@@ -237,8 +234,8 @@ export const AllBonus = () =>{
               </div>
 
               <div>
-                <div className='d-none d-sm-block'>
-                  <button onClick={showAddBonus} className='dashboard-btn py-3 px-4'>
+                <div className='pt-3'>
+                  <button onClick={showAddBonus} className='dashboard-btn py-2 px-3'>
                     <i class="bi bi-plus-lg pe-2"></i>
                     Add Bonus
                   </button>

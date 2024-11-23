@@ -305,7 +305,9 @@ export const PendingWithdraw = () =>{
           {showModal &&
             <section className="overlay-background">
               <div className="dashboard-modal-container">
-                <div className="dashboard-modal-content">
+                <div className="dashboard-delete-modal-content
+
+">
                   <h5>Delete Item?</h5>
                   <hr />
                   <p>This will delete the Item.</p>

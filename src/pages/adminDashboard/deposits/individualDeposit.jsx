@@ -12,7 +12,6 @@ export const IndividualDeposit = () =>{
     formatDate,
     formatCurrency,
     formatName,
-    depositCount,
 
 
   } = useContext(AuthContext)

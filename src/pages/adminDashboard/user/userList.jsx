@@ -13,13 +13,15 @@ import { selectClasses } from '@mui/material';
 import AllDataContext from '../../../context/Alldata';
 import '../../../css/dashboardCss/adminDahboardCss/kyc.css'
 
-export const VerifiedKYC = () =>{
+export const UserList = () =>{
   const {authTokens, 
     OnbodyClick,
     formatName,
     shortName,
     disablebutton, 
     setDisablebutton,
+    formatNameAllCaps,
+    formatDate,
 
 
   } = useContext(AuthContext)
@@ -28,23 +30,32 @@ export const VerifiedKYC = () =>{
   const {
 
 
-    verifiedKYCsCount,
-    verifiedKYCData,
-    verifiedKYCLoader,
-    verifiedKYCSearch, 
-    setVerifiedKYCSearch,
-    VerifiedKYCFunction,
-    filterVerifiedKYC,
+    usersCount,
+    usersData, 
+    usersDataLoader,
+    userSearch, 
+    setUserSearch,
+    UsersFunction,
+    filterUser,
 
   } = useContext(AllDataContext)
   
   useEffect(() =>{
-    if(!verifiedKYCSearch){
-      VerifiedKYCFunction()
-    }else if(verifiedKYCSearch){
-      filterVerifiedKYC()
+    if(!userSearch){
+      UsersFunction()
+    }else if(userSearch){
+      filterUser()
     }
-  }, [verifiedKYCSearch])
+  }, [userSearch])
+
+
+  const checkVerification = (status) =>{
+    if(status == 'verified'){
+      return 'Yes'
+    }else if(status == 'pending' || status == 'canceled'){
+      return 'No'
+    }
+  }
 
   const [currentPage, setCurrentPage] = useState(0)
   const [selectedDataId, setSelectedDataId] = useState(null);
@@ -52,9 +63,9 @@ export const VerifiedKYC = () =>{
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
-  const pageCount = Math.ceil(verifiedKYCData.length / dataPerPage)
+  const pageCount = Math.ceil(usersData.length / dataPerPage)
 
-  const currentData = verifiedKYCData.slice(
+  const currentData = usersData.slice(
     currentPage * dataPerPage,
     (currentPage + 1) * dataPerPage
   )
@@ -76,8 +87,8 @@ export const VerifiedKYC = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'Verified KYC')
-    localStorage.setItem('urlLink', '/admin/KYC/verified')
+    localStorage.setItem('urlName', 'All KYC')
+    localStorage.setItem('urlLink', '/admin/KYC/list')
     localStorage.setItem('IndividualData', JSON.stringify(data))
 
     if(response.ok){
@@ -102,16 +113,16 @@ export const VerifiedKYC = () =>{
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='dashboard-header'>KYCs Verified</p>
-                  <p className='light-text'>Total {verifiedKYCsCount} KYCs verified</p>
+                  <p className='dashboard-header'>Users List</p>
+                  <p className='light-text'>Total {usersCount} Users List</p>
                 </div>
               </div>
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link to='/admin/KYC/add' className='dashboard-btn p-3'>
-                    <i class="bi bi-upload pe-3"></i>
-                    Upload KYC
+                  <Link to='/admin/KYC/add' className='dashboard-btn py-2 px-3'>
+                    <i class="bi bi-person pe-3"></i>
+                    Add User
                   </Link>
                 </div>
               </div>
@@ -123,7 +134,7 @@ export const VerifiedKYC = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={verifiedKYCSearch} onChange={(e) => setVerifiedKYCSearch(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={userSearch} onChange={(e) => setUserSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
@@ -132,7 +143,8 @@ export const VerifiedKYC = () =>{
                   <thead>
                     <tr>
                       <th className='sm-text-2 py-2'>Name/ID</th>
-                      <th className='sm-text-2'>KYC Status</th>
+                      <th className='sm-text-2'>Verified</th>
+                      <th className='sm-text-2'>Registered</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -141,17 +153,42 @@ export const VerifiedKYC = () =>{
                     {currentData.length > 0 ? (
                       currentData.map((data) =>(
                         <tr key={data.id} className={selectedDataId === data.id ? 'dashboard-active-row' : ''}> 
-                          <td className='py-2'>
+                          <td className='py-3'>
                             <div className="d-flex">
-                              <h6 className="admin-home-user-table-icon">{shortName(data.users_details.full_name)}</h6>
-                              <div className='ms-1'>
-                                {formatName(data.users_details.full_name)} <br /> <span className="sm-text-2">{data.users_details.email}</span>
+                              <div>
+                                {data.profile_photo === null ? (
+                                  <div className="position-relative1">
+                                    <h6 className="admin-home-user-table-icon">{shortName(data.full_name)}</h6>
+                                    <p className={`admin-home-user-table-icon-status ${data.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
+                                  </div>
+                                  ): (
+                                    <div className="position-relative1">
+                                      <img className='admin-home-user-table-img' src={data.profile_photo} alt="" />
+                                      <p className={`admin-home-user-table-icon-status ${data.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
+                                    </div>
+
+
+                                  )
+                                } 
+                              </div>
+
+                              <div>
+                                <p>{formatName(data.full_name)}</p>
+                                <p className="sm-text-2">{data.email}</p>
                               </div>
 
                             </div>    
                           </td>
                           <td>
-                            <p className='d-inline py-2 px-3 border-radius-5px verified-kyc-1'>Verified</p>
+                            <div className="d-flex align-items-center height-100">
+                              <p className={`dashboard-dot me-2 ${data.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
+                              <p className={`d-inline py-2 sm-text ${data.status === "verified" ? "sucessfull-text" : "pending-text"} font-bold`}>{checkVerification(data.status)}</p>
+                            </div>
+
+                          </td>
+
+                          <td>
+                            <p className='d-inline py-2 '>{formatDate(data.date_joined)}</p>
                           </td>
                           <td>
                             <div className="d-flex justify-content-end">
@@ -175,7 +212,7 @@ export const VerifiedKYC = () =>{
               </div>
 
 
-              {verifiedKYCLoader && (
+              {usersDataLoader && (
                 <div className="d-flex justify-content-center py-4">
                   <img src={spin} alt="" width='60px'/>
                 </div>  

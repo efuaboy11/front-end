@@ -11,15 +11,12 @@ import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import { selectClasses } from '@mui/material';
 import AllDataContext from '../../../context/Alldata';
-import '../../../css/dashboardCss/adminDahboardCss/kyc.css'
 
-export const VerifiedKYC = () =>{
-  const {authTokens, 
+export const UnverifiedUser = () =>{
+  const { 
     OnbodyClick,
     formatName,
     shortName,
-    disablebutton, 
-    setDisablebutton,
 
 
   } = useContext(AuthContext)
@@ -28,64 +25,38 @@ export const VerifiedKYC = () =>{
   const {
 
 
-    verifiedKYCsCount,
-    verifiedKYCData,
-    verifiedKYCLoader,
-    verifiedKYCSearch, 
-    setVerifiedKYCSearch,
-    VerifiedKYCFunction,
-    filterVerifiedKYC,
+    unverifiedUserCount,
+    unverifiedUserData,
+    unverifiedUserLoader,
+    unverifiedUserSearch, 
+    setUnverfiedUserSearch,
+    UnverifiedUserFunction,
+    filterUnverifiedUser,
 
   } = useContext(AllDataContext)
   
   useEffect(() =>{
-    if(!verifiedKYCSearch){
-      VerifiedKYCFunction()
-    }else if(verifiedKYCSearch){
-      filterVerifiedKYC()
+    if(!unverifiedUserSearch){
+      UnverifiedUserFunction()
+    }else if(unverifiedUserSearch){
+      filterUnverifiedUser()
     }
-  }, [verifiedKYCSearch])
+  }, [unverifiedUserSearch])
 
   const [currentPage, setCurrentPage] = useState(0)
-  const [selectedDataId, setSelectedDataId] = useState(null);
   
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
-  const pageCount = Math.ceil(verifiedKYCData.length / dataPerPage)
+  const pageCount = Math.ceil(unverifiedUserData.length / dataPerPage)
 
-  const currentData = verifiedKYCData.slice(
+  const currentData = unverifiedUserData.slice(
     currentPage * dataPerPage,
     (currentPage + 1) * dataPerPage
   )
 
   const handlePageClick = ({selected}) =>{
     setCurrentPage(selected)
-  }
-
-  const IndividualKYC = async(id) =>{
-    setSelectedDataId(id)
-    setDisablebutton(true)
-
-    let response = await fetch(`http://127.0.0.1:8000/api/user/kyc-verification/${id}/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authTokens.access}`
-      }
-      
-    })
-    const data = await response.json()
-    localStorage.setItem('urlName', 'Verified KYC')
-    localStorage.setItem('urlLink', '/admin/KYC/verified')
-    localStorage.setItem('IndividualData', JSON.stringify(data))
-
-    if(response.ok){
-      navigate(`/admin/KYC/${data.id}`)
-      setDisablebutton(false)
-    }else{
-      setDisablebutton(false)
-    }
   }
 
 
@@ -102,16 +73,16 @@ export const VerifiedKYC = () =>{
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='dashboard-header'>KYCs Verified</p>
-                  <p className='light-text'>Total {verifiedKYCsCount} KYCs verified</p>
+                  <p className='dashboard-header'>Users Yet to Verify</p>
+                  <p className='light-text'>Total {unverifiedUserCount} users not uploaded Verification</p>
                 </div>
               </div>
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link to='/admin/KYC/add' className='dashboard-btn p-3'>
-                    <i class="bi bi-upload pe-3"></i>
-                    Upload KYC
+                  <Link to='/admin/KYC/add' className='dashboard-btn py-2 px-3'>
+                    <i class="bi bi-person  pe-3"></i>
+                    Add Users
                   </Link>
                 </div>
               </div>
@@ -123,7 +94,7 @@ export const VerifiedKYC = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={verifiedKYCSearch} onChange={(e) => setVerifiedKYCSearch(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={unverifiedUserSearch} onChange={(e) => setUnverfiedUserSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
@@ -132,33 +103,26 @@ export const VerifiedKYC = () =>{
                   <thead>
                     <tr>
                       <th className='sm-text-2 py-2'>Name/ID</th>
-                      <th className='sm-text-2'>KYC Status</th>
-                      <th></th>
+                      <th className='sm-text-2'> Status</th>
                     </tr>
                   </thead>
 
                   <tbody>
                     {currentData.length > 0 ? (
                       currentData.map((data) =>(
-                        <tr key={data.id} className={selectedDataId === data.id ? 'dashboard-active-row' : ''}> 
+                        <tr key={data.id}> 
                           <td className='py-2'>
                             <div className="d-flex">
-                              <h6 className="admin-home-user-table-icon">{shortName(data.users_details.full_name)}</h6>
+                              <h6 className="admin-home-user-table-icon">{shortName(data.full_name)}</h6>
                               <div className='ms-1'>
-                                {formatName(data.users_details.full_name)} <br /> <span className="sm-text-2">{data.users_details.email}</span>
+                                {formatName(data.full_name)} <br /> <span className="sm-text-2">{data.email}</span>
                               </div>
 
                             </div>    
                           </td>
                           <td>
-                            <p className='d-inline py-2 px-3 border-radius-5px verified-kyc-1'>Verified</p>
-                          </td>
-                          <td>
-                            <div className="d-flex justify-content-end">
-                              <button disabled={disablebutton} className='Button' onClick={() => IndividualKYC(data.id)}>
-                                <p className='dashboard-table-arrow'><i class=" bi bi-chevron-right sm-text"></i></p>
-                              </button>
-                            </div>
+                            <p className='d-inline py-1 px-3 border-radius-5px dashboard-boxes-2'>Null</p>
+
 
                           </td>
                         </tr>
@@ -175,7 +139,7 @@ export const VerifiedKYC = () =>{
               </div>
 
 
-              {verifiedKYCLoader && (
+              {unverifiedUserLoader && (
                 <div className="d-flex justify-content-center py-4">
                   <img src={spin} alt="" width='60px'/>
                 </div>  

@@ -90,12 +90,24 @@ export const AuthProvider = ({children}) =>{
           .join(" "); // Join the words back together
     };
 
+    const formatNameAllCaps = (name) => {
+        return name
+          .split(" ") // Split the name by spaces
+          .map((word) => word.toUpperCase()) // Capitalize the first letter of each word
+          .join(" "); // Join the words back together
+    };
+
     const shortName = (name) => {
         return name
           .split(" ") // Split the name by spaces
           .map((word) => word.charAt(0).toUpperCase()) // Take the first letter of each word
           .join(""); // Join the letters together
     };
+
+    const formatFirstName = (name) =>{
+        const firstName = name.split(" ")[0]
+        return firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase()
+    }
     
 
 
@@ -191,7 +203,7 @@ export const AuthProvider = ({children}) =>{
         }catch(error){
             console.log(error)
             showAlert()
-            setMessage('An unexpected error occurred. Please check your email and password.');
+            setMessage('An unexpected error occurred. Please check your email and password or contact support');
             setDisablebutton(false)
             setShowAnimation(false)
             setIsSuccess(false)
@@ -326,6 +338,8 @@ export const AuthProvider = ({children}) =>{
         formatCurrency,
         formatName,
         shortName,
+        formatFirstName,
+        formatNameAllCaps,
     }
 
     return (

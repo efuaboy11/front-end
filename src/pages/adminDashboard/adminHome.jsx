@@ -855,11 +855,27 @@ export const AdminHome = () =>{
                       <div key={user.id}>
                         <div className="d-flex justify-content-between py-3 px-3 border-bottom1">
                           <div className="d-flex">
-                            <h5 className="admin-home-user-table-icon">{shortName(user.full_name)}</h5>
+                            <div>
+                              {user.profile_photo === null ? (
+                                <div className="position-relative1">
+                                  <h6 className="admin-home-user-table-icon">{shortName(user.full_name)}</h6>
+                                  <p className={`admin-home-user-table-icon-status ${user.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
+                                </div>
+                                ): (
+                                  <div className="position-relative1">
+                                    <img className='admin-home-user-table-img' src={user.profile_photo} alt="" />
+                                    <p className={`admin-home-user-table-icon-status ${user.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
+                                  </div>
+
+
+                                )
+                              } 
+                            </div>
                             <div>
                               <p>{formatName(user.full_name)}</p>
                               <p className="sm-text-2">{user.email}</p>
                             </div>
+  
                           </div>
                           <div className="admin-home-user-table-arrow pt-1 cursor-pointer">
                             <i class="bi bi-chevron-right sm-text"></i>

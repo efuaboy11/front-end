@@ -9,7 +9,6 @@ import { faChevronLeft, faChevronRight, faX } from '@fortawesome/free-solid-svg-
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import AllDataContext from '../../../context/Alldata';
-import '../../../css/dashboardCss/adminDahboardCss/interest.css'
 import { useForm } from 'react-hook-form';
 
 export const Commission = () =>{
@@ -82,8 +81,6 @@ export const Commission = () =>{
         setStatusOverlay(false);
       }, 1000);
     }
-
-  
     return () => clearTimeout(timer);
   }, [showStatus]);
   const onSubmit = (data, e) =>{

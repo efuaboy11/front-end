@@ -68,43 +68,41 @@ export const AdminDashFrame = () =>{
   const [paymentOptionsCount, setPaymentOptionsCount] = useState(0)
 
 
-  useEffect(()=>{
-    setDepositCount(localStorage.getItem('depositCount'))
-    setSucessDepositCount(localStorage.getItem('successDespositCount'))
-    setDeclinedDepositCount(localStorage.getItem('declinedDeposit'))
-    setPendingDespositCount(localStorage.getItem('pendingDespositCount'))
+  useEffect(() => {
+    setDepositCount(localStorage.getItem('depositCount') || "0");
+    setSucessDepositCount(localStorage.getItem('successDespositCount') || "0");
+    setDeclinedDepositCount(localStorage.getItem('declinedDeposit') || "0");
+    setPendingDespositCount(localStorage.getItem('pendingDespositCount') || "0");
 
-    setWithdrawCount(localStorage.getItem('withdrawCount'))
-    setSuccessWithdrawCount(localStorage.getItem('SuccessWithdrawCount'))
-    setPendingWithdrawCount(localStorage.getItem('pendingWithdrawCount'))
-    setDeclinedWithdrawCount(localStorage.getItem('declinedWithdrawCount'))
-    
-    setInvestmentCount(localStorage.getItem('investmentCount'))
-    setActiveInvestmentCount(localStorage.getItem('activeInvestmentCount'))
-    setCompletednvestmentCount(localStorage.getItem('completedInvestmentCount'))
-    setPendingInvestmentCount(localStorage.getItem('pendingInvestmentCount'))
-    setDeclinedInvestmentCount(localStorage.getItem('declinedInvestmentCount'))
-    
-    
-    setUserCount(localStorage.getItem('usersCount'))
-    setDisableUserCount(localStorage.getItem('disableUserCount'))
-    setUserVerificationCount(localStorage.getItem('userVerificationCount'))
-    setPendingUserVerificationCount(localStorage.getItem('pendingUserVerificationCount'))
-    setCanceledUserVerificationCount(localStorage.getItem('canceledUserVerificationCount'))
-    setUnverfiedUserCount(localStorage.getItem('unverifiedUserCount'))
-    setVerifiedUserCount(localStorage.getItem('verifiedUserCount'))
-    
-    setKYCsCount(localStorage.getItem('KYCsCount'))
-    setNotUploadKYCsCount(localStorage.getItem('notUploadKYCsCount'))
-    setVerifiedKYCsCount(localStorage.getItem('verifiedKYCsCount'))
-    setCanceledKYCsCount(localStorage.getItem('canceledKYCsCount'))
-    setPendingKYCsCount(localStorage.getItem('pendingKYCsCount'))
-    
-    setEmailCount(localStorage.getItem('emailCount'))
-    setInvestmentPlanCount(localStorage.getItem('investmentPlanCount'))
-    setPaymentOptionsCount(localStorage.getItem('paymentOptionsCount'))
+    setWithdrawCount(localStorage.getItem('withdrawCount') || "0");
+    setSuccessWithdrawCount(localStorage.getItem('SuccessWithdrawCount') || "0");
+    setPendingWithdrawCount(localStorage.getItem('pendingWithdrawCount') || "0");
+    setDeclinedWithdrawCount(localStorage.getItem('declinedWithdrawCount') || "0");
 
-  }, [])
+    setInvestmentCount(localStorage.getItem('investmentCount') || "0");
+    setActiveInvestmentCount(localStorage.getItem('activeInvestmentCount') || "0");
+    setCompletednvestmentCount(localStorage.getItem('completedInvestmentCount') || "0");
+    setPendingInvestmentCount(localStorage.getItem('pendingInvestmentCount') || "0");
+    setDeclinedInvestmentCount(localStorage.getItem('declinedInvestmentCount') || "0");
+
+    setUserCount(localStorage.getItem('usersCount') || "0");
+    setDisableUserCount(localStorage.getItem('disableUserCount') || "0");
+    setUserVerificationCount(localStorage.getItem('userVerificationCount') || "0");
+    setPendingUserVerificationCount(localStorage.getItem('pendingUserVerificationCount') || "0");
+    setCanceledUserVerificationCount(localStorage.getItem('canceledUserVerificationCount') || "0");
+    setUnverfiedUserCount(localStorage.getItem('unverifiedUserCount') || "0");
+    setVerifiedUserCount(localStorage.getItem('verifiedUserCount') || "0");
+
+    setKYCsCount(localStorage.getItem('KYCsCount') || "0");
+    setNotUploadKYCsCount(localStorage.getItem('notUploadKYCsCount') || "0");
+    setVerifiedKYCsCount(localStorage.getItem('verifiedKYCsCount') || "0");
+    setCanceledKYCsCount(localStorage.getItem('canceledKYCsCount') || "0");
+    setPendingKYCsCount(localStorage.getItem('pendingKYCsCount') || "0");
+
+    setEmailCount(localStorage.getItem('emailCount') || "0");
+    setInvestmentPlanCount(localStorage.getItem('investmentPlanCount') || "0");
+    setPaymentOptionsCount(localStorage.getItem('paymentOptionsCount') || "0");
+}, []);
 
   
 
@@ -418,51 +416,51 @@ export const AdminDashFrame = () =>{
 
                 <div>
                   <ul className={` dropdown-bg ${usersDropdown ? "slide-in" : "slide-out"}`}>
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/user/disable") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Disable</Link> 
+                        <Link className='dashboard-link' to="/admin/user/disable" onClick={OnbodyClick}>Disable</Link> 
                         <p className='ps-3'>({disableUserCount})</p>
                       </div>
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/user-verification") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Users Verifiaction</Link> 
+                      <Link className='dashboard-link' to="/admin/user-verification" onClick={OnbodyClick}>Users Verifiaction</Link> 
                         <p className='ps-3'>({userVerificationCount})</p>
                       </div>
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/user-verification/pending") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Pending</Link> 
+                      <Link className='dashboard-link' to="/admin/user-verification/pending" onClick={OnbodyClick}>Pending</Link> 
                         <p className='ps-3'>({pendingUserVerificationCount})</p>
                       </div>
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/user-verification/verified") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Verified Users</Link> 
+                        <Link className='dashboard-link' to="/admin/user-verification/verified" onClick={OnbodyClick}>Verified Users</Link> 
                         <p className='ps-3'>({verifiedUserCount})</p>
                       </div>       
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/user-verification/canceled") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Canceled Verification</Link> 
+                        <Link className='dashboard-link' to="/admin/user-verification/canceled" onClick={OnbodyClick}>Canceled Verification</Link> 
                         <p className='ps-3'>({canceledUserVerificationCount})</p>
                       </div>       
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/user-verification/unverified") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Unverified</Link> 
+                        <Link className='dashboard-link' to="/admin/user-verification/unverified" onClick={OnbodyClick}>Unverified</Link> 
                         <p className='ps-3'>({unverifiedUserCount})</p>
                       </div>
                      
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Users List</Link> 
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/user/list") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/user/list" onClick={OnbodyClick}>Users List</Link> 
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
@@ -510,28 +508,28 @@ export const AdminDashFrame = () =>{
                       </div>
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/KYC/rejected") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Rejected</Link> 
+                        <Link className='dashboard-link' to="/admin/KYC/rejected" onClick={OnbodyClick}>Rejected</Link> 
                         <p className='ps-3'>({canceledKYCsCount})</p>
                       </div>
                      
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/KYC/pending") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Pending</Link> 
+                        <Link className='dashboard-link' to="/admin/KYC/pending" onClick={OnbodyClick}>Pending</Link> 
                         <p className='ps-3'>({pendingKYCsCount})</p>
                       </div>
                      
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>KYCs List</Link> 
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/KYC/list") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/KYC/list" onClick={OnbodyClick}>KYCs List</Link> 
                     </li>
 
-                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
+                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/KYC/add") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/KYC/add" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>

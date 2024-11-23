@@ -9,7 +9,6 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import AllDataContext from '../../../context/Alldata';
-import '../../../css/dashboardCss/adminDahboardCss/interest.css'
 import { useForm } from 'react-hook-form';
 
 export const AllInterest = () =>{
@@ -180,8 +179,8 @@ export const AllInterest = () =>{
           </div>
         {addInterestModal &&
             <section className="overlay-background">
-              <div className="admin-interest-modal-conatiner">
-                <div className="admin-interest-modal-content">
+              <div className="dashboard-modal-conatiner">
+                <div className="dashboard-modal-content">
                   <div>
                     <p className='dashboard-header'> Add Interest</p>
                   </div>
@@ -237,7 +236,7 @@ export const AllInterest = () =>{
           }
 
           <section className='py-4'>
-            <div className="d-flex justify-content-between align-items-center height-100">
+            <div className="d-block d-md-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
                   <p className='dashboard-header'>All Interest</p>
@@ -246,8 +245,8 @@ export const AllInterest = () =>{
               </div>
 
               <div>
-                <div className='d-none d-sm-block'>
-                  <button onClick={showAddIntrest} className='dashboard-btn p-3'>
+                <div className='pt-3'>
+                  <button onClick={showAddIntrest} className='dashboard-btn py-2 px-3'>
                     <i class="bi bi-plus-lg pe-2"></i>
                     Add Interest
                   </button>

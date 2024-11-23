@@ -13,10 +13,7 @@
   font-size: 40px;
 }
 
-.verified-kyc-1{
-  background-color: #1F4529;
-  border: 1px solid #00712D;
-}
+
 
 
 .dashboard-boxes-2{
@@ -27,6 +24,8 @@
     background-color: #1D1D1D;
     border: 1px solid #404040;
 }
+
+
 
 .dashboard-input{
   border: 1px solid #404040;
@@ -244,7 +243,34 @@
   border-radius: 0px 15px;
 }
 
-.dashboard-modal-conatiner{
+.dashboard-modal-conatiner
+{
+  position: fixed; 
+  z-index: 1000000; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+}
+
+.dashboard-modal-content
+{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #1D1D1D;
+  border: 1px solid #404040;
+  border-radius: 5px;
+  width:90%;
+  max-width: 700px;
+  min-height: 250px;
+  color: inherit;
+}
+
+.dashboard-delete-modal-conatiner
+{
   /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 100000; /* Sit on top */
@@ -255,10 +281,12 @@
   overflow: auto; /* Enable scroll if needed */
 }
 
-.dashboard-modal-content{
+.dashboard-delete-modal-content
+
+{
   position: absolute;
   top: 40%;
-  left: 55%;
+  left: 50%;
   transform: translate(-50%, -50%);
   background-color: #1D1D1D;
   padding: 20px;
@@ -311,6 +339,13 @@
 }
 .dashboard-update-status-input{
   width: 100%;
+}
+
+.dashboard-dot{
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: #347928;
 }
 
 

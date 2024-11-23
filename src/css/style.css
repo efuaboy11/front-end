@@ -128,6 +128,25 @@ ul,  li{
   background-color: #6482AD;
 }
 
+.sucessfull-bg{
+  background-color: #347928;
+}
+
+.sucessfull-text{
+  color: #347928;
+
+}
+
+.failed-text{
+  color: #CD1818;
+
+}
+
+.pending-text{
+  color: #FD8D14;
+}
+
+
 
 .border-radius-50{
   border-radius: 50%;
@@ -164,6 +183,9 @@ ul,  li{
 
 .height-100{
   height: 100%;
+}
+.height-90vh{
+  height: 90vh;
 }
 .box-shadow{
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
