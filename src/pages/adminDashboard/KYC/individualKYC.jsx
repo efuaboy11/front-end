@@ -11,6 +11,7 @@ import FloatingAlert from '../../../component/alert';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 
 export const IndividualKYC = () =>{
@@ -238,7 +239,8 @@ export const IndividualKYC = () =>{
       <div className="position-sticky1">
         <AdminDashFrame />
       </div>
-      <div className="main-content" onClick={OnbodyClick}>
+
+      <div className="main-content pb-5" onClick={OnbodyClick}>
         <div>
           <FloatingAlert
             message={messages}
@@ -450,6 +452,10 @@ export const IndividualKYC = () =>{
           </div>
         )}
 
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

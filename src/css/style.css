@@ -110,6 +110,10 @@ ul,  li{
   color: #fff;
 }
 
+.purple-text{
+  color: #4A249D;
+}
+
 .sucessfull{
   background-color: #1E5128;
 
@@ -280,6 +284,8 @@ ul,  li{
   padding: 0px;
   margin: 0px;
 }
+
+
 
 .Button:disabled{
   cursor: not-allowed;

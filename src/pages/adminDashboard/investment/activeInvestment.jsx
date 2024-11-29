@@ -11,6 +11,7 @@ import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import { selectClasses } from '@mui/material';
 import AllDataContext from '../../../context/Alldata';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const ActiveInvestment = () =>{
   const { authTokens, 
@@ -138,7 +139,7 @@ export const ActiveInvestment = () =>{
       </div>
 
       <div className="main-content" onClick={OnbodyClick}>
-        <div className="container-xl">
+        <div className="container-xl pb-5">
 
           <div>
             <FloatingAlert
@@ -262,6 +263,10 @@ export const ActiveInvestment = () =>{
 
           </section>
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

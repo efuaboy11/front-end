@@ -6,6 +6,7 @@ import FloatingAlert from '../../../component/alert';
 import { useForm } from 'react-hook-form';
 import { LoadingSpiner } from '../../../component/spin';
 import AllDataContext from '../../../context/Alldata';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const AddInvestment = () =>{
 
@@ -259,6 +260,10 @@ export const AddInvestment = () =>{
 
 
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

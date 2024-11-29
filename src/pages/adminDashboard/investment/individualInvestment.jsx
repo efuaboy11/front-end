@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import AllDataContext from '../../../context/Alldata';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const IndividualInvestment = () =>{
   const { authTokens, 
@@ -707,7 +708,7 @@ export const IndividualInvestment = () =>{
 
 
 
-      <div className="main-content " onClick={OnbodyClick}>
+      <div className="main-content pb-5" onClick={OnbodyClick}>
         <section>
           <div>
             <FloatingAlert
@@ -1360,6 +1361,10 @@ export const IndividualInvestment = () =>{
         }
 
 
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

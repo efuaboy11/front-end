@@ -10,6 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import AllDataContext from '../../../context/Alldata';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const CompeletedInvestment = () =>{
   const { authTokens, 
@@ -138,7 +139,7 @@ export const CompeletedInvestment = () =>{
       </div>
 
       <div className="main-content" onClick={OnbodyClick}>
-        <div className="container-xl">
+        <div className="container-xl pb-5">
 
           <div>
             <FloatingAlert
@@ -260,6 +261,10 @@ export const CompeletedInvestment = () =>{
 
           </section>
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

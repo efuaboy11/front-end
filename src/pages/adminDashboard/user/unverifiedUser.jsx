@@ -11,6 +11,7 @@ import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import { selectClasses } from '@mui/material';
 import AllDataContext from '../../../context/Alldata';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const UnverifiedUser = () =>{
   const { 
@@ -68,7 +69,7 @@ export const UnverifiedUser = () =>{
       </div>
 
       <div className="main-content" onClick={OnbodyClick}>
-        <div className="container-xl">
+        <div className="container-xl pb-5">
           <section className='py-4'>
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
@@ -165,6 +166,10 @@ export const UnverifiedUser = () =>{
 
           </section>
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

@@ -12,6 +12,7 @@ import spin from '../../../img/Spin.gif'
 import { selectClasses } from '@mui/material';
 import AllDataContext from '../../../context/Alldata';
 import '../../../css/dashboardCss/adminDahboardCss/kyc.css'
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const KYCList = () =>{
   const {authTokens, 
@@ -106,7 +107,7 @@ export const KYCList = () =>{
       </div>
 
       <div className="main-content" onClick={OnbodyClick}>
-        <div className="container-xl">
+        <div className="container-xl pb-5">
           <section className='py-4'>
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
@@ -210,6 +211,10 @@ export const KYCList = () =>{
 
           </section>
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

@@ -9,6 +9,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import AllDataContext from '../../../context/Alldata';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const DeclinedDeposit = () =>{
   const { authTokens, 
@@ -113,6 +114,31 @@ export const DeclinedDeposit = () =>{
 
   }
 
+  const IndividualUser = async(id) =>{
+    setSelectedDataId(id)
+    setDisablebutton(true)
+
+    let response = await fetch(`http://127.0.0.1:8000/api/user-profile/admin/${id}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+      
+    })
+    const data = await response.json()
+    localStorage.setItem('urlName', 'Users')
+    localStorage.setItem('urlLink', '/admin/user/list')
+    localStorage.setItem('IndividualUserData', JSON.stringify(data))
+
+    if(response.ok){
+      navigate(`/admin/user/${data.id}`)
+      setDisablebutton(false)
+    }else{
+      setDisablebutton(false)
+    }
+  }
+
   const showDeleteModal = () => {
     setShowModal(true)
     setShowDropdownMenu(false)
@@ -190,7 +216,7 @@ export const DeclinedDeposit = () =>{
       </div>
 
       <div className="main-content" onClick={OnbodyClick}>
-        <div className="container-xl">
+        <div className="container-xl pb-5">
 
           <div>
             <FloatingAlert
@@ -299,14 +325,14 @@ export const DeclinedDeposit = () =>{
                               {(selectedDataId === data.id && showDropdownMenu) && (
                                 <div className={`dashboard-table-menu ${(data.id === lastData?.id || data.id === secondToLastData?.id)? 'dashboard-table-menu-up': 'dashboard-table-menu-down'}`}>
                                   <div>
-                                    <p onClick={IndividualDeposit} className='dashboard-table-menu-btn cursor-pointer'>
-                                      <button disabled={disablebutton} className='Button py-2 '>
+                                    <p  className='dashboard-table-menu-btn cursor-pointer'>
+                                      <button onClick={IndividualDeposit} disabled={disablebutton} className='Button py-2 '>
                                         <i class="bi bi-eye-fill pe-1"></i> View Details
                                       </button>
 
                                     </p>
                                     <p className='dashboard-table-menu-btn cursor-pointer'>
-                                      <button disabled={disablebutton} className='Button py-2'>
+                                      <button onClick={() => IndividualUser(data.user)} disabled={disablebutton} className='Button py-2'>
                                         <i class="bi bi-person pe-1"></i> User Profile
                                       </button>
                                     </p>
@@ -358,6 +384,10 @@ export const DeclinedDeposit = () =>{
 
           </section>
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

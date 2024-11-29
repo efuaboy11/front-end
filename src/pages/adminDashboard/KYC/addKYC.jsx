@@ -6,6 +6,7 @@ import FloatingAlert from '../../../component/alert';
 import { useForm } from 'react-hook-form';
 import { LoadingSpiner } from '../../../component/spin';
 import AllDataContext from '../../../context/Alldata';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const AddKYC = () =>{
 
@@ -170,7 +171,7 @@ export const AddKYC = () =>{
         <AdminDashFrame />
       </div>
 
-      <div className="main-content" onClick={OnbodyClick}>
+      <div className="main-content pb-5" onClick={OnbodyClick}>
         <div className="container-xl">
 
           {loader &&
@@ -278,8 +279,8 @@ export const AddKYC = () =>{
                         <select className={`${errors.status ? 'error-input' : ''} dashboard-input`} {...register('status', {required: true})} type="text"   value={status} onChange={(e) => setStatus(e.target.value)}>
                           <option></option>
                           <option value='pending'>Pending</option>
-                          <option value='declined'>Declined</option>
-                          <option value='successful'>Successful</option>
+                          <option value='canceled'>Reject</option>
+                          <option value='verified'>Approve</option>
                         </select>
                         {errors.status && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
@@ -304,6 +305,10 @@ export const AddKYC = () =>{
 
 
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

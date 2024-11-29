@@ -46,6 +46,7 @@ import { CanceledUserVerification } from './pages/adminDashboard/user/canceledUs
 import { VerifiedUser } from './pages/adminDashboard/user/verifiedUser';
 import { UnverifiedUser } from './pages/adminDashboard/user/unverifiedUser';
 import { UserList } from './pages/adminDashboard/user/userList';
+import { UserDetails } from './pages/adminDashboard/user/userDetails';
 
 
 function App() {
@@ -113,6 +114,7 @@ function App() {
 
           {/* User */}
           <Route path="/admin/user/list" element={<UserList/>} />
+          <Route path="/admin/user/:id" element={<UserDetails/>} />
           <Route path="/admin/user/disable" element={<DisableUser/>} />
           <Route path="/admin/user-verification" element={<UserVerification/>} />
           <Route path="/admin/user-verification/pending" element={<PendingUserVerification/>} />

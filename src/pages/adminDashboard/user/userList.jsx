@@ -12,6 +12,7 @@ import spin from '../../../img/Spin.gif'
 import { selectClasses } from '@mui/material';
 import AllDataContext from '../../../context/Alldata';
 import '../../../css/dashboardCss/adminDahboardCss/kyc.css'
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const UserList = () =>{
   const {authTokens, 
@@ -74,11 +75,11 @@ export const UserList = () =>{
     setCurrentPage(selected)
   }
 
-  const IndividualKYC = async(id) =>{
+  const IndividualUser = async(id) =>{
     setSelectedDataId(id)
     setDisablebutton(true)
 
-    let response = await fetch(`http://127.0.0.1:8000/api/user/kyc-verification/${id}/`, {
+    let response = await fetch(`http://127.0.0.1:8000/api/user-profile/admin/${id}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -87,12 +88,12 @@ export const UserList = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'All KYC')
-    localStorage.setItem('urlLink', '/admin/KYC/list')
-    localStorage.setItem('IndividualData', JSON.stringify(data))
+    localStorage.setItem('urlName', 'Users')
+    localStorage.setItem('urlLink', '/admin/user/list')
+    localStorage.setItem('IndividualUserData', JSON.stringify(data))
 
     if(response.ok){
-      navigate(`/admin/KYC/${data.id}`)
+      navigate(`/admin/user/${data.id}`)
       setDisablebutton(false)
     }else{
       setDisablebutton(false)
@@ -108,7 +109,7 @@ export const UserList = () =>{
       </div>
 
       <div className="main-content" onClick={OnbodyClick}>
-        <div className="container-xl">
+        <div className="container-xl pb-5">
           <section className='py-4'>
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
@@ -192,7 +193,7 @@ export const UserList = () =>{
                           </td>
                           <td>
                             <div className="d-flex justify-content-end">
-                              <button disabled={disablebutton} className='Button' onClick={() => IndividualKYC(data.id)}>
+                              <button disabled={disablebutton} className='Button' onClick={() => IndividualUser(data.id)}>
                                 <p className='dashboard-table-arrow'><i class=" bi bi-chevron-right sm-text"></i></p>
                               </button>
                             </div>
@@ -238,6 +239,10 @@ export const UserList = () =>{
 
           </section>
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter/>
       </div>
 
 

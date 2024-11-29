@@ -4,6 +4,7 @@ import { AdminDashFrame } from '../../../component/adminDashFrame';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import pic from '../../../img/Spin.gif'
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 
 export const IndividualWithdraw = () =>{
@@ -40,7 +41,7 @@ export const IndividualWithdraw = () =>{
 
       <div className="main-content" onClick={OnbodyClick}>
 
-        <div className="container-xl">
+        <div className="container-xl  pb-5 mb-5">
           <div className="row justify-content-center">
             <div className="col-md-11 col-xl-10">
               <div className="pt-4 pb-2">
@@ -149,6 +150,10 @@ export const IndividualWithdraw = () =>{
           </div>
 
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

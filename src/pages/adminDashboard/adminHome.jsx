@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faBan, faChartLine, faCircleDollarToSlot, faCreditCard,  faHandHoldingDollar, faMailBulk, faMoneyBillTransfer} from "@fortawesome/free-solid-svg-icons"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect} from "react";
 import AuthContext from "../../context/AuthContext";
 import '../../css/dashboardCss/dashboard.css'
@@ -11,6 +11,7 @@ import headerPic from '../../img/headerPic.png'
 import { DepositBarChart, KYCDoughnutChart, UserChart, WithdrawtBarChart } from "../../component/chatFrame";
 import spin from '../../img/Spin.gif'
 import AllDataContext from '../../context/Alldata';
+import { DashboardFooter } from '../../component/dashbaordFooter';
 export const AdminHome = () =>{
   const [timeofDay, setTimeOfDay] = useState('')
 
@@ -24,6 +25,8 @@ export const AdminHome = () =>{
   const [showDeclinedWithdraw, setShowDeclinedWithdraw] = useState(false)
   const [showSuccessfulWithdraw, setShowSuccessfulWithdraw] = useState(false) 
 
+
+  const navigate  = useNavigate()
   const toggleShowDeposit = () =>{
     if(!showDeposit){
       setShowDeposit(!showDeposit)
@@ -123,15 +126,41 @@ export const AdminHome = () =>{
 
 
 
-  const {  
+  const {authTokens,
     OnbodyClick,
     formatDate,
     formatCurrency,
     formatName,
     shortName,
+    disablebutton, 
+    setDisablebutton,
 
 
   } = useContext(AuthContext)
+
+  const IndividualUser = async(id) =>{
+    setDisablebutton(true)
+
+    let response = await fetch(`http://127.0.0.1:8000/api/user-profile/admin/${id}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+      
+    })
+    const data = await response.json()
+    localStorage.setItem('urlName', 'Users')
+    localStorage.setItem('urlLink', '/admin/user/list')
+    localStorage.setItem('IndividualUserData', JSON.stringify(data))
+
+    if(response.ok){
+      navigate(`/admin/user/${data.id}`)
+      setDisablebutton(false)
+    }else{
+      setDisablebutton(false)
+    }
+  }
 
 
 
@@ -320,7 +349,7 @@ export const AdminHome = () =>{
         <AdminDashFrame />
       </div>
       <div className="main-content" onClick={OnbodyClick}>
-        <div className="container-xl">
+        <div className="container-xl pb-5 mb-3">
           <section>
             <div className="d-flex justify-content-between align-items-center admin-home-header">
               <div>
@@ -877,8 +906,11 @@ export const AdminHome = () =>{
                             </div>
   
                           </div>
-                          <div className="admin-home-user-table-arrow pt-1 cursor-pointer">
-                            <i class="bi bi-chevron-right sm-text"></i>
+
+                          <div className='admin-home-user-table-arrow pt-1'>
+                            <button onClick={() => IndividualUser(user.id)} disabled={disablebutton} className="Button">
+                              <i class="bi bi-chevron-right sm-text"></i>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -940,10 +972,13 @@ export const AdminHome = () =>{
 
 
   
-        </div>
-
-        
+        </div>   
       </div>
+
+      <div>
+        <DashboardFooter />
+      </div>
+    
     
     </div> 
   )

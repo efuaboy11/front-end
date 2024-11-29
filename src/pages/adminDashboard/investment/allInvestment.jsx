@@ -10,6 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import AllDataContext from '../../../context/Alldata';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const AllInvestment = () =>{
   const { authTokens, 
@@ -54,9 +55,7 @@ export const AllInvestment = () =>{
 
   const [currentPage, setCurrentPage] = useState(0)
   const [selectedDataId, setSelectedDataId] = useState(null);
-  const [showModal, setShowModal] = useState(false)
-  const [loader, setLoader] = useState(false)
-  
+
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
@@ -136,7 +135,7 @@ export const AllInvestment = () =>{
       </div>
 
       <div className="main-content" onClick={OnbodyClick}>
-        <div className="container-xl">
+        <div className="container-xl pb-5">
 
           <div>
             <FloatingAlert
@@ -260,6 +259,10 @@ export const AllInvestment = () =>{
 
           </section>
         </div>
+      </div>
+
+      <div>
+        <DashboardFooter />
       </div>
 
 

@@ -352,7 +352,25 @@
 
 
 
+.dashboard-footer{
+  margin-left: 300px;
+  position: fixed;
+  bottom: 0px;
+  background-color: #1D1D1D;
+  border-top: 1px solid #404040;
+  z-index: 100;
+  width: 100%;
+  padding: 20px;
+  color: #D8D8D8;
+}
 
+@media screen and (max-width: 1200px){
+  .dashboard-footer{
+    margin-left: 0px;
+
+  }
+
+}
 
 
 

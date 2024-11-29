@@ -13,6 +13,7 @@ import { selectClasses } from '@mui/material';
 import AllDataContext from '../../../context/Alldata';
 import '../../../css/dashboardCss/adminDahboardCss/kyc.css'
 import { useForm } from 'react-hook-form';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const CanceledUserVerification = () =>{
   const {authTokens, 
@@ -299,7 +300,7 @@ export const CanceledUserVerification = () =>{
       </div>
 
       <div className="main-content" onClick={OnbodyClick}>
-        <div className="container-xl">
+        <div className="container-xl pb-5">
         <div>
             <FloatingAlert
               message={messages}
@@ -509,6 +510,9 @@ export const CanceledUserVerification = () =>{
 
           </section>
         </div>
+      </div>
+      <div>
+        <DashboardFooter />
       </div>
 
 
