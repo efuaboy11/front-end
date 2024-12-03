@@ -458,13 +458,16 @@ export const AdminDashFrame = () =>{
                       </div>
                      
                     </li>
+                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/user-verification/add") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/user-verification/add" onClick={OnbodyClick}>Upload Verification</Link> 
+                    </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/user/list") ?"active-dash-link": ""}`}>
                       <Link className='dashboard-link' to="/admin/user/list" onClick={OnbodyClick}>Users List</Link> 
                     </li>
 
-                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
+                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/user/add") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/user/add" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
@@ -540,10 +543,10 @@ export const AdminDashFrame = () =>{
               </li>
 
               <li className='pb-3'>
-                <Link className='dashboard-link'>
+                <Link to='/admin/funds-account/' className='dashboard-link'>
                   <div className="d-flex ps-3">
                     <FontAwesomeIcon className='sm-text pt-1 me-3' icon={faSackDollar}/>
-                    <p className='pt-1'>Fund Account</p>
+                    <p className='pt-1'>Funds Account</p>
                   </div>
                 </Link>
               </li>
@@ -593,7 +596,7 @@ export const AdminDashFrame = () =>{
               </li>
 
               <li className='pb-3'>
-                <Link className='dashboard-link' onClick={OnbodyClick}>
+                <Link to='/admin/blackList-ip/' className='dashboard-link' onClick={OnbodyClick}>
                   <div className="d-flex ps-3">
                     <FontAwesomeIcon className='sm-text pt-1 me-3' icon={faBan}/>
                     <p className='pt-1'>Blacklist IP</p>
@@ -602,7 +605,7 @@ export const AdminDashFrame = () =>{
               </li>
 
               <li className='pb-3'>
-                <Link className='dashboard-link' onClick={OnbodyClick}>
+                <Link to='/admin/news-letter/' className='dashboard-link' onClick={OnbodyClick}>
                   <div className="d-flex ps-3">
                     <FontAwesomeIcon className='sm-text pt-1 me-3' icon={faEnvelopesBulk}/>
                     <p className='pt-1'>Newsletter Subscribers</p>

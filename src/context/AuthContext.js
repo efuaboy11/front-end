@@ -86,7 +86,7 @@ export const AuthProvider = ({children}) =>{
     const formatName = (name) => {
         return name
           .split(" ") // Split the name by spaces
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word
           .join(" "); // Join the words back together
     };
 

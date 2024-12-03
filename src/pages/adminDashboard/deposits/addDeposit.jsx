@@ -188,7 +188,7 @@ export const AddDeposit = () =>{
                     <div className='row g-3'>
                       <div className="col-sm-6">
                         <label htmlFor="" className="p-2">Add to Account</label>
-                        <select className={`${errors.user ? 'error-input' : ''} dashboard-input`} {...register('user', {required: true})} type="text"   value={user} onChange={(e) => setUser(e.target.value)}>
+                        <select className={`${errors.user ? 'error-input' : ''} dashboard-input cursor-pointer`} {...register('user', {required: true})} type="text"   value={user} onChange={(e) => setUser(e.target.value)}>
                           <option></option>
                           {usersData.map((data) =>(
 

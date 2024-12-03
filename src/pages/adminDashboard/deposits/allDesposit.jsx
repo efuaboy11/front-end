@@ -98,7 +98,7 @@ export const AllDeposit = () =>{
     localStorage.setItem('IndividualDepsoit', JSON.stringify(data))
 
     if (response.ok){
-      navigate(`/admin/all-deposits/${data.id}`)
+      navigate(`/admin/all-deposits/${data.transaction_id}`)
       setDisablebutton(false)
     }else{
       setDisablebutton(false)

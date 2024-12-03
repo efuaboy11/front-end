@@ -718,12 +718,12 @@ export const IndividualInvestment = () =>{
               successs={isSuccess}
             />
           </div>
+
+          
           {deleteModal &&
             <section className="overlay-background">
               <div className="dashboard-modal-container">
-                <div className="dashboard-delete-modal-content
-
-">
+                <div className="dashboard-delete-modal-content">
                   <h5>Delete Item?</h5>
                   <hr />
                   <p>This will delete the Item.</p>
@@ -745,9 +745,7 @@ export const IndividualInvestment = () =>{
           {cashoutModal &&
             <section className="overlay-background">
               <div className="dashboard-modal-container">
-                <div className="dashboard-delete-modal-content
-
-">
+                <div className="dashboard-delete-modal-content">
                   <h5>Cashout?</h5>
                   <hr />
                   <p>This will add your interest to your balance.</p>

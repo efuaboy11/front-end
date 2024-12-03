@@ -118,7 +118,7 @@ export const AllInvestment = () =>{
 
     if (response.ok){
       const interestData = await InvestmentIntrest(data.user, data.investment_id);
-      navigate(`/admin/all-investment/${data.id}`)
+      navigate(`/admin/all-investment/${data.investment_id}`)
       setDisablebutton(false)
 
     }else{

@@ -47,6 +47,11 @@ import { VerifiedUser } from './pages/adminDashboard/user/verifiedUser';
 import { UnverifiedUser } from './pages/adminDashboard/user/unverifiedUser';
 import { UserList } from './pages/adminDashboard/user/userList';
 import { UserDetails } from './pages/adminDashboard/user/userDetails';
+import { AddUserAdmin } from './pages/adminDashboard/user/addUser';
+import { UploadVerification } from './pages/adminDashboard/user/uploadUserVerification';
+import { FundsAccount } from './pages/adminDashboard/fundsAccount/fundsAccount';
+import { BlackListIp } from './pages/adminDashboard/blackListIP/blackListIP';
+import { NewsLetter } from './pages/adminDashboard/newsLetter/newsLetter';
 
 
 function App() {
@@ -121,6 +126,17 @@ function App() {
           <Route path="/admin/user-verification/canceled" element={<CanceledUserVerification/>} />
           <Route path="/admin/user-verification/verified" element={<VerifiedUser/>} />
           <Route path="/admin/user-verification/unverified" element={<UnverifiedUser/>} />
+          <Route path="/admin/user-verification/add" element={<UploadVerification/>} />
+          <Route path="/admin/user/add" element={<AddUserAdmin/>} />
+
+          {/* Funds account */}
+          <Route path="/admin/funds-account/" element={<FundsAccount/>} />
+
+          {/* BlackList Ip */}
+          <Route path="/admin/blackList-ip/" element={<BlackListIp/>} />
+
+          {/* NewsLetter */}
+          <Route path="/admin/news-letter/" element={<NewsLetter/>} />
         </Routes>
         </AllDataProvider>
       </AuthProvider>

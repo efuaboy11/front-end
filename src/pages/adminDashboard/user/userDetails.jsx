@@ -769,7 +769,7 @@ export const UserDetails = () =>{
 
                           <section className='py-3 px-4 border-bottom1'>
                             <h5>Personal Information</h5>
-                            {details.user_verification !== 0 ? (
+                            {details.user_verification.length !== 0 ? (
                               <div className="row pt-4 gx-5">
                                 <div className="col-lg-5 col-md-6 ">
                                   <div className="d-flex justify-content-between pb-3">
@@ -839,7 +839,7 @@ export const UserDetails = () =>{
 
                           <section className='py-3 px-4'>
                             <h5>Contact Information</h5>
-                            {details.user_verification !== 0 ? (
+                            {details.user_verification.length !== 0 ? (
                               <div className="row pt-4 gx-5">
                                 <div className="col-lg-5 col-md-6 ">
                                   <div className="d-flex justify-content-between pb-3">
@@ -1081,98 +1081,111 @@ export const UserDetails = () =>{
 
                       {KYCInformation && 
                         <div>
-                          <section className='py-5'>
-                            <div className="row gx-4 gy-5 justify-content-center">
-                              <div className="col-md-5 col-11">
-                                <div>
-                                  <p className='font-bold sm-text pb-3'>Document Info</p>
-                                  <div className="dashboard-boxes border-radius-5px px-2">
-                                    <div className="row align-items-center height-100  gx-3 border-bottom1 py-2">
-                                      <div className="col-6 ps-4">
-                                        <p>Submitted By:</p>
-                                      </div>
-            
-                                      <div className="col-6">
-                                        <div className='d-flex align-items-center height-100'>
-                                          <h6 className="admin-home-user-icon me-2">{shortName(details.kyc_verification.users_details.full_name)}</h6>
-                                          <p className='font-bold'>{formatName(details.kyc_verification.users_details.full_name)}</p>
+                          {details.kyc_verification.length !== 0 ? (
+                            <div>
+                              <section className='py-5'>
+                                <div className="row gx-4 gy-5 justify-content-center">
+                                  <div className="col-md-5 col-11">
+                                    <div>
+                                      <p className='font-bold sm-text pb-3'>Document Info</p>
+                                      <div className="dashboard-boxes border-radius-5px px-2">
+                                        <div className="row align-items-center height-100  gx-3 border-bottom1 py-2">
+                                          <div className="col-6 ps-4">
+                                            <p>Submitted By:</p>
+                                          </div>
+                
+                                          <div className="col-6">
+                                            <div className='d-flex align-items-center height-100'>
+                                              <h6 className="admin-home-user-icon me-2">{shortName(details.kyc_verification.users_details.full_name)}</h6>
+                                              <p className='font-bold'>{formatName(details.kyc_verification.users_details.full_name)}</p>
+                                            </div>
+                                          </div>
                                         </div>
+                                        <div className="row align-items-center height-100 gx-3  border-bottom1 py-2">
+                                          <div className="col-6 ps-4">
+                                            <p>Submitted At:</p>
+                                          </div>
+                
+                                          <div className="col-6">
+                                            <p>{formatDate(details.kyc_verification.created_at)}</p>
+                                          </div>
+                                        </div>
+                
+                                        <div className="row align-items-center height-100 gx-3  border-bottom1 py-2">
+                                          <div className="col-6 ps-4">
+                                            <p>Status:</p>
+                                          </div>
+                
+                                          <div className="col-6">
+                                            <p className={`${details.kyc_verification.status === "verified" ? "sucessfull-text": ""} ${details.status === "pending" ? "pending-text": ""}  ${details.status === "canceled" ? "failed-text": ""} font-bold`}>{formatNameAllCaps(checkCanceled(details.kyc_verification.status))}</p>
+                                          </div>
+                                        </div>
+                
+                                        <div className="row align-items-center height-100 gx-3  border-bottom1 py-2">
+                                          <div className="col-6 ps-4">
+                                            <p>Document Type:</p>
+                                          </div>
+                
+                                          <div className="col-6">
+                                            <p>{formatName(details.kyc_verification.document_type)}</p>
+                                          </div>
+                                        </div>
+                
+                                        <div className="row align-items-center height-100 gx-3  py-2">
+                                          <div className="col-6 ps-4">
+                                            <p>Country of Issuance:</p>
+                                          </div>
+                
+                                          <div className="col-6">
+                                            <p>{formatName(details.kyc_verification.country)}</p>
+                                          </div>
+                                        </div>
+                
                                       </div>
                                     </div>
-                                    <div className="row align-items-center height-100 gx-3  border-bottom1 py-2">
-                                      <div className="col-6 ps-4">
-                                        <p>Submitted At:</p>
-                                      </div>
-            
-                                      <div className="col-6">
-                                        <p>{formatDate(details.kyc_verification.created_at)}</p>
-                                      </div>
-                                    </div>
-            
-                                    <div className="row align-items-center height-100 gx-3  border-bottom1 py-2">
-                                      <div className="col-6 ps-4">
-                                        <p>Status:</p>
-                                      </div>
-            
-                                      <div className="col-6">
-                                        <p className={`${details.kyc_verification.status === "verified" ? "sucessfull-text": ""} ${details.status === "pending" ? "pending-text": ""}  ${details.status === "canceled" ? "failed-text": ""} font-bold`}>{formatNameAllCaps(checkCanceled(details.kyc_verification.status))}</p>
+                                  </div>
+                
+                                  <div className="col-md-5 col-11">
+                                  <p className='font-bold sm-text pb-3'>Proof / Selfie</p>
+                                    <div className="dashboard-boxes border-radius-5px">
+                                      <div className="p-3">
+                                        <img width="100%" src={details.kyc_verification.proof_selfie} alt="" />
                                       </div>
                                     </div>
-            
-                                    <div className="row align-items-center height-100 gx-3  border-bottom1 py-2">
-                                      <div className="col-6 ps-4">
-                                        <p>Document Type:</p>
-                                      </div>
-            
-                                      <div className="col-6">
-                                        <p>{formatName(details.kyc_verification.document_type)}</p>
-                                      </div>
-                                    </div>
-            
-                                    <div className="row align-items-center height-100 gx-3  py-2">
-                                      <div className="col-6 ps-4">
-                                        <p>Country of Issuance:</p>
-                                      </div>
-            
-                                      <div className="col-6">
-                                        <p>{formatName(details.kyc_verification.country)}</p>
+                                  </div>
+                
+                                  <div className="col-md-5 col-11">
+                                    <p className='font-bold sm-text pb-3'>Front Side</p>
+                                    <div className="dashboard-boxes border-radius-5px">
+                                      <div className="p-3">
+                                        <img width="100%" height='100%' src={details.kyc_verification.font_side} alt="" />
                                       </div>
                                     </div>
-            
+                                  </div>
+                
+                                  <div className="col-md-5 col-11">
+                                    <p className='font-bold sm-text pb-3'>Back Side</p>
+                                    <div className="dashboard-boxes border-radius-5px">
+                                      <div className="p-3">
+                                        <img width="100%" height='100%' src={details.kyc_verification.back_side} alt="" />
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-            
-                              <div className="col-md-5 col-11">
-                              <p className='font-bold sm-text pb-3'>Proof / Selfie</p>
-                                <div className="dashboard-boxes border-radius-5px">
-                                  <div className="p-3">
-                                    <img width="100%" src={details.kyc_verification.proof_selfie} alt="" />
-                                  </div>
-                                </div>
-                              </div>
-            
-                              <div className="col-md-5 col-11">
-                                <p className='font-bold sm-text pb-3'>Front Side</p>
-                                <div className="dashboard-boxes border-radius-5px">
-                                  <div className="p-3">
-                                    <img width="100%" height='100%' src={details.kyc_verification.font_side} alt="" />
-                                  </div>
-                                </div>
-                              </div>
-            
-                              <div className="col-md-5 col-11">
-                                <p className='font-bold sm-text pb-3'>Back Side</p>
-                                <div className="dashboard-boxes border-radius-5px">
-                                  <div className="p-3">
-                                    <img width="100%" height='100%' src={details.kyc_verification.back_side} alt="" />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </section>
+                              </section>
 
-                        </div>                      
+                            </div>
+                          ):(
+                            <div className='user-details-No-details'>
+                              <div>
+                                <p className='dashboard-header light-text'>No Details Yet</p>
+                                <p>User have not uploaded KYCs details</p>
+                              </div>
+      
+                            </div>
+                          )}
+                        </div>
+                      
                       }
 
                       {investmentInformation &&

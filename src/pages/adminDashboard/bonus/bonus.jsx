@@ -206,7 +206,7 @@ export const AllBonus = () =>{
                             <div className='pe-4'>
                             <button  className="dashboard-submit-btn  dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>    
                               <span class={`${bonusbtnLoder ? 'dashboard-submit-spinner': ''}`}></span>
-                              <span class={`${bonusbtnLoder ? 'dashboard-submit-btn-visiblity': ''}`}>Add Investment</span>
+                              <span class={`${bonusbtnLoder ? 'dashboard-submit-btn-visiblity': ''}`}>Add Bonus</span>
                             </button>
                             </div>
                             <p onClick={HideAddBonus}  className='light-link cursor-pointer'>Cancel</p>

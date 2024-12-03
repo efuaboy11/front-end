@@ -155,7 +155,7 @@ export const AdminHome = () =>{
     localStorage.setItem('IndividualUserData', JSON.stringify(data))
 
     if(response.ok){
-      navigate(`/admin/user/${data.id}`)
+      navigate(`/admin/user/${data.user}`)
       setDisablebutton(false)
     }else{
       setDisablebutton(false)

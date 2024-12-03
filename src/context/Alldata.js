@@ -146,6 +146,11 @@ export const AllDataProvider =  ({ children }) =>{
   const [canceledKYCSearch, setCanceledKYCSearch] = useState('')
   const [pendingKYCSearch, setPendingKYCSearch] = useState('')
 
+  const [fundsAcountData, setFundsAccountData] = useState([])
+  const [fundsAccountLoader, setFundsAccountloader] = useState(true)
+  const [fundsAccountSearch, setFundsAccountSearch] = useState('')
+
+
   const [emailCount, setEmailCount] = useState(0)
 
 
@@ -165,9 +170,11 @@ export const AllDataProvider =  ({ children }) =>{
 
   const [blackListIPData, setBlackListIPData] = useState([])
   const [blackListCount, setBlackListCount] = useState(0)
+  const [blackListIPLoader, setBlackListLoader] = useState(true)
 
   const [newsLetterData, setNewLetterData] = useState([])
   const [newsLetterCount, setNewsLetterCount] = useState(0) 
+  const [newsLetterLoader, setNewsLetterLoader] = useState(true)
 
 
 
@@ -1016,6 +1023,8 @@ export const AllDataProvider =  ({ children }) =>{
       const sortedData = data.sort((a, b) => b.id - a.id);
       setDisableUserData(sortedData)
       setUserDisableLoader(false)
+    }else{
+      setUserDisableLoader(false)
     }
   }
   
@@ -1109,6 +1118,8 @@ export const AllDataProvider =  ({ children }) =>{
       setPendingUserVerificationData(sortedData)
       setPendingUserVerificationLoader(false)
       localStorage.setItem("pendingUserVerificationCount", data.length);
+    }else{
+      setPendingUserVerificationLoader(false)
     }
   }
 
@@ -1550,6 +1561,52 @@ export const AllDataProvider =  ({ children }) =>{
 
   }
 
+
+  const FundsAccountFunction = async() =>{
+    let response = await fetch('http://127.0.0.1:8000/api/account/', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    })
+
+    const data = await response.json()
+    if(response.ok){
+      const sortedData = data.sort((a, b) => new Date(b.user_details.date_joined) - new Date(a.user_details.date_joined));
+      setFundsAccountData(sortedData)
+      setFundsAccountloader(false)
+    }else{
+      setFundsAccountloader(false)
+    }
+
+
+  }
+
+  const filterFundsAccount = async() =>{
+    let url;
+
+    if(fundsAccountSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/account/?search=${fundsAccountSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setFundsAccountData(data)
+    }
+  }
+
   const InvestmentPlanFunction = async() =>{
     let response = await fetch('http://127.0.0.1:8000/api/investment-plan/', {
       method: 'GET',
@@ -1692,8 +1749,12 @@ export const AllDataProvider =  ({ children }) =>{
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setBlackListIPData(sortedData)
+      setBlackListLoader(false)
+    }else{
+      setBlackListLoader(false)
     }
   }
+
 
   const NewsLetterFunction = async() =>{
     let response = await fetch('http://127.0.0.1:8000/api/news-letter/', {
@@ -1712,7 +1773,11 @@ export const AllDataProvider =  ({ children }) =>{
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setNewLetterData(sortedData)
+      setNewsLetterLoader(false)
+    }else{
+      setNewsLetterLoader(false)
     }
+    
   }
   
 
@@ -2072,6 +2137,17 @@ export const AllDataProvider =  ({ children }) =>{
         filterPendingKYC,
 
 
+        // --------------------------------------- FUNDS ACCOUNT ------------------------- //
+        fundsAcountData,
+        setFundsAccountData,
+        fundsAccountLoader,
+        setFundsAccountloader,
+        fundsAccountSearch,
+        setFundsAccountSearch,
+        FundsAccountFunction,
+        filterFundsAccount,
+
+
         
 
 
@@ -2117,6 +2193,8 @@ export const AllDataProvider =  ({ children }) =>{
         setBlackListIPData,
         blackListCount,
         setBlackListCount,
+        blackListIPLoader,
+        setBlackListLoader,
 
         BlackListFunction,
 
@@ -2126,7 +2204,8 @@ export const AllDataProvider =  ({ children }) =>{
         setNewLetterData,
         newsLetterCount,
         setNewsLetterCount,
-
+        newsLetterLoader,
+        setNewsLetterLoader,
         NewsLetterFunction,
  }
 

@@ -12,6 +12,16 @@
 .dashboard-header{
   font-size: 40px;
 }
+.dashboard-number-form{
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #a0a0a0;
+  margin-right: 20px;
+}
 
 
 
@@ -36,9 +46,10 @@
   border-radius: 5px;
   color: #fff;
   width: 100%;
-  padding: 6px;
+  padding: 6px 10px;
 
 }
+
 
 .dashboard-input:focus{
   border-color: #4A249D; 

@@ -14,7 +14,7 @@ import AllDataContext from '../../../context/Alldata';
 import '../../../css/dashboardCss/adminDahboardCss/kyc.css'
 import { DashboardFooter } from '../../../component/dashbaordFooter';
 
-export const UserList = () =>{
+export const FundsAccount = () =>{
   const {authTokens, 
     OnbodyClick,
     formatName,
@@ -23,6 +23,7 @@ export const UserList = () =>{
     setDisablebutton,
     formatNameAllCaps,
     formatDate,
+    formatCurrency,
 
 
   } = useContext(AuthContext)
@@ -32,31 +33,25 @@ export const UserList = () =>{
 
 
     usersCount,
-    usersData, 
-    usersDataLoader,
-    userSearch, 
-    setUserSearch,
-    UsersFunction,
-    filterUser,
+    fundsAcountData, 
+    fundsAccountLoader,
+    fundsAccountSearch, 
+    setFundsAccountSearch,
+    FundsAccountFunction,
+    filterFundsAccount,
 
   } = useContext(AllDataContext)
   
   useEffect(() =>{
-    if(!userSearch){
-      UsersFunction()
-    }else if(userSearch){
-      filterUser()
+    if(!fundsAccountSearch){
+      FundsAccountFunction()
+    }else if(fundsAccountSearch){
+      filterFundsAccount()
     }
-  }, [userSearch])
+  }, [fundsAccountSearch])
 
 
-  const checkVerification = (status) =>{
-    if(status == 'verified'){
-      return 'Yes'
-    }else if(status == 'pending' || status == 'canceled'){
-      return 'No'
-    }
-  }
+
 
   const [currentPage, setCurrentPage] = useState(0)
   const [selectedDataId, setSelectedDataId] = useState(null);
@@ -64,9 +59,9 @@ export const UserList = () =>{
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
-  const pageCount = Math.ceil(usersData.length / dataPerPage)
+  const pageCount = Math.ceil(fundsAcountData.length / dataPerPage)
 
-  const currentData = usersData.slice(
+  const currentData = fundsAcountData.slice(
     currentPage * dataPerPage,
     (currentPage + 1) * dataPerPage
   )
@@ -114,17 +109,8 @@ export const UserList = () =>{
             <div className="d-flex justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='dashboard-header'>Users List</p>
-                  <p className='light-text'>Total {usersCount} Users List</p>
-                </div>
-              </div>
-
-              <div>
-                <div className='d-none d-sm-block'>
-                  <Link to='/admin/user/add' className='dashboard-btn py-2 px-3'>
-                    <i class="bi bi-person pe-3"></i>
-                    Add User
-                  </Link>
+                  <p className='dashboard-header'>Account List</p>
+                  <p className='light-text'>Total {usersCount} Account</p>
                 </div>
               </div>
             </div>
@@ -135,7 +121,7 @@ export const UserList = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={userSearch} onChange={(e) => setUserSearch(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={fundsAccountSearch} onChange={(e) => setFundsAccountSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
@@ -144,9 +130,10 @@ export const UserList = () =>{
                   <thead>
                     <tr>
                       <th className='sm-text-2 py-2'>Name/ID</th>
-                      <th className='sm-text-2'>Username</th>
-                      <th className='sm-text-2'>Verified</th>
-                      <th className='sm-text-2'>Registered</th>
+                      <th className='sm-text-2'>User Balance</th>
+                      <th className='sm-text-2'>Total Deposit</th>
+                      <th className='sm-text-2'>Total Investent</th>
+                      <th className='sm-text-2'>Total Bonus</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -158,15 +145,15 @@ export const UserList = () =>{
                           <td className='py-3'>
                             <div className="d-flex">
                               <div>
-                                {data.profile_photo === null ? (
+                                {data.user_details.profile_photo === null ? (
                                   <div className="position-relative1">
-                                    <h6 className="admin-home-user-table-icon">{shortName(data.full_name)}</h6>
-                                    <p className={`admin-home-user-table-icon-status ${data.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
+                                    <h6 className="admin-home-user-table-icon">{shortName(data.user_details.full_name)}</h6>
+                                    <p className={`admin-home-user-table-icon-status ${data.user_details.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
                                   </div>
                                   ): (
                                     <div className="position-relative1">
-                                      <img className='admin-home-user-table-img' src={data.profile_photo} alt="" />
-                                      <p className={`admin-home-user-table-icon-status ${data.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
+                                      <img className='admin-home-user-table-img' src={data.user_details.profile_photo} alt="" />
+                                      <p className={`admin-home-user-table-icon-status ${data.user_details.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
                                     </div>
 
 
@@ -175,24 +162,17 @@ export const UserList = () =>{
                               </div>
 
                               <div>
-                                <p>{formatName(data.full_name)}</p>
-                                <p className="sm-text-2">{data.email}</p>
+                                <p>{formatName(data.user_details.full_name)}</p>
+                                <p className="sm-text-2">{data.user_details.email}</p>
                               </div>
 
                             </div>    
                           </td>
-                          <td>{data.user_name}</td>
-                          <td>
-                            <div className="d-flex align-items-center height-100">
-                              <p className={`dashboard-dot me-2 ${data.status === "verified" ? "sucessfull-bg" : "pending"}`}></p>
-                              <p className={`d-inline py-2 sm-text ${data.status === "verified" ? "sucessfull-text" : "pending-text"} font-bold`}>{checkVerification(data.status)}</p>
-                            </div>
+                          <td>{formatCurrency(data.user_balance)} <span className='light-text sm-text-2'>USD</span></td>
+                          <td>{formatCurrency(data.total_deposit)} <span className='light-text sm-text-2'>USD</span></td>
+                          <td>{formatCurrency(data.total_investment)} <span className='light-text sm-text-2'>USD</span></td>
+                          <td>{formatCurrency(data.total_bonus)} <span className='light-text sm-text-2'>USD</span></td>    
 
-                          </td>
-
-                          <td>
-                            <p className='d-inline py-2 '>{formatDate(data.date_joined)}</p>
-                          </td>
                           <td>
                             <div className="d-flex justify-content-end">
                               <button disabled={disablebutton} className='Button' onClick={() => IndividualUser(data.id)}>
@@ -201,6 +181,7 @@ export const UserList = () =>{
                             </div>
 
                           </td>
+
                         </tr>
                       ))
                     ): (
@@ -215,7 +196,7 @@ export const UserList = () =>{
               </div>
 
 
-              {usersDataLoader && (
+              {fundsAccountLoader && (
                 <div className="d-flex justify-content-center py-4">
                   <img src={spin} alt="" width='60px'/>
                 </div>  

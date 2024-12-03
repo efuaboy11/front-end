@@ -258,6 +258,31 @@ export const CanceledUserVerification = () =>{
     }
   }
 
+  const IndividualUser = async(id) =>{
+    setSelectedDataId(id)
+    setDisablebutton(true)
+
+    let response = await fetch(`http://127.0.0.1:8000/api/user-profile/admin/${id}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+      
+    })
+    const data = await response.json()
+    localStorage.setItem('urlName', 'Users')
+    localStorage.setItem('urlLink', '/admin/user/list')
+    localStorage.setItem('IndividualUserData', JSON.stringify(data))
+
+    if(response.ok){
+      navigate(`/admin/user/${data.user}`)
+      setDisablebutton(false)
+    }else{
+      setDisablebutton(false)
+    }
+  }
+
   
   useEffect(() =>{
     if(!canceledUserVerificationsearch){
@@ -455,7 +480,7 @@ export const CanceledUserVerification = () =>{
                                 <div className={`dashboard-table-menu   ${(data.id === lastData?.id || data.id === secondToLastData?.id)? 'dashboard-table-menu-up': 'dashboard-table-menu-down'}`}>
                                   <div>
                                     <p className='dashboard-table-menu-btn cursor-pointer'>
-                                      <button disabled={disablebutton} className='Button py-2'>
+                                      <button onClick={() => IndividualUser(data.user)} disabled={disablebutton} className='Button py-2'>
                                         <i class="bi bi-person pe-1"></i> User Profile
                                       </button>
                                     </p>
