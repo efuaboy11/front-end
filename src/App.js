@@ -52,6 +52,16 @@ import { UploadVerification } from './pages/adminDashboard/user/uploadUserVerifi
 import { FundsAccount } from './pages/adminDashboard/fundsAccount/fundsAccount';
 import { BlackListIp } from './pages/adminDashboard/blackListIP/blackListIP';
 import { NewsLetter } from './pages/adminDashboard/newsLetter/newsLetter';
+import { InvestmentPlan } from './pages/adminDashboard/investmentPlan/investmentPlan';
+import { EditInvestmentPlan } from './pages/adminDashboard/investmentPlan/editInvestmentPlan';
+import { AddInvestmentPlan } from './pages/adminDashboard/investmentPlan/addInvestment';
+import { PaymentMethod } from './pages/adminDashboard/paymentMethod/paymentMethod';
+import { EditPaymentMethod } from './pages/adminDashboard/paymentMethod/editPaymentMethod';
+import { AddPaymentMethod } from './pages/adminDashboard/paymentMethod/addNew';
+import { CyptoWallet } from './pages/adminDashboard/userPaymentDetails/cyptoWallet';
+import { EditCrytoWallet } from './pages/adminDashboard/userPaymentDetails/editCryptoWallet';
+import { AddCrytoWallet } from './pages/adminDashboard/userPaymentDetails/addWallet';
+import { BankAccount } from './pages/adminDashboard/userPaymentDetails/BankAccount/bankAccount';
 
 
 function App() {
@@ -137,6 +147,24 @@ function App() {
 
           {/* NewsLetter */}
           <Route path="/admin/news-letter/" element={<NewsLetter/>} />
+
+          {/* Investment Plan */}
+          <Route path="/admin/investment-plan/" element={<InvestmentPlan/>} />
+          <Route path="/admin/investment-plan/:id" element={<EditInvestmentPlan/>} />
+          <Route path="/admin/investment-plan/add" element={<AddInvestmentPlan/>} />
+
+          {/* Payment Options */}
+          <Route path="/admin/payment-method/" element={<PaymentMethod/>} />
+          <Route path="/admin/payment-method/:id" element={<EditPaymentMethod/>} />
+          <Route path="/admin/payment-method/add" element={<AddPaymentMethod/>} />
+
+          {/* User Payment Details */}
+          <Route path="/admin/payment-account/wallet-address/add" element={<AddCrytoWallet/>} />
+          <Route path="/admin/payment-account/wallet-address" element={<CyptoWallet/>} />
+          <Route path="/admin/payment-account/wallet-address/:id" element={<EditCrytoWallet/>} />
+
+          {/* Bank Account */}
+          <Route path="/admin/payment-account/bank-account" element={<BankAccount/>} />
         </Routes>
         </AllDataProvider>
       </AuthProvider>

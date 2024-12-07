@@ -122,6 +122,19 @@
   border-radius: 5px;
 
 }
+
+.dashboard-table-menu-2{
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  
+  background-color: #404040;
+
+  left: -185px;
+  
+  border-radius: 5px;
+
+}
 .dashboard-table-menu-up{
   top: -120px;
 
@@ -136,6 +149,11 @@
   width: 100%;
   padding-left: 20px;
   padding-right: 65px;
+  transition: all 0.5s ease;
+}
+
+.dashboard-table-menu-btn:hover{
+  background-color: #505050;
 }
 .dashboard-table-menu-btn:last-child{
   border-bottom: none;
@@ -157,6 +175,7 @@
   
 
 }
+
 .dashboard-btn:hover{
   background-color: #5B34B0;
   color: #fff;

@@ -56,8 +56,17 @@ export const AllDataProvider =  ({ children }) =>{
   const [successfulWithdrawSearch, setSuccessWithdrawSearch] = useState('')
   const [pendingWithdrawSearch, setPendingWithdrawSearch] = useState('')
   const [declinedWithdrawSearch, setDeclinedWithdrawSearch] = useState('')
+   
+  const [walletAddressData, setWalletAddressData] = useState([])
+  const [walletAddressLoader, setWalletAddressLoader] = useState(true)
+  const [walletAddressCount, setWalletAddressCount] = useState(0)
+  const [walletAddressSearch, setWalletAddressSearch] = useState('')
           
-          
+  const [bankAccountData, setBankAccountData] = useState([])
+  const [bankAccountLoader, setBankAccountLoader] = useState(true)
+  const [bankAccountCount, setBankAccountCount] = useState(0)
+  const [bankAccountSearch, setBankAccountSearch] = useState('')
+
   const [investmentCount, setInvestmentCount] = useState(0)
   const [activeInvestmentCount, setActiveInvestmentCount] = useState(0)
   const [completedInvestmentCount, setCompletednvestmentCount] = useState(0)
@@ -156,10 +165,13 @@ export const AllDataProvider =  ({ children }) =>{
 
   const [investmentPlanCount, setInvestmentPlanCount] = useState(0)
   const [investmentPlanData, setInvestPlanData] = useState([])
+  const [investemmentPlanLoder, setInvestmentPlanLoader] = useState(true)
+  const [investmentPlanSearch, setInvestmentPlanSearch] = useState('')
 
   const [paymentOptionsCount, setPaymentOptionsCount] = useState(0)
   const [paymentOptionsData, setPaymentOptionsData] = useState([])
   const [paymentOptionsLoader, setPaymentOptionsLoader] = useState(true)
+  const [paymentOptionSearch, setPaymentOptionSearch] = useState('')
 
   const [bonusData, setBonusData] = useState([])
   const [totalBonus, setTotalBonus] = useState(0)
@@ -673,6 +685,108 @@ export const AllDataProvider =  ({ children }) =>{
 
 
   }
+
+  const WalletAddressFunction = async() =>{
+    let response = await fetch('http://127.0.0.1:8000/api/wallet-address/', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    })
+
+    const data = await response.json()
+    if(response.ok){
+      if(Array.isArray(data) && data.length > 0){
+        setWalletAddressCount(data.length)
+      }
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setWalletAddressData(sortedData)
+      setWalletAddressLoader(false)
+
+    }else{
+      setWalletAddressLoader(false)
+    }
+
+
+
+  }
+
+  const filterWalletAddress = async() =>{
+    let url;
+
+    if(walletAddressSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/wallet-address/?search=${walletAddressSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setWalletAddressData(data)
+    }
+  }
+
+  const BankAccountFunction = async() =>{
+    let response = await fetch('http://127.0.0.1:8000/api/bank-account/', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    })
+
+    const data = await response.json()
+    if(response.ok){
+      if(Array.isArray(data) && data.length > 0){
+        setWalletAddressCount(data.length)
+      }
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setBankAccountData(sortedData)
+      setBankAccountLoader(false)
+
+    }else{
+      setBankAccountLoader(false)
+    }
+
+
+
+  }
+
+  const filterBankAccount = async() =>{
+    let url;
+
+    if(bankAccountSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/bank-account/?search=${bankAccountSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setBankAccountData(data)
+    }
+  }
+
+
 
 
   const filterInterest = async() =>{
@@ -1561,6 +1675,30 @@ export const AllDataProvider =  ({ children }) =>{
 
   }
 
+  const filterPaymentOptions = async() =>{
+    let url;
+
+    if(paymentOptionSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/payment-method/?search=${paymentOptionSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setPaymentOptionsData(data)
+    }
+  }
+
 
   const FundsAccountFunction = async() =>{
     let response = await fetch('http://127.0.0.1:8000/api/account/', {
@@ -1626,6 +1764,33 @@ export const AllDataProvider =  ({ children }) =>{
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       setInvestPlanData(sortedData)
+      setInvestmentPlanLoader(false)
+    }else{
+      setInvestmentPlanLoader(false)
+    }
+  }
+
+  const filterInvestmentPlan = async() =>{
+    let url;
+
+    if(investmentPlanSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/investment-plan/?search=${investmentPlanSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setInvestPlanData(data)
     }
   }
 
@@ -1904,6 +2069,31 @@ export const AllDataProvider =  ({ children }) =>{
         declinedWithdrawSearch,
         setDeclinedWithdrawSearch,
 
+  // ---------------------------------- WALLET ADDRESS --------------------- //
+        walletAddressData,
+        setWalletAddressData,
+        walletAddressLoader,
+        setWalletAddressLoader,
+        walletAddressCount,
+        setWalletAddressCount,
+        walletAddressSearch,
+        setWalletAddressSearch,
+        WalletAddressFunction,
+        filterWalletAddress,
+
+
+  // ---------------------------------- BANK ACCOUNT --------------------- //
+        bankAccountData,
+        setBankAccountData,
+        bankAccountLoader,
+        setBankAccountLoader,
+        bankAccountCount,
+        setBankAccountCount,
+        bankAccountSearch,
+        setBankAccountSearch,
+        BankAccountFunction,
+        BankAccountFunction,
+
 
 
   // ---------------------------- INTEREST ----------------------//
@@ -2162,8 +2352,12 @@ export const AllDataProvider =  ({ children }) =>{
         setInvestmentPlanCount,
         investmentPlanData, 
         setInvestPlanData,
-
         InvestmentPlanFunction,
+        filterInvestmentPlan,
+        investemmentPlanLoder,
+        setInvestmentPlanLoader,
+        investmentPlanSearch,
+        setInvestmentPlanSearch,
 
   // ---------------------------- PAYMENT OPTIONS ----------------------//
         paymentOptionsData,
@@ -2172,7 +2366,11 @@ export const AllDataProvider =  ({ children }) =>{
         setPaymentOptionsCount,
         paymentOptionsLoader, 
         setPaymentOptionsLoader,
+        paymentOptionSearch,
+        setPaymentOptionSearch,
         PaymentOptionsFunction,
+        filterPaymentOptions,
+
 
   // ---------------------------- BONUS ----------------------//
         bonusData,

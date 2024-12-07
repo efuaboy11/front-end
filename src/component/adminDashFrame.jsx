@@ -25,6 +25,7 @@ export const AdminDashFrame = () =>{
   const [depositDropdown, setDepositDropdown] = useState(false)
   const [withdrawDropdown, setWithdrawDropdown] = useState(false)
   const [investmentDropdown, setInvestmentDropdown] = useState(false)
+  const [paymentDetailsDropdown, setPaymentDetailsDropdown] = useState(false)
   const [usersDropdown, setUserDropdown] = useState(false)
   const [kycDropdown, setKycDopdown] = useState(false)
   const [paymentOptions, setPaymentOptions] = useState(false)
@@ -127,6 +128,10 @@ export const AdminDashFrame = () =>{
     setWithdrawDropdown(!withdrawDropdown)
   }
 
+  const togglePaymentDetails = () =>{
+    setPaymentDetailsDropdown(!paymentDetailsDropdown)
+  }
+
   const toggleInvestment = () =>{
     setInvestmentDropdown(!investmentDropdown)
   }
@@ -144,7 +149,6 @@ export const AdminDashFrame = () =>{
 
   const toggleInvestmentPlan = () =>{
     setinvestmentPlanDropdown(!investmentPlanDropdown)
-    console.log('clicked')
   }
   const togglePaymentOptions = () =>{
     setPaymentOptions(!paymentOptions)
@@ -357,6 +361,67 @@ export const AdminDashFrame = () =>{
                       <Link className='dashboard-link' to="/admin/all-investment">All Investment</Link> 
                         <p className='ps-3'>({investmentCount})</p>
                       </div>
+                    </li>
+
+                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/add-investment") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/add-investment" onClick={OnbodyClick}>Add New</Link> 
+                    </li>
+                    
+                  </ul>
+                </div>
+
+
+     
+              </li>
+
+
+              <li className={`pb-2 ${isActiveDashLink("/admin") ?"active-dash-link": ""}  cursor-pointer`}>
+                <div className='row mb-2 dashboard-sidebar-list' onClick={togglePaymentDetails}>
+                  <div className='col-9 ps-4 '>
+                    <div className="d-flex">
+                      <i class="bi  bi-wallet2 me-3 sm-text"></i>
+                      <p className='pt-1'>Payment Details</p>
+                    </div>
+
+                  </div>
+                  <div className="col-3 ">
+                    <div className="d-flex me-2 justify-content-end mt-1" >
+                      <p className='me-1 dahboard-sidebar-count'>4</p>
+                      <p className={`${paymentDetailsDropdown ? 'rotate-90deg': ''}`}><i class="bi bi-chevron-right xsm-text" ></i></p>
+                    </div>
+                  </div>
+                </div>
+                
+
+                <div>
+                  <ul className={` dropdown-bg ${paymentDetailsDropdown ? "slide-in" : "slide-out"}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/payment-account/wallet-address") ?"active-dash-link": ""}`}>
+                      <div className="d-flex">
+                        <Link className='dashboard-link' to="/admin/payment-account/wallet-address" onClick={OnbodyClick}>Crypto Wallet</Link> 
+                        <p className='ps-3'>({activeInvestmentCount})</p>
+                      </div>
+                    </li>
+
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/compeleted-investment") ?"active-dash-link": ""}`}>
+                      <div className="d-flex">
+                      <Link className='dashboard-link' to="/admin/compeleted-investment" onClick={OnbodyClick}>Bank Account</Link> 
+                        <p className='ps-3'>({completedInvestmentCount})</p>
+                      </div>
+                    </li>
+
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/canceled-investment") ?"active-dash-link": ""}`}>
+                      <div className="d-flex">
+                        <Link className='dashboard-link' to="/admin/canceled-investment" onClick={OnbodyClick}>Bank Card</Link> 
+                        <p className='ps-3'>({declinedInvestmentCount})</p>
+                      </div>
+                     
+                    </li>
+
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/pending-investment") ?"active-dash-link": ""}`}>
+                      <div className="d-flex">
+                        <Link className='dashboard-link' to="/admin/pending-investment" onClick={OnbodyClick}>Individual Details</Link> 
+                      </div>
+                     
                     </li>
 
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/add-investment") ?"active-dash-link": ""}`}>
@@ -633,15 +698,15 @@ export const AdminDashFrame = () =>{
 
                 <div>
                   <ul className={` dropdown-bg ${investmentPlanDropdown ? "slide-in" : "slide-out"}`}>
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/investment-plan/") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>All plans</Link> 
+                        <Link className='dashboard-link' to="/admin/investment-plan/" onClick={OnbodyClick}>All plans</Link> 
                         <p className='ps-3'>({investmentPlanCount})</p>
                       </div>
                     </li>
 
-                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
+                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/investment-plan/add") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/investment-plan/add" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
@@ -671,9 +736,9 @@ export const AdminDashFrame = () =>{
 
                 <div>
                   <ul className={` dropdown-bg ${paymentOptions ? "slide-in" : "slide-out"}`}>
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/payment-method/") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>All Payment Options</Link> 
+                        <Link className='dashboard-link' to="/admin/payment-method/" onClick={OnbodyClick}>All Payment Options</Link> 
                         <p className='ps-3'>({paymentOptionsCount})</p>
                       </div>
                     </li>
