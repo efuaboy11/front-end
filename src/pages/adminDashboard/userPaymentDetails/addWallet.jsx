@@ -85,6 +85,7 @@ export const AddCrytoWallet = () =>{
     formData.append('walletAddress', walletAddress)
     formData.append('coin', coin)
     formData.append('network', network)
+    formData.append('created_at', date)
 
     try{
       const response = await fetch(`http://127.0.0.1:8000/api/wallet-address/`, {
@@ -202,13 +203,13 @@ export const AddCrytoWallet = () =>{
                       </div>
                       <div className="col-sm-6">
                         <label htmlFor="" className="p-2 ">Label</label>
-                        <input type="text" className={`dashboard-input ${errors.label ? 'error-input' : ''}`} {...register('label', {required: true})}  value={label} onChange={(e) => setLabel(e.target.value)} placeholder="e.g Executive" />
+                        <input type="text" className={`dashboard-input ${errors.label ? 'error-input' : ''}`} {...register('label', {required: true})}  value={label} onChange={(e) => setLabel(e.target.value)} placeholder="Label" />
                         {errors.label && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
                       <div className="col-sm-6">
                         <label htmlFor="" className="p-2 ">Wallet Address</label>
-                        <input type="text" className={`dashboard-input ${errors.walletAddress ? 'error-input' : ''}`} {...register('walletAddress', {required: true})}  value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)} placeholder="e.g 2000" />
+                        <input type="text" className={`dashboard-input ${errors.walletAddress ? 'error-input' : ''}`} {...register('walletAddress', {required: true})}  value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)} placeholder="Wallet Address" />
                         {errors.walletAddress && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
@@ -216,7 +217,7 @@ export const AddCrytoWallet = () =>{
                       <div className="col-sm-6">
                         <label htmlFor="" className="p-2">Coin</label>
                         <select className={`${errors.coin ? 'error-input' : ''} dashboard-input cursor-pointer`} {...register('coin', {required: true})} type="text"   value={coin} onChange={(e) => setCoin(e.target.value)}>
-                          <option></option>
+                          <option value=''>Select Coin</option>
                           <option value='bitcoin'>Bitcoin</option>
                           <option value='ethereum'>Ethereum</option>
                           <option value='tether'>Tether</option>
@@ -231,8 +232,8 @@ export const AddCrytoWallet = () =>{
 
                       <div className="col-sm-6">
                         <label htmlFor="" className="p-2">Network</label>
-                        <select className={`${errors.network ? 'error-input' : ''} dashboard-input cursor-pointer`} {...register('network', {required: true})} type="text"   value={network} onChange={(e) => setNetwork(e.target.value)}>
-                          <option></option>
+                        <select className={`${errors.network ? 'error-input' : ''} dashboard-input cursor-pointer cursor-pointer`} {...register('network', {required: true})} type="text"   value={network} onChange={(e) => setNetwork(e.target.value)}>
+                          <option className=''>Select Network</option>
                           <option value='BEP2'>BEP2</option>
                           <option value='BEP20'>BEP20</option>
                           <option value='ERC20'>ERC20</option>

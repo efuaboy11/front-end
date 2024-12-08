@@ -9,18 +9,20 @@ import AllDataContext from '../../../../context/Alldata';
 import { DashboardFooter } from '../../../../component/dashbaordFooter';
 import { useNavigate } from 'react-router-dom';
 
-export const AddBankAccount = () =>{
+export const AddBankCard = () =>{
 
   const [user, setUser] = useState('')
   const [label, setLabel] = useState('')
-  const [bankName, setBankName] = useState('')
-  const [bankBranch, setBankBranch] = useState('')
-  const [bankCountry, setBankCountry] = useState('')
-  const [accountName, setAccountName] = useState('')
-  const [accountNumber, setAccountNumber] = useState('')
-  const [routingNumber, setRoutingNumber] = useState('')
-  const [swiftCode, setSwiftCode] = useState('')
-  const [currency, setCurrency] = useState('')
+  const [cardNumber, setCardNumber] = useState('')
+  const [nameOnCard, setNameOnCard] = useState('')
+  const [month, setMonth] = useState('');
+  const [year, setYear] = useState('');
+  const [ccv, setCvv] = useState('')
+  const [address, setAddress] = useState('')
+  const [city, setCity] = useState('')
+  const [state, setState] = useState('')
+  const [zipCode, setZipCode] = useState('')
+  const [country, setCountry] = useState('')
   const [date, setDate] = useState('')
   const [loader, setLoader] = useState(false)
 
@@ -70,18 +72,26 @@ export const AddBankAccount = () =>{
   const ClearInput = () =>{
     setUser('')
     setLabel('')
-    setBankName('')
-    setBankBranch('')
-    setBankCountry('')
-    setAccountName('')
-    setAccountNumber('')
-    setRoutingNumber('')
-    setSwiftCode('')
-    setCurrency('')
+    setCardNumber('')
+    setNameOnCard('')
+    setCountry('')
+    setCvv('')
+    setAddress('')
+    setCity('')
+    setState('')
+    setZipCode('')
     setDate('')
+    setMonth('')
+    setYear('')
 
 
   }
+  let expirationDate = ''
+  if(month && year){
+    expirationDate = `${month}/${year}`
+
+  }
+
 
   
 
@@ -92,18 +102,19 @@ export const AddBankAccount = () =>{
     const formData = new FormData()
     formData.append('user', user)
     formData.append('label', label)
-    formData.append('bank_name', bankName)
-    formData.append('bank_branch', bankBranch)
-    formData.append('bank_country', bankCountry)
-    formData.append('account_name', accountName)
-    formData.append('account_number', accountNumber)
-    formData.append('routing_number', routingNumber)
-    formData.append('swift_code', swiftCode)
-    formData.append('currency', currency)
+    formData.append('card_number', cardNumber)
+    formData.append('name_on_card', nameOnCard)
+    formData.append('expiration_date', expirationDate)
+    formData.append('cvv', ccv)
+    formData.append('address', address)
+    formData.append('city_town', city)
+    formData.append('state', state)
+    formData.append('zip_code', zipCode)
+    formData.append('country', country)
     formData.append('created_at', date)
 
     try{
-      const response = await fetch(`http://127.0.0.1:8000/api/bank-account/`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/bank-card/`, {
         method: 'POST',
         body: formData,
         headers:{
@@ -114,21 +125,23 @@ export const AddBankAccount = () =>{
 
       if(response.ok){
         showAlert()
-        setMessage('Bank details successfully added')
+        setMessage('Card details successfully added')
         setIsSuccess(true)
         setLoader(false)
         setDisablebutton(false)
         setUser('')
         setLabel('')
-        setBankName('')
-        setBankBranch('')
-        setBankCountry('')
-        setAccountName('')
-        setAccountNumber('')
-        setRoutingNumber('')
-        setSwiftCode('')
-        setCurrency('')
+        setCardNumber('')
+        setNameOnCard('')
+        setCountry('')
+        setCvv('')
+        setAddress('')
+        setCity('')
+        setState('')
+        setZipCode('')
         setDate('')
+        setMonth('')
+        setYear('')
 
       }else{
         const errorData = await response.json()
@@ -224,25 +237,74 @@ export const AddBankAccount = () =>{
                       </div>
                       <div className="col-sm-6">
                         <label htmlFor="" className="p-2 ">Label</label>
-                        <input type="text" className={`dashboard-input ${errors.label ? 'error-input' : ''}`} {...register('label', {required: true})}  value={label} onChange={(e) => setLabel(e.target.value)} placeholder="Lable" />
+                        <input type="text" className={`dashboard-input ${errors.label ? 'error-input' : ''}`} {...register('label', {required: true})}  value={label} onChange={(e) => setLabel(e.target.value)} placeholder="Label" />
                         {errors.label && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
                       <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Bank Name</label>
-                        <input type="text" className={`dashboard-input ${errors.bankName ? 'error-input' : ''}`} {...register('bankName', {required: true})}  value={bankName} onChange={(e) => setBankName(e.target.value)} placeholder="Bank Name" />
-                        {errors.bankName && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        <label htmlFor="" className="p-2 ">Card Number</label>
+                        <input type="text" className={`dashboard-input ${errors.cardNumber ? 'error-input' : ''}`} {...register('cardNumber', {required: true})}  value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder="Card Number" />
+                        {errors.cardNumber && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
                       <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Bank Branch</label>
-                        <input type="text" className={`dashboard-input ${errors.bankBranch ? 'error-input' : ''}`} {...register('bankBranch', {required: true})}  value={bankBranch} onChange={(e) => setBankBranch(e.target.value)} placeholder="Bank Branch" />
-                        {errors.bankBranch && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        <label htmlFor="" className="p-2 ">Name on Card</label>
+                        <input type="text" className={`dashboard-input ${errors.nameOnCard ? 'error-input' : ''}`} {...register('nameOnCard', {required: true})}  value={nameOnCard} onChange={(e) => setNameOnCard(e.target.value)} placeholder="Name on Card" />
+                        {errors.nameOnCard && <span style={{color: 'red'}}>This Feild is required</span>} 
+                      </div>
+
+
+                      <div className="col-sm-6">
+                        <label htmlFor="" className="p-2 ">Secure Code (CVV)</label>
+                        <input maxLength={3} type="text" className={`dashboard-input ${errors.ccv ? 'error-input' : ''}`} {...register('ccv', {required: true})}  value={ccv} onChange={(e) => setCvv(e.target.value)} placeholder="Cvv" />
+                        {errors.ccv && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
                       <div className="col-sm-6">
-                        <label htmlFor="" className="p-2">Bank Country</label>
-                        <select className={`${errors.bankCountry ? 'error-input' : ''} dashboard-input cursor-pointer`} {...register('bankCountry', {required: true})} type="text"   value={bankCountry} onChange={(e) => setBankCountry(e.target.value)}>
+                        <label htmlFor="" className="p-2 ">Expiration Date</label>
+                        <div className="row">
+                          <div className="col-6">
+                            <select className={`${errors.month ? 'error-input' : ''} dashboard-input cursor-pointer`} {...register('month', {required: true})} type="text"   value={month} onChange={(e) => setMonth(e.target.value)}>
+                              <option value="" className='light-text'>MM</option>
+                              {Array.from({ length: 12 }, (_, i) => {
+                                const monthValue = String(i + 1).padStart(2, '0');
+                                return (
+                                  <option key={monthValue} value={monthValue}>
+                                    {monthValue}
+                                  </option>
+                                );
+                              })}
+                            </select>
+                            {errors.month && <span style={{color: 'red'}}>This Feild is required</span>} 
+                          </div>
+
+                          <div className="col-6">
+                            <select className={`${errors.year ? 'error-input' : ''} dashboard-input cursor-pointer`} {...register('year', {required: true})} type="text"   value={year} onChange={(e) => setYear(e.target.value)}>
+                            <option value="">YY</option>
+                            {Array.from({ length: 46 }, (_, i) => {
+                              const yearValue = 2025 + i;
+                              return (
+                                <option key={yearValue} value={yearValue}>
+                                  {yearValue}
+                                </option>
+                              );
+                            })}
+                            </select>
+                            {errors.year && <span style={{color: 'red'}}>This Feild is required</span>} 
+                          </div>
+                          
+                        </div>
+                      </div>
+
+                      <div className='py-3 col-12'>
+                       <hr />
+                       <h5 className='light-text pt-2'>Billing Address</h5>
+                      </div>
+          
+
+                      <div className="col-sm-6">
+                        <label htmlFor="" className="p-2">Country</label>
+                        <select className={`${errors.country ? 'error-input' : ''} dashboard-input cursor-pointer`} {...register('country', {required: true})} type="text"   value={country} onChange={(e) => setCountry(e.target.value)}>
                           <option value="">Select a country</option>
                           <option value="australia">Australia</option>
                           <option value="brazil">Brazil</option>
@@ -275,63 +337,38 @@ export const AddBankAccount = () =>{
                           <option value="usa">United States</option>
                           <option value="vietnam">Vietnam</option>
                         </select>
-                        {errors.bankCountry && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        {errors.country && <span style={{color: 'red'}}>This Feild is required</span>} 
+                      </div>
+ 
+
+
+                      <div className="col-sm-6">
+                        <label htmlFor="" className="p-2 ">Address</label>
+                        <input type="text" className={`dashboard-input ${errors.setAddress ? 'error-input' : ''}`} {...register('setAddress', {required: true})}  value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" />
+                        {errors.address && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
                       <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Account Owner</label>
-                        <input type="text" className={`dashboard-input ${errors.accountName ? 'error-input' : ''}`} {...register('accountName', {required: true})}  value={accountName} onChange={(e) => setAccountName(e.target.value)} placeholder="Account Owner" />
-                        {errors.accountName && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        <label htmlFor="" className="p-2 ">City / Town</label>
+                        <input type="text" className={`dashboard-input ${errors.city ? 'error-input' : ''}`} {...register('city', {required: true})}  value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" />
+                        {errors.city && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
                       <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Account Number</label>
-                        <input type="text" className={`dashboard-input ${errors.setAccountNumber ? 'error-input' : ''}`} {...register('setAccountNumber', {required: true})}  value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} placeholder="Account Number" />
-                        {errors.accountNumber && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        <label htmlFor="" className="p-2 ">State / Province</label>
+                        <input type="text" className={`dashboard-input ${errors.state ? 'error-input' : ''}`} {...register('state', {required: true})}  value={state} onChange={(e) => setState(e.target.value)} placeholder="state" />
+                        {errors.state && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Routing Number</label>
-                        <input type="text" className={`dashboard-input ${errors.routingNumber ? 'error-input' : ''}`} {...register('routingNumber', {required: true})}  value={routingNumber} onChange={(e) => setRoutingNumber(e.target.value)} placeholder="Routing Number" />
-                        {errors.routingNumber && <span style={{color: 'red'}}>This Feild is required</span>} 
-                      </div>
-
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Swift Code / BIC</label>
-                        <input type="text" className={`dashboard-input ${errors.swiftCode ? 'error-input' : ''}`} {...register('swiftCode', {required: true})}  value={swiftCode} onChange={(e) => setSwiftCode(e.target.value)} placeholder="Swift Code / BIC" />
-                        {errors.swiftCode && <span style={{color: 'red'}}>This Feild is required</span>} 
-                      </div>
 
                       
-
-
                       <div className="col-sm-6">
-                        <label htmlFor="" className="p-2">Currency</label>
-                        <select className={`${errors.currency ? 'error-input' : ''} dashboard-input cursor-pointer`} {...register('currency', {required: true})} type="text"   value={currency} onChange={(e) => setCurrency(e.target.value)}>
-                          <option value="">Select Currency</option>
-                          <option value="united states dollar">United States Dollar</option>
-                          <option value="euro">Euro</option>
-                          <option value="british pound">British Pound</option>
-                          <option value="japanese yen">Japanese Yen</option>
-                          <option value="canadian dollar">Canadian Dollar</option>
-                          <option value="australian dollar">Australian Dollar</option>
-                          <option value="swiss franc">Swiss Franc</option>
-                          <option value="chinese yuan">Chinese Yuan</option>
-                          <option value="swedish krona">Swedish Krona</option>
-                          <option value="new zealand dollar">New Zealand Dollar</option>
-                          <option value="mexican peso">Mexican Peso</option>
-                          <option value="singapore dollar">Singapore Dollar</option>
-                          <option value="hong kong dollar">Hong Kong Dollar</option>
-                          <option value="norwegian krone">Norwegian Krone</option>
-                          <option value="south korean won">South Korean Won</option>
-                          <option value="russian ruble">Russian Ruble</option>
-                          <option value="indian rupee">Indian Rupee</option>
-                          <option value="brazilian real">Brazilian Real</option>
-                          <option value="south african rand">South African Rand</option>
-                          <option value="turkish lira">Turkish Lira</option>
-                        </select>
-                        {errors.currency && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        <label htmlFor="" className="p-2 ">Zip / Postal Code</label>
+                        <input type="text" className={`dashboard-input ${errors.zipCode ? 'error-input' : ''}`} {...register('zipCode', {required: true})}  value={zipCode} onChange={(e) => setZipCode(e.target.value)} placeholder="Zip Code" />
+                        {errors.zipCode && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
+
+                    
 
                       <div className="col-sm-6">
                         <label htmlFor="" className="p-2 ">Created <span className='light-text'>(Optional)</span></label>
@@ -342,7 +379,7 @@ export const AddBankAccount = () =>{
                         <div className="d-flex height-100 align-items-center">
                           <div className='pe-4'>
 
-                            <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Add Account</button> 
+                            <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Add Card</button> 
                           </div>
                           <p onClick={ClearInput} className='light-link cursor-pointer'>Cancel</p>
                         </div>

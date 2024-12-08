@@ -62,6 +62,11 @@ import { CyptoWallet } from './pages/adminDashboard/userPaymentDetails/cyptoWall
 import { EditCrytoWallet } from './pages/adminDashboard/userPaymentDetails/editCryptoWallet';
 import { AddCrytoWallet } from './pages/adminDashboard/userPaymentDetails/addWallet';
 import { BankAccount } from './pages/adminDashboard/userPaymentDetails/BankAccount/bankAccount';
+import { EditBankAccount } from './pages/adminDashboard/userPaymentDetails/BankAccount/editBankAccount';
+import { AddBankAccount } from './pages/adminDashboard/userPaymentDetails/BankAccount/addBankAccount';
+import { BankCard } from './pages/adminDashboard/userPaymentDetails/BankCard/bankCard';
+import { AddBankCard } from './pages/adminDashboard/userPaymentDetails/BankCard/addBankCard';
+import { EditBankCard } from './pages/adminDashboard/userPaymentDetails/BankCard/editBankCard';
 
 
 function App() {
@@ -164,7 +169,14 @@ function App() {
           <Route path="/admin/payment-account/wallet-address/:id" element={<EditCrytoWallet/>} />
 
           {/* Bank Account */}
+          <Route path="/admin/payment-account/bank-account/add" element={<AddBankAccount/>} />
           <Route path="/admin/payment-account/bank-account" element={<BankAccount/>} />
+          <Route path="/admin/payment-account/bank-account/:id" element={<EditBankAccount/>} />
+
+          {/* Bank Card  */}
+          <Route path="/admin/payment-account/bank-card/add" element={<AddBankCard/>} />
+          <Route path="/admin/payment-account/bank-card/" element={<BankCard/>} />
+          <Route path="/admin/payment-account/bank-card/:id" element={<EditBankCard/>} />
         </Routes>
         </AllDataProvider>
       </AuthProvider>

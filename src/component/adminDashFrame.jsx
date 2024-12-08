@@ -402,16 +402,16 @@ export const AdminDashFrame = () =>{
                       </div>
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/compeleted-investment") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/payment-account/bank-account") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                      <Link className='dashboard-link' to="/admin/compeleted-investment" onClick={OnbodyClick}>Bank Account</Link> 
+                      <Link className='dashboard-link' to="/admin/payment-account/bank-account" onClick={OnbodyClick}>Bank Account</Link> 
                         <p className='ps-3'>({completedInvestmentCount})</p>
                       </div>
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/canceled-investment") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/payment-account/bank-card/") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/canceled-investment" onClick={OnbodyClick}>Bank Card</Link> 
+                        <Link className='dashboard-link' to="/admin/payment-account/bank-card/" onClick={OnbodyClick}>Bank Card</Link> 
                         <p className='ps-3'>({declinedInvestmentCount})</p>
                       </div>
                      

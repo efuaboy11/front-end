@@ -67,6 +67,11 @@ export const AllDataProvider =  ({ children }) =>{
   const [bankAccountCount, setBankAccountCount] = useState(0)
   const [bankAccountSearch, setBankAccountSearch] = useState('')
 
+  const [bankCardData, setBankCardData] = useState([])
+  const [bankCardLoader, setBankCardLoader] = useState(true)
+  const [bankCardCount, setBankCardCount] = useState(0)
+  const [bankCardSearch, setBankCardSearch] = useState('')
+
   const [investmentCount, setInvestmentCount] = useState(0)
   const [activeInvestmentCount, setActiveInvestmentCount] = useState(0)
   const [completedInvestmentCount, setCompletednvestmentCount] = useState(0)
@@ -748,7 +753,7 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
     if(response.ok){
       if(Array.isArray(data) && data.length > 0){
-        setWalletAddressCount(data.length)
+        setBankAccountCount(data.length)
       }
       const sortedData = data.sort((a, b) => b.id - a.id);
       setBankAccountData(sortedData)
@@ -783,6 +788,59 @@ export const AllDataProvider =  ({ children }) =>{
 
     if(response.ok){
       setBankAccountData(data)
+    }
+  }
+
+
+
+  const BankCardFunction = async() =>{
+    let response = await fetch('http://127.0.0.1:8000/api/bank-card/', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    })
+
+    const data = await response.json()
+    if(response.ok){
+      if(Array.isArray(data) && data.length > 0){
+        setBankCardCount(data.length)
+      }
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setBankCardData(sortedData)
+      setBankCardLoader(false)
+
+    }else{
+      setBankCardLoader(false)
+    }
+
+
+
+  }
+
+
+  const filterBankCard = async() =>{
+    let url;
+
+    if(bankCardSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/bank-card/?search=${bankCardSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setBankCardData(data)
     }
   }
 
@@ -2092,7 +2150,19 @@ export const AllDataProvider =  ({ children }) =>{
         bankAccountSearch,
         setBankAccountSearch,
         BankAccountFunction,
-        BankAccountFunction,
+        filterBankAccount,
+
+  // ------------------------------- BANK CARD ---------------------------- //
+        bankCardData,
+        setBankCardData,
+        bankCardLoader,
+        setBankCardLoader,
+        bankCardCount,
+        setBankCardCount,
+        bankCardSearch,
+        setBankCardSearch,
+        BankCardFunction,
+        filterBankCard,
 
 
 

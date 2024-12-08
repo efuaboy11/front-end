@@ -15,7 +15,7 @@ import '../../../../css/dashboardCss/adminDahboardCss/kyc.css'
 import { useForm } from 'react-hook-form';
 import { DashboardFooter } from '../../../../component/dashbaordFooter';
 
-export const BankAccount = () =>{
+export const BankCard = () =>{
   const {authTokens, 
     messages,
     alertVisible,
@@ -42,14 +42,14 @@ export const BankAccount = () =>{
   const {
 
 
-    bankAccountCount,
-    bankAccountData,
-    setBankAccountData,
-    bankAccountLoader,
-    setBankAccountSearch,
-    bankAccountSearch,
-    BankAccountFunction,
-    filterBankAccount,
+    bankCardCount,
+    bankCardData,
+    setBankCardData,
+    bankCardLoader,
+    bankCardSearch,
+    setBankCardSearch,
+    BankCardFunction,
+    filterBankCard,
 
 
   } = useContext(AllDataContext)
@@ -69,9 +69,9 @@ export const BankAccount = () =>{
   const navigate  = useNavigate()
 
   const dataPerPage = 10;
-  const pageCount = Math.ceil(bankAccountData.length / dataPerPage)
+  const pageCount = Math.ceil(bankCardData.length / dataPerPage)
 
-  const currentData = bankAccountData.slice(
+  const currentData = bankCardData.slice(
     currentPage * dataPerPage,
     (currentPage + 1) * dataPerPage
   )
@@ -108,10 +108,10 @@ export const BankAccount = () =>{
   } = useForm();
 
 
-  const IndividualBankAccount = async(id) =>{
+  const IndividualBankCard = async(id) =>{
     setSelectedDataId(id)
     setDisablebutton(true)
-    let response = await fetch(`http://127.0.0.1:8000/api/bank-account/${id}/`, {
+    let response = await fetch(`http://127.0.0.1:8000/api/bank-card/${id}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -123,7 +123,7 @@ export const BankAccount = () =>{
     localStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
-      navigate(`/admin/payment-account/bank-account/${data.bank_account_id}`)
+      navigate(`/admin/payment-account/bank-card/${data.bank_card_id}`)
       setDisablebutton(false)
 
     }else{
@@ -133,8 +133,8 @@ export const BankAccount = () =>{
   }
 
 
-
-
+  
+ 
 
 
   const deleteItem = async () => {
@@ -142,7 +142,7 @@ export const BankAccount = () =>{
     setLoader(true)
 
     try{
-      let response = await fetch(`http://127.0.0.1:8000/api/bank-account/${selectedDataId}/`, {
+      let response = await fetch(`http://127.0.0.1:8000/api/bank-card/${selectedDataId}/`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${authTokens.access}`
@@ -152,10 +152,10 @@ export const BankAccount = () =>{
       if (response.ok) {
         setLoader(false)
         setDisablebutton(false)
-        setBankAccountData(bankAccountData.filter(dat => dat.id !== selectedDataId))
+        setBankCardData(bankCardData.filter(dat => dat.id !== selectedDataId))
         setShowModal(false)
         showAlert()
-        setMessage('Bank account deleted')
+        setMessage('Bank card deleted')
         setIsSuccess(true)
       } else {
         const errorData = await response.json()
@@ -206,12 +206,12 @@ export const BankAccount = () =>{
   }
 
   useEffect(() =>{
-    if(!bankAccountSearch){
-      BankAccountFunction()
-    }else if(bankAccountSearch){
-      filterBankAccount()
+    if(!bankCardSearch){
+      BankCardFunction()
+    }else if(bankCardSearch){
+      filterBankCard()
     }
-  }, [bankAccountSearch])
+  }, [bankCardSearch])
 
 
   useEffect(() =>{
@@ -271,20 +271,20 @@ export const BankAccount = () =>{
             <div className="d-block d-md-flex  justify-content-between align-items-center height-100">
               <div>
                 <div>
-                  <p className='dashboard-header'>Bank Account</p>
-                  <p className='light-text'>Total {bankAccountCount} bank bank accounts for funds withdrawal.</p>
+                  <p className='dashboard-header'>Bank Card</p>
+                  <p className='light-text'>Total {bankCardCount} bank card  for funds withdrawal.</p>
                 </div>
               </div>
 
               <div>
                 <div className='pt-3'>
-                  <Link className='Link' to='/admin/payment-account/bank-account/add' >
+                  <Link className='Link' to='/admin/payment-account/bank-card/add' >
                     <div className='dashboard-btn py-2 px-3'>
 
 
                       <div className="d-flex">
                         <i class="bi bi-plus-lg pe-2"></i>
-                        <p>Add Account</p>
+                        <p>Add Card</p>
                       </div>
                     </div>
                   </Link>
@@ -298,7 +298,7 @@ export const BankAccount = () =>{
           <section className='py-5 mt-3'>
             <div className='d-flex justify-content-end'>
               <div className='pb-3'>
-                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={bankAccountSearch} onChange={(e) => setBankAccountSearch(e.target.value)} />
+                <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={bankCardSearch} onChange={(e) => setBankCardSearch(e.target.value)} />
               </div>
             </div>
             <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
@@ -308,8 +308,8 @@ export const BankAccount = () =>{
                     <tr>
                       <th className='sm-text-2 py-2'>Name</th>
                       <th className='sm-text-2 py-2'>Label</th>
-                      <th className='sm-text-2'>Bank</th>
-                      <th className='sm-text-2'>Account Holder</th>
+                      <th className='sm-text-2'>Card Holder</th>
+                      <th className='sm-text-2'>Card Number</th>
                       <th className='sm-text-2'>Added</th>
                       <th></th>
                     </tr>
@@ -345,8 +345,8 @@ export const BankAccount = () =>{
                           </td>
 
                           <td>{formatName(data.label)}</td>
-                          <td>{data.bank_name}</td>
-                          <td>{formatName(data.account_name)}</td>               
+                          <td>{formatName(data.name_on_card)}</td>
+                          <td>{data.card_number}</td>               
                           <td>{formatDate(data.created_at)}</td>
                           <td>
                             <div className='dashboard-table-btn'>
@@ -361,7 +361,7 @@ export const BankAccount = () =>{
                                       </button>
                                     </p>
                                     <p className='dashboard-table-menu-btn cursor-pointer'>
-                                      <button onClick={() => IndividualBankAccount(data.id)} disabled={disablebutton} className='Button py-2'>
+                                      <button onClick={() => IndividualBankCard(data.id)} disabled={disablebutton} className='Button py-2'>
                                         <i class="bi bi-pencil pe-1"></i> Update
                                       </button>
                                     </p>
@@ -390,7 +390,7 @@ export const BankAccount = () =>{
               </div>
 
 
-              {bankAccountLoader && (
+              {bankCardLoader && (
                 <div className="d-flex justify-content-center py-4">
                   <img src={spin} alt="" width='60px'/>
                 </div>  
