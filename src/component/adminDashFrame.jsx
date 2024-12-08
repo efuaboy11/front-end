@@ -42,6 +42,10 @@ export const AdminDashFrame = () =>{
   const [pendingWithdrawCount, setPendingWithdrawCount] = useState(0)
   const [declinedWithdrawCount, setDeclinedWithdrawCount] = useState(0)
 
+  const [walletAddressCount, setWalletAddressCount] = useState(0)
+  const [bankAccountCount, setBankAccountCount] = useState(0)
+  const [bankCardCount, setBankCardCount] = useState(0)
+
   const [investmentCount, setInvestmentCount] = useState(0)
   const [activeInvestmentCount, setActiveInvestmentCount] = useState(0)
   const [completedInvestmentCount, setCompletednvestmentCount] = useState(0)
@@ -70,39 +74,44 @@ export const AdminDashFrame = () =>{
 
 
   useEffect(() => {
-    setDepositCount(localStorage.getItem('depositCount') || "0");
-    setSucessDepositCount(localStorage.getItem('successDespositCount') || "0");
-    setDeclinedDepositCount(localStorage.getItem('declinedDeposit') || "0");
-    setPendingDespositCount(localStorage.getItem('pendingDespositCount') || "0");
+    setDepositCount(sessionStorage.getItem('depositCount') || "0");
+    setSucessDepositCount(sessionStorage.getItem('successDespositCount') || "0");
+    setDeclinedDepositCount(sessionStorage.getItem('declinedDeposit') || "0");
+    setPendingDespositCount(sessionStorage.getItem('pendingDespositCount') || "0");
 
-    setWithdrawCount(localStorage.getItem('withdrawCount') || "0");
-    setSuccessWithdrawCount(localStorage.getItem('SuccessWithdrawCount') || "0");
-    setPendingWithdrawCount(localStorage.getItem('pendingWithdrawCount') || "0");
-    setDeclinedWithdrawCount(localStorage.getItem('declinedWithdrawCount') || "0");
+    setWithdrawCount(sessionStorage.getItem('withdrawCount') || "0");
+    setSuccessWithdrawCount(sessionStorage.getItem('SuccessWithdrawCount') || "0");
+    setPendingWithdrawCount(sessionStorage.getItem('pendingWithdrawCount') || "0");
+    setDeclinedWithdrawCount(sessionStorage.getItem('declinedWithdrawCount') || "0");
 
-    setInvestmentCount(localStorage.getItem('investmentCount') || "0");
-    setActiveInvestmentCount(localStorage.getItem('activeInvestmentCount') || "0");
-    setCompletednvestmentCount(localStorage.getItem('completedInvestmentCount') || "0");
-    setPendingInvestmentCount(localStorage.getItem('pendingInvestmentCount') || "0");
-    setDeclinedInvestmentCount(localStorage.getItem('declinedInvestmentCount') || "0");
 
-    setUserCount(localStorage.getItem('usersCount') || "0");
-    setDisableUserCount(localStorage.getItem('disableUserCount') || "0");
-    setUserVerificationCount(localStorage.getItem('userVerificationCount') || "0");
-    setPendingUserVerificationCount(localStorage.getItem('pendingUserVerificationCount') || "0");
-    setCanceledUserVerificationCount(localStorage.getItem('canceledUserVerificationCount') || "0");
-    setUnverfiedUserCount(localStorage.getItem('unverifiedUserCount') || "0");
-    setVerifiedUserCount(localStorage.getItem('verifiedUserCount') || "0");
+    setWalletAddressCount(sessionStorage.getItem('WalletCount') || "0");
+    setBankAccountCount(sessionStorage.getItem('BankAccountCount') || "0");
+    setBankCardCount(sessionStorage.getItem('BanKCardCount') || "0");
 
-    setKYCsCount(localStorage.getItem('KYCsCount') || "0");
-    setNotUploadKYCsCount(localStorage.getItem('notUploadKYCsCount') || "0");
-    setVerifiedKYCsCount(localStorage.getItem('verifiedKYCsCount') || "0");
-    setCanceledKYCsCount(localStorage.getItem('canceledKYCsCount') || "0");
-    setPendingKYCsCount(localStorage.getItem('pendingKYCsCount') || "0");
+    setInvestmentCount(sessionStorage.getItem('investmentCount') || "0");
+    setActiveInvestmentCount(sessionStorage.getItem('activeInvestmentCount') || "0");
+    setCompletednvestmentCount(sessionStorage.getItem('completedInvestmentCount') || "0");
+    setPendingInvestmentCount(sessionStorage.getItem('pendingInvestmentCount') || "0");
+    setDeclinedInvestmentCount(sessionStorage.getItem('declinedInvestmentCount') || "0");
 
-    setEmailCount(localStorage.getItem('emailCount') || "0");
-    setInvestmentPlanCount(localStorage.getItem('investmentPlanCount') || "0");
-    setPaymentOptionsCount(localStorage.getItem('paymentOptionsCount') || "0");
+    setUserCount(sessionStorage.getItem('usersCount') || "0");
+    setDisableUserCount(sessionStorage.getItem('disableUserCount') || "0");
+    setUserVerificationCount(sessionStorage.getItem('userVerificationCount') || "0");
+    setPendingUserVerificationCount(sessionStorage.getItem('pendingUserVerificationCount') || "0");
+    setCanceledUserVerificationCount(sessionStorage.getItem('canceledUserVerificationCount') || "0");
+    setUnverfiedUserCount(sessionStorage.getItem('unverifiedUserCount') || "0");
+    setVerifiedUserCount(sessionStorage.getItem('verifiedUserCount') || "0");
+
+    setKYCsCount(sessionStorage.getItem('KYCsCount') || "0");
+    setNotUploadKYCsCount(sessionStorage.getItem('notUploadKYCsCount') || "0");
+    setVerifiedKYCsCount(sessionStorage.getItem('verifiedKYCsCount') || "0");
+    setCanceledKYCsCount(sessionStorage.getItem('canceledKYCsCount') || "0");
+    setPendingKYCsCount(sessionStorage.getItem('pendingKYCsCount') || "0");
+
+    setEmailCount(sessionStorage.getItem('emailCount') || "0");
+    setInvestmentPlanCount(sessionStorage.getItem('investmentPlanCount') || "0");
+    setPaymentOptionsCount(sessionStorage.getItem('paymentOptionsCount') || "0");
 }, []);
 
   
@@ -398,21 +407,21 @@ export const AdminDashFrame = () =>{
                     <li className={`dashboard-sidebar-dropdown-link ps-5 ${isActiveDashLink("/admin/payment-account/wallet-address") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                         <Link className='dashboard-link' to="/admin/payment-account/wallet-address" onClick={OnbodyClick}>Crypto Wallet</Link> 
-                        <p className='ps-3'>({activeInvestmentCount})</p>
+                        <p className='ps-3'>({walletAddressCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/payment-account/bank-account") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                       <Link className='dashboard-link' to="/admin/payment-account/bank-account" onClick={OnbodyClick}>Bank Account</Link> 
-                        <p className='ps-3'>({completedInvestmentCount})</p>
+                        <p className='ps-3'>({bankAccountCount})</p>
                       </div>
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/payment-account/bank-card/") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                         <Link className='dashboard-link' to="/admin/payment-account/bank-card/" onClick={OnbodyClick}>Bank Card</Link> 
-                        <p className='ps-3'>({declinedInvestmentCount})</p>
+                        <p className='ps-3'>({bankCardCount})</p>
                       </div>
                      
                     </li>
@@ -783,7 +792,7 @@ export const AdminDashFrame = () =>{
                     <div className="dashboard-content-user-drop-down">
                       <ul className=''>
                         <li className='pb-2'>
-                          <Link className='light-link'>
+                          <Link to='/admin/change-password/step-1/' className='light-link'>
                             <div className="d-flex">
                               <i class="bi bi-gear pe-2"></i>
                               <p className=''>Change password </p>

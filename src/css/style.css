@@ -457,5 +457,65 @@ table{
 }
 
 
+/* -------------------------  form-progress ----------------------*/
+/* --------------- Step------------ */
+
+.form-progress{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.form-progress .step{
+  position: relative;
+  text-align: center;
+  
+}
+
+.form-progress .step .bullet{
+  position: relative;
+  height: 25px;
+  width: 25px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: inline-block;
+
+}
+.form-progress .step:last-child .bullet::before,
+.form-progress .step:last-child .bullet::after{
+  display: none;
+}
+
+.form-progress .step .bullet::before,
+.form-progress .step .bullet::after{
+  position: absolute;
+  content: '';
+  bottom: 11px;
+  right: -165px;
+  height: 3px;
+  width: 160px;
+  background-color: #262626;
+}
+
+.form-progress .step .bullet.active::after{
+  background: #114232;
+}
+
+.form-progress .step span{
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 25px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+.form-progress .step .bullet.active{
+  background-color: #114232;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
 
 

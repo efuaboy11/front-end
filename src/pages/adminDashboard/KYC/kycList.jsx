@@ -86,9 +86,9 @@ export const KYCList = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'All KYC')
-    localStorage.setItem('urlLink', '/admin/KYC/list')
-    localStorage.setItem('IndividualData', JSON.stringify(data))
+    sessionStorage.setItem('urlName', 'All KYC')
+    sessionStorage.setItem('urlLink', '/admin/KYC/list')
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if(response.ok){
       navigate(`/admin/KYC/${data.id}`)

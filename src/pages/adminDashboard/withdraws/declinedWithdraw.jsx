@@ -99,9 +99,9 @@ export const DeclinedWithdraw = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('TypeOfWithdraw', 'Declined')
-    localStorage.setItem('TypeOfWithdrawUrl', '/admin/declined-withdraws')
-    localStorage.setItem('IndividualData', JSON.stringify(data))
+    sessionStorage.setItem('TypeOfWithdraw', 'Declined')
+    sessionStorage.setItem('TypeOfWithdrawUrl', '/admin/declined-withdraws')
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
       navigate(`/admin/all-withdraws/${data.id}`)
@@ -173,9 +173,9 @@ export const DeclinedWithdraw = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'Users')
-    localStorage.setItem('urlLink', '/admin/user/list')
-    localStorage.setItem('IndividualUserData', JSON.stringify(data))
+    sessionStorage.setItem('urlName', 'Users')
+    sessionStorage.setItem('urlLink', '/admin/user/list')
+    sessionStorage.setItem('IndividualUserData', JSON.stringify(data))
 
     if(response.ok){
       navigate(`/admin/user/${data.id}`)

@@ -77,9 +77,9 @@ export const RejectedKYC = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'Rejected KYC')
-    localStorage.setItem('urlLink', '/admin/KYC/rejected')
-    localStorage.setItem('IndividualData', JSON.stringify(data))
+    sessionStorage.setItem('urlName', 'Rejected KYC')
+    sessionStorage.setItem('urlLink', '/admin/KYC/rejected')
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if(response.ok){
       navigate(`/admin/KYC/${data.id}`)

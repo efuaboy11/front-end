@@ -108,7 +108,7 @@ export const PaymentMethod = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('IndividualData', JSON.stringify(data))
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
       navigate(`/admin/payment-method/${data.id}`)

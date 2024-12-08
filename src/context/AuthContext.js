@@ -6,7 +6,7 @@ const AuthContext = createContext()
 export default AuthContext
 
 export const AuthProvider = ({children}) =>{
-    const [authTokens, setAuthToken] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')): null)
+    const [authTokens, setAuthToken] = useState(() => sessionStorage.getItem('authTokens') ? JSON.parse(sessionStorage.getItem('authTokens')): null)
     const [password, setPassword] = useState("") 
     const [email, setEmail] = useState("") 
     const [otp, setOtp] = useState("")
@@ -17,13 +17,14 @@ export const AuthProvider = ({children}) =>{
 
     const [disablebutton, setDisablebutton] = useState(false)
     const [page, setPage] = useState('')
+    const [loader, setLoader] = useState(false)
 
     const [isSuccess, setIsSuccess] = useState(true)
 
 
 
     const navigate = useNavigate()
-    //const [user, setUser] = useState(() => localStorage.getItem("authTokens") ? jwtDecode(localStorage.getItem("authTokens")) : null)
+    //const [user, setUser] = useState(() => sessionStorage.getItem("authTokens") ? jwtDecode(sessionStorage.getItem("authTokens")) : null)
 
     const [showSidebar, setShowSidebar] = useState(null)
     
@@ -113,6 +114,7 @@ export const AuthProvider = ({children}) =>{
 
     const RequestOTP = async(e) =>{
         e.preventDefault()
+
         try{
             let response = await fetch('http://127.0.0.1:8000/api/request-otp/', {
                 method: 'POST',
@@ -129,8 +131,9 @@ export const AuthProvider = ({children}) =>{
                 setShowAnimation(false)
                 setIsSuccess(true)
                 showAlert()
-                localStorage.setItem("email", email);
-                localStorage.setItem('password', password)
+                setLoader(false)
+                sessionStorage.setItem("email", email);
+                sessionStorage.setItem('password', password)
                 console.log('sucees')
                 setMessage("An OTP code has been sent to your mail")
                 console.log(page)
@@ -146,6 +149,7 @@ export const AuthProvider = ({children}) =>{
                 setDisablebutton(false)
                 setShowAnimation(false)
                 setIsSuccess(false)
+                setLoader(false)
                 showAlert()
             }
             
@@ -154,6 +158,7 @@ export const AuthProvider = ({children}) =>{
           showAlert()
           setMessage('An unexpected error occurred. Please try again later.');
           setDisablebutton(false)
+          setLoader(false)
           setIsSuccess(false)
           setShowAnimation(false)
         }
@@ -181,12 +186,12 @@ export const AuthProvider = ({children}) =>{
                 setDisablebutton(false)
                 setShowAnimation(false)
                 setAuthToken(data)
-                localStorage.setItem("authTokens", JSON.stringify(data));
+                sessionStorage.setItem("authTokens", JSON.stringify(data));
                 console.log("Successful");
 
                 setIsSuccess(true)
-                localStorage.removeItem("email");
-                localStorage.removeItem('password')
+                sessionStorage.removeItem("email");
+                sessionStorage.removeItem('password')
 
             }else{
                 const errorData = await response.json()
@@ -234,9 +239,9 @@ export const AuthProvider = ({children}) =>{
                 setShowAnimation(false)
                 showAlert()
                 setMessage('Your password have been updated')
-                localStorage.removeItem("email");
-                localStorage.removeItem('password')
-                navigate('/login')
+                sessionStorage.removeItem("email");
+                sessionStorage.removeItem('password')
+                navigate(`/${page}`)
                     
             }else{
                 const errorData = await response.json()
@@ -274,7 +279,7 @@ export const AuthProvider = ({children}) =>{
         if(response.status === 200){
             console.log("token updated")
             setAuthToken(data)
-            localStorage.setItem("authTokens", JSON.stringify(data))
+            sessionStorage.setItem("authTokens", JSON.stringify(data))
         }else{
             LogoutUser()
         }
@@ -282,7 +287,7 @@ export const AuthProvider = ({children}) =>{
 
     const LogoutUser = () =>{
         setAuthToken(null)
-        localStorage.removeItem("authTokens")
+        sessionStorage.removeItem("authTokens")
         navigate("/")
         console.log("sucessfull")
 
@@ -314,6 +319,8 @@ export const AuthProvider = ({children}) =>{
         setAlertVisible,
         RequestOTP,
         showAlert,
+        loader,
+        setLoader,
         showAmimaton, 
         setShowAnimation,
         disablebutton, 

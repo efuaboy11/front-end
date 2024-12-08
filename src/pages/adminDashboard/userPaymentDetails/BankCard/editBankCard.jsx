@@ -112,6 +112,7 @@ export const EditBankCard = () =>{
 
       
     }catch(error){
+      
       console.log(error)
       showAlert()
       setMessage('An unexpected error occurred.');
@@ -132,7 +133,7 @@ export const EditBankCard = () =>{
 
 
   useEffect(() => {
-    const data = localStorage.getItem("IndividualData");
+    const data = sessionStorage.getItem("IndividualData");
     if (data) {
       const parsedData = JSON.parse(data);
       setDetails(parsedData)

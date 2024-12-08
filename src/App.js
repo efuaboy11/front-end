@@ -67,6 +67,9 @@ import { AddBankAccount } from './pages/adminDashboard/userPaymentDetails/BankAc
 import { BankCard } from './pages/adminDashboard/userPaymentDetails/BankCard/bankCard';
 import { AddBankCard } from './pages/adminDashboard/userPaymentDetails/BankCard/addBankCard';
 import { EditBankCard } from './pages/adminDashboard/userPaymentDetails/BankCard/editBankCard';
+import { ChangePassowrd1 } from './pages/adminDashboard/changePassword/step1';
+import { ChangePassowrd2 } from './pages/adminDashboard/changePassword/step2';
+import { ChangePassowrd3 } from './pages/adminDashboard/changePassword/step3';
 
 
 function App() {
@@ -177,6 +180,11 @@ function App() {
           <Route path="/admin/payment-account/bank-card/add" element={<AddBankCard/>} />
           <Route path="/admin/payment-account/bank-card/" element={<BankCard/>} />
           <Route path="/admin/payment-account/bank-card/:id" element={<EditBankCard/>} />
+
+          {/* Change Password */}
+          <Route path="/admin/change-password/step-1/" element={<ChangePassowrd1/>} />
+          <Route path="/admin/change-password/step-2/" element={<ChangePassowrd2/>} />
+          <Route path="/admin/change-password/step-3/" element={<ChangePassowrd3/>} />
         </Routes>
         </AllDataProvider>
       </AuthProvider>

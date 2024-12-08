@@ -150,9 +150,9 @@ export const AdminHome = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'Users')
-    localStorage.setItem('urlLink', '/admin/user/list')
-    localStorage.setItem('IndividualUserData', JSON.stringify(data))
+    sessionStorage.setItem('urlName', 'Users')
+    sessionStorage.setItem('urlLink', '/admin/user/list')
+    sessionStorage.setItem('IndividualUserData', JSON.stringify(data))
 
     if(response.ok){
       navigate(`/admin/user/${data.user}`)

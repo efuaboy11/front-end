@@ -217,10 +217,13 @@ export const UserDetails = () =>{
 
 
   useEffect(() =>{
-    const data = localStorage.getItem("IndividualUserData")
+    const data = sessionStorage
+.getItem("IndividualUserData")
 
-    setUrlName(localStorage.getItem('urlName'))
-    setUrlLink(localStorage.getItem('urlLink'))
+    setUrlName(sessionStorage
+.getItem('urlName'))
+    setUrlLink(sessionStorage
+.getItem('urlLink'))
     if(data){
       const parsedData = JSON.parse(data)
       setDetails(parsedData)
@@ -313,7 +316,7 @@ export const UserDetails = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('IndividualUserData', JSON.stringify(data))
+    sessionStorage.setItem('IndividualUserData', JSON.stringify(data))
 
   }
 
@@ -330,9 +333,9 @@ export const UserDetails = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('TypeOfDeposit', 'All')
-    localStorage.setItem('TypeOfDepositUrl', '/admin/all-deposits')
-    localStorage.setItem('IndividualDepsoit', JSON.stringify(data))
+    sessionStorage.setItem('TypeOfDeposit', 'All')
+    sessionStorage.setItem('TypeOfDepositUrl', '/admin/all-deposits')
+    sessionStorage.setItem('IndividualDepsoit', JSON.stringify(data))
 
     if (response.ok){
       navigate(`/admin/all-deposits/${data.id}`)
@@ -354,9 +357,9 @@ export const UserDetails = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('TypeOfWithdraw', 'All')
-    localStorage.setItem('TypeOfWithdrawUrl', '/admin/all-withdraws')
-    localStorage.setItem('IndividualData', JSON.stringify(data))
+    sessionStorage.setItem('TypeOfWithdraw', 'All')
+    sessionStorage.setItem('TypeOfWithdrawUrl', '/admin/all-withdraws')
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
       navigate(`/admin/all-withdraws/${data.id}`)
@@ -383,11 +386,11 @@ export const UserDetails = () =>{
     if(response.ok){
       const data = await response.json()
       const sortedData = data.sort((a, b) => b.id - a.id);
-      localStorage.setItem('InvestmentInterestData', JSON.stringify(sortedData))
+      sessionStorage.setItem('InvestmentInterestData', JSON.stringify(sortedData))
       console.log(data)
 
     }else{
-      localStorage.setItem('InvestmentInterestData', null)
+      sessionStorage.setItem('InvestmentInterestData', null)
 
     }
 
@@ -408,9 +411,9 @@ export const UserDetails = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'All')
-    localStorage.setItem('urlLink', '/admin/all-investment')
-    localStorage.setItem('IndividualData', JSON.stringify(data))
+    sessionStorage.setItem('urlName', 'All')
+    sessionStorage.setItem('urlLink', '/admin/all-investment')
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
       const interestData = await InvestmentIntrest(data.user, data.investment_id);

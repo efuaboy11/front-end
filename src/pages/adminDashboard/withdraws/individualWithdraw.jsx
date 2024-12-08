@@ -22,10 +22,10 @@ export const IndividualWithdraw = () =>{
   const [typeOfWithdrawUrl, setTypeOfWithdrawUrl] = useState('')
 
   useEffect(() =>{
-    const data = localStorage.getItem("IndividualData")
+    const data = sessionStorage.getItem("IndividualData")
 
-    setTypeOfWithdraw(localStorage.getItem('TypeOfWithdraw'))
-    setTypeOfWithdrawUrl(localStorage.getItem('TypeOfWithdrawUrl'))
+    setTypeOfWithdraw(sessionStorage.getItem('TypeOfWithdraw'))
+    setTypeOfWithdrawUrl(sessionStorage.getItem('TypeOfWithdrawUrl'))
     if(data){
       const parsedData = JSON.parse(data)
       setDetails(parsedData)

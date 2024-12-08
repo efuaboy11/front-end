@@ -127,7 +127,7 @@ export const EditBankAccount = () =>{
 
 
   useEffect(() => {
-    const data = localStorage.getItem("IndividualData");
+    const data = sessionStorage.getItem("IndividualData");
     if (data) {
       const parsedData = JSON.parse(data);
       setDetails(parsedData)

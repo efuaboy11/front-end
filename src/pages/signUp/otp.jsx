@@ -29,8 +29,8 @@ export const OTP = () =>{
 
 
 
-  setPassword(localStorage.getItem('password'))
-  setEmail(localStorage.getItem('email'))
+  setPassword(sessionStorage.getItem('password'))
+  setEmail(sessionStorage.getItem('email'))
 
 
 

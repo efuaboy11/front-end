@@ -22,10 +22,11 @@ export const ForgotPassWord2 = () =>{
     isSuccess,
     otp,
     setOtp,
-    ForgotPasssword
-
+    ForgotPasssword,
+    setPage,
   }= useContext(AuthContext)
 
+  setPage('login')
   const[ showPassword, setShowPassword] = useState(false)
 
   const toogleShowPassword = () =>{

@@ -77,9 +77,9 @@ export const PendingKYC = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'Pending KYC')
-    localStorage.setItem('urlLink', '/admin/KYC/pending')
-    localStorage.setItem('IndividualData', JSON.stringify(data))
+    sessionStorage.setItem('urlName', 'Pending KYC')
+    sessionStorage.setItem('urlLink', '/admin/KYC/pending')
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if(response.ok){
       navigate(`/admin/KYC/${data.id}`)

@@ -77,9 +77,9 @@ export const VerifiedKYC = () =>{
       
     })
     const data = await response.json()
-    localStorage.setItem('urlName', 'Verified KYC')
-    localStorage.setItem('urlLink', '/admin/KYC/verified')
-    localStorage.setItem('IndividualData', JSON.stringify(data))
+    sessionStorage.setItem('urlName', 'Verified KYC')
+    sessionStorage.setItem('urlLink', '/admin/KYC/verified')
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if(response.ok){
       navigate(`/admin/KYC/${data.id}`)

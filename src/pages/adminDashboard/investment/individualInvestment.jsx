@@ -574,7 +574,7 @@ export const IndividualInvestment = () =>{
     })
     if(response.ok){
       const data = await response.json()
-      localStorage.setItem('IndividualData', JSON.stringify(data))
+      sessionStorage.setItem('IndividualData', JSON.stringify(data))
   
     }
     
@@ -595,7 +595,7 @@ export const IndividualInvestment = () =>{
     if(response.ok){
       const data = await response.json()
       const sortedData = data.sort((a, b) => b.id - a.id);
-      localStorage.setItem('InvestmentInterestData', JSON.stringify(sortedData))
+      sessionStorage.setItem('InvestmentInterestData', JSON.stringify(sortedData))
       console.log(data)
 
     }
@@ -674,10 +674,10 @@ export const IndividualInvestment = () =>{
   }
 
   useEffect(() =>{
-    const data = localStorage.getItem("IndividualData")
+    const data = sessionStorage.getItem("IndividualData")
 
-    setUrlName(localStorage.getItem('urlName'))
-    setUrlLink(localStorage.getItem('urlLink'))
+    setUrlName(sessionStorage.getItem('urlName'))
+    setUrlLink(sessionStorage.getItem('urlLink'))
     if(data){
       const parsedData = JSON.parse(data)
       setDetails(parsedData)
@@ -687,7 +687,7 @@ export const IndividualInvestment = () =>{
 
 
   useEffect(() =>{
-    const data = localStorage.getItem("InvestmentInterestData")
+    const data = sessionStorage.getItem("InvestmentInterestData")
     if(data !== null){
       const parsedData = JSON.parse(data)
       setInvestmentInterestData(parsedData)
