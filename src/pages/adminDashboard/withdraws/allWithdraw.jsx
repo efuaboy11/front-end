@@ -313,7 +313,7 @@ export const AllWithdraw = () =>{
                             
                             
                           </td>
-                          <td >{data.transaction_id} <br /> <span className="sm-text-2">via {data.wallet_name}</span></td>
+                          <td >{data.transaction_id} <br /> <span className="sm-text-2">via  {formatName(data.payment_method_name)}</span></td>
                           <td>{formatCurrency(data.amount)} USD</td>
                           <td>{formatDate(data.created_at)}</td>
                           <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>                         

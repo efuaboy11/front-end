@@ -90,11 +90,6 @@ export const IndividualWithdraw = () =>{
                               <p className="sm-text-2 light-text">Amount</p>
                               <p>{formatCurrency(details.amount)}USD</p>
                             </div>
-
-                            <div className='pb-3'>
-                              <p className="sm-text-2 light-text">Wallet Address</p>
-                              <p>{details.wallet_address}</p>
-                            </div>
                           </div>
 
                           <div className="col-sm-6">
@@ -102,16 +97,142 @@ export const IndividualWithdraw = () =>{
                               <p className="sm-text-2 light-text">Transaction Type</p>
                               <p>Withdraw</p>
                             </div>
-
-                            <div className='pb-3'>
-                              <p className="sm-text-2 light-text pb-1">Wallet Name </p>
-                              <p><span className='bg-yellow sm-text-2 py-1 px-2'><i class="bi bi-currency-bitcoin"></i>{details.wallet_name ? formatName(details.wallet_name): 'null'}</span></p>
-                            </div>
                           </div>
 
                           
                         </div>
                       </div>
+
+
+                      {details.payment_method_name === "Wallet Address" &&
+                        <div className='pt-5 pb-3 border-bottom1'>
+                          <p className='font-bold sm-text-2 pb-4'>WALLET ADDRESS DETAILS</p>
+
+                          <div className="row">
+                            <div className="col-sm-6">
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Label</p>
+                                <p>{formatName(details.payment_method_details.label)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Address</p>
+                                <p>{formatName(details.payment_method_details.walletAddress)}</p>
+                              </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Coin</p>
+                                <p>{formatName(details.payment_method_details.coin)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Network</p>
+                                <p>{formatName(details.payment_method_details.network)}</p>
+                              </div>
+                            </div>
+
+
+
+                            
+                          </div>
+                        </div>
+                      
+                      }
+
+                      {details.payment_method_name === "Bank Account" &&
+                        <div className='pt-5 pb-3 border-bottom1'>
+                          <p className='font-bold sm-text-2 pb-4'>BANK ACCOUNT DETAILS</p>
+
+                          <div className="row">
+                            <div className="col-sm-6">
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Bank Name</p>
+                                <p>{formatName(details.payment_method_details.bank_name)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Account Number</p>
+                                <p>{formatName(details.payment_method_details.account_number)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Currency</p>
+                                <p>{formatName(details.payment_method_details.currency)}</p>
+                              </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Owner of Account</p>
+                                <p>{formatName(details.payment_method_details.account_name)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Bank Country</p>
+                                <p>{formatName(details.payment_method_details.bank_country)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Bank Branch</p>
+                                <p>{formatName(details.payment_method_details.bank_branch)}</p>
+                              </div>
+                            </div>
+
+
+                            
+                          </div>
+                        </div>
+                      
+                      }
+
+                      {details.payment_method_name === "Bank Card" &&
+                        <div className='pt-5 pb-3 border-bottom1'>
+                          <p className='font-bold sm-text-2 pb-4'>BANK CARD DETAILS</p>
+
+                          <div className="row">
+                            <div className="col-sm-6">
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Label</p>
+                                <p>{formatName(details.payment_method_details.label)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Card Number</p>
+                                <p>{formatName(details.payment_method_details.card_number)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Name on Card</p>
+                                <p>{formatName(details.payment_method_details.name_on_card)}</p>
+                              </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Expiration Date</p>
+                                <p>{formatName(details.payment_method_details.expiration_date)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Secure Code (CVV)</p>
+                                <p>{formatName(details.payment_method_details.cvv)}</p>
+                              </div>
+
+                              <div className='pb-3'>
+                                <p className="sm-text-2 light-text">Country</p>
+                                <p>{formatName(details.payment_method_details.country)}</p>
+                              </div>
+                            </div>
+
+
+
+                            
+                          </div>
+                        </div>
+                      
+                      }
 
                       <div className='pt-5 pb-3'>
                         <p className='font-bold sm-text-2 pb-4'>IN ACCOUNT</p>

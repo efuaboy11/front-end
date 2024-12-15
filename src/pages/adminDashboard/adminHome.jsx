@@ -581,9 +581,9 @@ export const AdminHome = () =>{
                                 <p onClick={toggleShowSuccessfulDeposit} className={`ps-3 pe-2  ${showSuccessfulDeposit ? "blue-background": ""} border-radius-10px cursor-pointer`}>Sucessful</p>
                               </div>
                             </div>
-                            <div className="d-none d-sm-block dashboard-boxes ms-1 px-2  border-radius-10px">
+                            <Link to='/admin/all-deposits' className="Link d-none d-sm-block dashboard-boxes ms-1 px-2  border-radius-10px">
                               <p>See All</p>
-                            </div>
+                            </Link>
 
                           </div>
                         </div>
@@ -718,9 +718,9 @@ export const AdminHome = () =>{
                                 <p onClick={toggleShowSuccessfulWithdraw} className={`ps-3 pe-2  ${showSuccessfulWithdraw ? "red-background": ""} border-radius-10px cursor-pointer`}>Sucessful</p>
                               </div>
                             </div>
-                            <div className="d-none d-sm-block dashboard-boxes ms-1 px-2  border-radius-10px">
+                            <Link to='/admin/all-withdraws' className="Link d-none d-sm-block dashboard-boxes ms-1 px-2  border-radius-10px">
                               <p>See All</p>
-                            </div>
+                            </Link>
 
                           </div>
                         </div>

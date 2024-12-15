@@ -20,7 +20,6 @@ import { IndividualWithdraw } from './pages/adminDashboard/withdraws/individualW
 import { SuccessfulWithdraw } from './pages/adminDashboard/withdraws/confirmedWithdraw';
 import { DeclinedWithdraw } from './pages/adminDashboard/withdraws/declinedWithdraw';
 import { PendingWithdraw } from './pages/adminDashboard/withdraws/pendingWithdraw';
-import { AddWithdraw } from './pages/adminDashboard/withdraws/addWithdraw';
 import { AllInvestment } from './pages/adminDashboard/investment/allInvestment';
 import { IndividualInvestment } from './pages/adminDashboard/investment/individualInvestment';
 import { ActiveInvestment } from './pages/adminDashboard/investment/activeInvestment';
@@ -70,6 +69,18 @@ import { EditBankCard } from './pages/adminDashboard/userPaymentDetails/BankCard
 import { ChangePassowrd1 } from './pages/adminDashboard/changePassword/step1';
 import { ChangePassowrd2 } from './pages/adminDashboard/changePassword/step2';
 import { ChangePassowrd3 } from './pages/adminDashboard/changePassword/step3';
+import { SelectUser } from './pages/adminDashboard/userPaymentDetails/individualPaymentMethod/selectUser';
+import { PaymetntDetailsOptions } from './pages/adminDashboard/userPaymentDetails/individualPaymentMethod/paymentDetailsOptions';
+import { IndividualBankCard } from './pages/adminDashboard/userPaymentDetails/individualPaymentMethod/individualbankcard';
+import { IndividualBankAccount } from './pages/adminDashboard/userPaymentDetails/individualPaymentMethod/individualbankAccount';
+import { IndividualWallet } from './pages/adminDashboard/userPaymentDetails/individualPaymentMethod/individualWalletAddress';
+import { SelectUserWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/selectUser';
+import { PaymetntDetailsOptionsWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/paymentOptions';
+import { BankCardWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/bankCard';
+import { BankAccountWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/bankAccount';
+import { WalletWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/walletAddress';
+import { AddWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/addWthdraw';
+import { UserLoginDetails } from './pages/adminDashboard/userLoginDetails/userLoginDetails';
 
 
 function App() {
@@ -107,6 +118,13 @@ function App() {
           <Route path="/admin/declined-withdraws" element={< DeclinedWithdraw/>} />
           <Route path="/admin/pending-withdraws" element={<PendingWithdraw/>} />
           <Route path="/admin/add-withdraw" element={<AddWithdraw/>} />
+          <Route path="/admin/withdraw/select-user" element={<SelectUserWithdraw/>} />
+          <Route path="/admin/withdraw/payment-options" element={<PaymetntDetailsOptionsWithdraw/>} />
+          <Route path="/admin/withdraw/bank-card" element={<BankCardWithdraw/>} />
+          <Route path="/admin/withdraw/bank-account" element={<BankAccountWithdraw/>} />
+          <Route path="/admin/withdraw/wallet-address" element={<WalletWithdraw/>} />
+          
+
 
           {/* Investment */}
           <Route path="/admin/all-investment" element={<AllInvestment/>} />
@@ -185,6 +203,16 @@ function App() {
           <Route path="/admin/change-password/step-1/" element={<ChangePassowrd1/>} />
           <Route path="/admin/change-password/step-2/" element={<ChangePassowrd2/>} />
           <Route path="/admin/change-password/step-3/" element={<ChangePassowrd3/>} />
+
+          {/* User details */}
+          <Route path="/admin/user-login-details/" element={<UserLoginDetails/>} />
+
+          {/* Individual Payment Method */}
+          <Route path="/admin/individual-payment-method/select-user/" element={<SelectUser/>} />
+          <Route path="/admin/individual-payment-method/payment-option/" element={<PaymetntDetailsOptions/>} />
+          <Route path="/admin/individual-payment-method/individual-bank-card/" element={<IndividualBankCard/>} />
+          <Route path="/admin/individual-payment-method/individual-bank-account/" element={<IndividualBankAccount/>} />
+          <Route path="/admin/individual-payment-method/individual-wallet/" element={<IndividualWallet/>} />
         </Routes>
         </AllDataProvider>
       </AuthProvider>

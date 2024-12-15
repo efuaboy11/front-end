@@ -279,7 +279,7 @@ export const BankAccount = () =>{
               <div>
                 <div className='pt-3'>
                   <Link className='Link' to='/admin/payment-account/bank-account/add' >
-                    <div className='dashboard-btn py-2 px-3'>
+                    <div className='dashboard-btn d-inline-block py-2 px-3'>
 
 
                       <div className="d-flex">

@@ -304,8 +304,8 @@ export const AdminDashFrame = () =>{
                       </div>
                     </li>
 
-                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/add-withdraw" onClick={OnbodyClick}>Add New</Link> 
+                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/withdraw/select-user") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/withdraw/select-user" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
@@ -426,9 +426,9 @@ export const AdminDashFrame = () =>{
                      
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/pending-investment") ?"active-dash-link": ""}`}>
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/individual-payment-method/select-user/") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/pending-investment" onClick={OnbodyClick}>Individual Details</Link> 
+                        <Link className='dashboard-link' to="/admin/individual-payment-method/select-user/" onClick={OnbodyClick}>Individual Details</Link> 
                       </div>
                      
                     </li>
@@ -800,7 +800,7 @@ export const AdminDashFrame = () =>{
                           </Link>
                         </li>
                         <li className='pb-2'>
-                          <Link className='light-link'>
+                          <Link to='/admin/user-login-details/' className='light-link'>
                             <div className="d-flex">
                               <i class="bi bi-person-fill pe-2"></i>
                               <p className=''>User details</p>

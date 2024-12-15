@@ -211,7 +211,7 @@ export const AddBankCard = () =>{
               <div className="d-sm-flex justify-content-between align-items-center height-100">
                 <div>
                   <div>
-                    <p className='dashboard-header'>Add Bank Account</p>
+                    <p className='dashboard-header'>Add Bank Card</p>
                   </div>
                 </div>
                 <div>

@@ -120,8 +120,7 @@ export const BankCard = () =>{
       
     })
     const data = await response.json()
-    sessionStorage
-.setItem('IndividualData', JSON.stringify(data))
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
       navigate(`/admin/payment-account/bank-card/${data.bank_card_id}`)
@@ -280,7 +279,7 @@ export const BankCard = () =>{
               <div>
                 <div className='pt-3'>
                   <Link className='Link' to='/admin/payment-account/bank-card/add' >
-                    <div className='dashboard-btn py-2 px-3'>
+                    <div className='d-inline-block dashboard-btn py-2 px-3'>
 
 
                       <div className="d-flex">

@@ -177,7 +177,7 @@ export const AddCrytoWallet = () =>{
               <div className="d-sm-flex justify-content-between align-items-center height-100">
                 <div>
                   <div>
-                    <p className='dashboard-header'>Edit Crypto Wallet</p>
+                    <p className='dashboard-header'>Add Crypto Wallet</p>
                   </div>
                 </div>
                 <div>

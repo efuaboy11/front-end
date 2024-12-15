@@ -1,23 +1,24 @@
-import '../../../css/dashboardCss/dashboard.css'
-import AuthContext from "../../../context/AuthContext";
+import '../../../../css/dashboardCss/dashboard.css'
+import AuthContext from "../../../../context/AuthContext";
 import { useContext, useEffect, useState } from 'react';
-import { AdminDashFrame } from '../../../component/adminDashFrame';
-import FloatingAlert from '../../../component/alert';
+import { AdminDashFrame } from '../../../../component/adminDashFrame';
+import FloatingAlert from '../../../../component/alert';
 import { useForm } from 'react-hook-form';
-import { LoadingSpiner } from '../../../component/spin';
-import AllDataContext from '../../../context/Alldata';
-import { DashboardFooter } from '../../../component/dashbaordFooter';
+import { LoadingSpiner } from '../../../../component/spin';
+import AllDataContext from '../../../../context/Alldata';
+import { DashboardFooter } from '../../../../component/dashbaordFooter';
+import { useNavigate } from 'react-router-dom';
 
 export const AddWithdraw = () =>{
 
   const [user, setUser] = useState('')
-  const [walletAdress, setWalletAddress] = useState('')
-  const [walletName, setWalletName] = useState('')
+  const [paymentMethodType, setPaymentMethodType] = useState('')
+  const [paymentMethodId, setPaymentMethodId] = useState('')
   const [amount, setAmount] = useState('')
   const [date, setDate] = useState('')
   const [status, setStatus] = useState('')
   const [loader, setLoader] = useState(false)
-
+ 	const navigate = useNavigate()
 
   const { authTokens, 
     messages,
@@ -68,8 +69,8 @@ export const AddWithdraw = () =>{
 
     formData.append('user', user)
     formData.append('amount', amount)
-    formData.append('wallet_address', walletAdress)
-    formData.append('wallet_name', walletName)
+		formData.append('payment_method_type', paymentMethodType)
+		formData.append('payment_method_id', paymentMethodId)
     formData.append('status', status)
     formData.append('created_at', date)
 
@@ -90,8 +91,9 @@ export const AddWithdraw = () =>{
         setLoader(false)
         setDisablebutton(false)
         setUser('')
-        setWalletAddress('')
-        setWalletName('')
+				navigate('/admin/withdraw/select-user')
+        // setWalletAddress('')
+        // setWalletName('')
         setAmount('')
         setDate('')
         setStatus('')
@@ -120,9 +122,6 @@ export const AddWithdraw = () =>{
   }
 
   const ClearInput = () =>{
-    setUser('')
-    setWalletAddress('')
-    setWalletName('')
     setAmount('')
     setDate('')
     setStatus('')
@@ -136,7 +135,12 @@ export const AddWithdraw = () =>{
   } = useForm();
 
    
-  
+  useEffect(() =>{
+		setUser(sessionStorage.getItem('userID'))
+		setPaymentMethodType(sessionStorage.getItem('paymentTypeID'))
+		setPaymentMethodId(sessionStorage.getItem('paymentMethodID'))
+
+	}, [])
   
 
   
@@ -175,17 +179,6 @@ export const AddWithdraw = () =>{
                 <div>
                   <form  onSubmit={handleSubmit(onSubmit)}>
                     <div className='row g-3'>
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2">Add to Account</label>
-                        <select className={`${errors.user ? 'error-input' : ''} dashboard-input`} {...register('user', {required: true})} type="text"   value={user} onChange={(e) => setUser(e.target.value)}>
-                          <option></option>
-                          {usersData.map((data) =>(
-
-                            <option value={data.id} key={data.id}>{data.full_name}</option>
-                          ))}
-                        </select>
-                        {errors.user && <span style={{color: 'red'}}>This Feild is required</span>} 
-                      </div>
 
                       <div className="col-sm-6">
                         <label htmlFor="" className="p-2 ">Amount</label>
@@ -193,17 +186,6 @@ export const AddWithdraw = () =>{
                         {errors.amount && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2">Wallet Address</label>
-                        <input type="text" className={`dashboard-input ${errors.walletAdress ? 'error-input' : ''}`} {...register('walletAdress', {required: true})}  value={walletAdress} onChange={(e) => setWalletAddress(e.target.value)} placeholder="e.g 1DC9GBTv9JNb8K58EdFsg1PAeYRCsVi7Rq" />
-                        {errors.walletAdress && <span style={{color: 'red'}}>This Feild is required</span>} 
-                      </div>
-
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2">Wallet Name</label>
-                        <input type="text" className={`dashboard-input ${errors.walletName ? 'error-input' : ''}`} {...register('walletName', {required: true})}  value={walletName} onChange={(e) => setWalletName(e.target.value)} placeholder="e.g bitcoin" />
-                        {errors.walletName && <span style={{color: 'red'}}>This Feild is required</span>} 
-                      </div>
 
                       <div className="col-sm-6">
                         <label htmlFor="" className="p-2 ">Created <span className='light-text'>(Optional)</span></label>
