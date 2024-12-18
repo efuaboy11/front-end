@@ -182,7 +182,7 @@ export const AddDeposit = () =>{
               </div>
 
 
-              <div className="dashboard-boxes mt-4 p-4 border-radius-5px">
+              <div className="dashboard-boxes my-4 p-4 border-radius-5px">
                 <div>
                   <form  onSubmit={handleSubmit(onSubmit)}>
                     <div className='row g-3'>
@@ -260,7 +260,7 @@ export const AddDeposit = () =>{
         </div>
       </div>
 
-      <div className='mt-4'>
+      <div>
         <DashboardFooter />
       </div>
 
