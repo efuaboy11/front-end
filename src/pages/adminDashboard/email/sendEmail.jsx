@@ -7,8 +7,9 @@ import { useForm } from 'react-hook-form';
 import { LoadingSpiner } from '../../../component/spin';
 import AllDataContext from '../../../context/Alldata';
 import { DashboardFooter } from '../../../component/dashbaordFooter';
+import { Link } from 'react-router-dom';
 
-export const AddDeposit = () =>{
+export const SendEmail = () =>{
 
   const [user, setUser] = useState('')
   const [paymentOption, setPaymentOption] = useState('')
@@ -122,6 +123,9 @@ export const AddDeposit = () =>{
     }  
   }
 
+
+  
+
   const ClearInput = () =>{
     setUser('')
     setPaymentOption('')
@@ -176,8 +180,9 @@ export const AddDeposit = () =>{
           <section className='py-4 row justify-content-center'> 
             <div className="col-md-11 col-xl-10">
               <div>
+                <Link className='light-link' to='/admin/all-email/'><i class="bi bi-arrow-left me-1"></i> Email Addresses</Link>
                 <div>
-                  <p className='dashboard-header'>Add New Deposit</p>
+                  <p className='dashboard-header'>Send Email</p>
                 </div>
               </div>
 
@@ -185,64 +190,35 @@ export const AddDeposit = () =>{
               <div className="dashboard-boxes mt-4 p-4 border-radius-5px">
                 <div>
                   <form  onSubmit={handleSubmit(onSubmit)}>
-                    <div className='row g-3'>
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2">Add to Account</label>
-                        <select className={`${errors.user ? 'error-input' : ''} dashboard-input cursor-pointer`} {...register('user', {required: true})} type="text"   value={user} onChange={(e) => setUser(e.target.value)}>
-                          <option></option>
-                          {usersData.map((data) =>(
-
-                            <option value={data.id} key={data.id}>{data.full_name}</option>
-                          ))}
-                        </select>
-                        {errors.user && <span style={{color: 'red'}}>This Feild is required</span>} 
+                    <div className="row g-3">
+                      <div className="col-lg-2 col-md-3 col-4">
+                        <p className='font-bold'>Send To:</p>
                       </div>
 
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Amount</label>
+                      <div className="col-lg-10 col-md-9 col-8">
                         <input type="text" className={`dashboard-input ${errors.amount ? 'error-input' : ''}`} {...register('amount', {required: true})}  value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="0.00" />
                         {errors.amount && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2">Payment Method</label>
-                        <select className={`${errors.paymentOption ? 'error-input' : ''} dashboard-input`} {...register('paymentOption', {required: true})} type="text"   value={paymentOption} onChange={(e) => setPaymentOption(e.target.value)}>
-                          <option></option>
-                          {paymentOptionsData.map((data) =>(
-
-                            <option value={data.id} key={data.id}>{data.name}</option>
-                          ))}
-                        </select>
-                        {errors.paymentOption && <span style={{color: 'red'}}>This Feild is required</span>} 
+                      <div className="col-lg-2 col-md-3 col-4">
+                        <p className='font-bold'>Email Subject:</p>
                       </div>
 
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Payment Proof</label>
-                        <input className={`dashboard-input ${errors.img ? 'error-input' : ''} form-control-sm`} {...register('img', {required: true})} type="file" onChange={handleImgFile}/>
-                        {errors.img && <span style={{color: 'red'}}>This Feild is required</span>} 
+                      <div className="col-lg-10 col-md-9 col-8">
+                        <input type="text" className={`dashboard-input ${errors.amount ? 'error-input' : ''}`} {...register('amount', {required: true})}  value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Email Subject:" />
+                        {errors.amount && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2 ">Created <span className='light-text'>(Optional)</span></label>
-                        <input type="date" className={`dashboard-input ${errors.amount ? 'error-input' : ''}`} {...register('date')}  value={date} onChange={(e) => setDate(e.target.value)}/>
+                      <div className="col-12">
+                        <textarea rows='9' type="text" className={`dashboard-input ${errors.amount ? 'error-input' : ''}`} {...register('amount', {required: true})}  value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Write Your Message" />
+                        {errors.amount && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
 
-                      <div className="col-sm-6">
-                        <label htmlFor="" className="p-2">Status</label>
-                        <select className={`${errors.status ? 'error-input' : ''} dashboard-input`} {...register('status', {required: true})} type="text"   value={status} onChange={(e) => setStatus(e.target.value)}>
-                          <option></option>
-                          <option value='pending'>Pending</option>
-                          <option value='declined'>Declined</option>
-                          <option value='successful'>Successful</option>
-                        </select>
-                        {errors.status && <span style={{color: 'red'}}>This Feild is required</span>} 
-                      </div>
-                      
-                      <div className='col-12 pt-4'>
+                      <div className='col-12 pt-2'>
                         <div className="d-flex height-100 align-items-center">
                           <div className='pe-4'>
 
-                            <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Add Deposit</button> 
+                            <button className="dashboard-btn py-2 px-4" type="submit" disabled={disablebutton}>Send Email</button> 
                           </div>
                           <p onClick={ClearInput} className='light-link cursor-pointer'>Cancel</p>
                         </div>
@@ -260,7 +236,7 @@ export const AddDeposit = () =>{
         </div>
       </div>
 
-      <div className='mt-4'>
+      <div>
         <DashboardFooter />
       </div>
 

@@ -288,8 +288,12 @@ export const AuthProvider = ({children}) =>{
     const LogoutUser = () =>{
         setAuthToken(null)
         sessionStorage.removeItem("authTokens")
-        navigate("/")
+        navigate("/login")
         console.log("sucessfull")
+        setIsSuccess(true)
+        showAlert()
+        setMessage("Thank you for trading with AmaniLightEquity")
+        
 
     }
 

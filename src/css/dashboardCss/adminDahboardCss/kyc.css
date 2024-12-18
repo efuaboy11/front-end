@@ -37,7 +37,7 @@
 }
 
 .pending-kyc{
-  background-color: #EB8317;
-  border: 1px solid #FFF100;
+  background-color:rgb(255, 138, 8, 0.1);
+  border: 1px solid rgb(255, 138, 8, 0.5);
 }
 

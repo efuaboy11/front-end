@@ -83,7 +83,7 @@ export const UnverifiedUser = () =>{
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link to='/admin/KYC/add' className='dashboard-btn py-2 px-3'>
+                  <Link to='/admin/user/add' className='dashboard-btn py-2 px-3'>
                     <i class="bi bi-person  pe-3"></i>
                     Add Users
                   </Link>

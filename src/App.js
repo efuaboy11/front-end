@@ -81,6 +81,8 @@ import { BankAccountWithdraw } from './pages/adminDashboard/withdraws/AddWithdra
 import { WalletWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/walletAddress';
 import { AddWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/addWthdraw';
 import { UserLoginDetails } from './pages/adminDashboard/userLoginDetails/userLoginDetails';
+import { AllEmail } from './pages/adminDashboard/email/allEmail';
+import { SendEmail } from './pages/adminDashboard/email/sendEmail';
 
 
 function App() {
@@ -213,6 +215,10 @@ function App() {
           <Route path="/admin/individual-payment-method/individual-bank-card/" element={<IndividualBankCard/>} />
           <Route path="/admin/individual-payment-method/individual-bank-account/" element={<IndividualBankAccount/>} />
           <Route path="/admin/individual-payment-method/individual-wallet/" element={<IndividualWallet/>} />
+
+          {/* Email */}
+          <Route path="/admin/all-email/" element={<AllEmail/>} />
+          <Route path="/admin/send-email/:id" element={<SendEmail/>} />
         </Routes>
         </AllDataProvider>
       </AuthProvider>

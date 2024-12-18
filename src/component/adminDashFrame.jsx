@@ -16,6 +16,7 @@ export const AdminDashFrame = () =>{
     toggleCloseSidebar,
     toggleShowSidebar,
     OnbodyClick,
+    LogoutUser,
 
   } = useContext(AuthContext)
 
@@ -654,6 +655,10 @@ export const AdminDashFrame = () =>{
                       <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Bulk Email</Link> 
                     </li>
 
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/all-email/") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/all-email/" onClick={OnbodyClick}>Users Email</Link> 
+                    </li>
+
                     <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
                         <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>All Email</Link> 
@@ -808,12 +813,12 @@ export const AdminDashFrame = () =>{
                           </Link>
                         </li>
                         <li className='pb-2'>
-                          <Link className='light-link'>
+                          <button className='light-link Button' onClick={LogoutUser}>
                             <div className="d-flex">
                               <i class="bi bi-box-arrow-in-up-right pe-2"></i>
                               <p className=''>Logout</p>
                             </div>
-                          </Link>
+                          </button>
                         </li>
                       </ul>
                     </div>
