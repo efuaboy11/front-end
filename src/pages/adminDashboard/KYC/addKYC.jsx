@@ -307,7 +307,7 @@ export const AddKYC = () =>{
         </div>
       </div>
 
-      <div>
+      <div className='mt-5 py-3'>
         <DashboardFooter />
       </div>
 
