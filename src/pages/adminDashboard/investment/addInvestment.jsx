@@ -262,7 +262,7 @@ export const AddInvestment = () =>{
         </div>
       </div>
 
-      <div>
+      <div className='mt-5 py-3'>
         <DashboardFooter />
       </div>
 

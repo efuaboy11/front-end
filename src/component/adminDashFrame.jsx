@@ -757,8 +757,8 @@ export const AdminDashFrame = () =>{
                       </div>
                     </li>
 
-                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Add New</Link> 
+                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/payment-method/add") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/payment-method/add" onClick={OnbodyClick}>Add New</Link> 
                     </li>
                     
                   </ul>
