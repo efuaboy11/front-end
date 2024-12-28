@@ -14,6 +14,8 @@ export const EditPaymentMethod = () =>{
 
   const [name, setName] = useState('')
   const [walletAddress, setWalletAddress] = useState('')
+  const [network, setNetwork] = useState('')
+  const [walletType, setWalletType] = useState('')
   const [img, setImg] = useState(null)
   const [loader, setLoader] = useState(false)
   const [deleteModal, setDeletedModal] = useState(false)
@@ -74,6 +76,8 @@ export const EditPaymentMethod = () =>{
 
     formData.append('name', name)
     formData.append('wallet_address', walletAddress)
+    formData.append('type', walletType)
+    formData.append('network', network)
 
     try{
       const response = await fetch(`http://127.0.0.1:8000/api/payment-method/${details.id}/`, {
@@ -177,6 +181,8 @@ export const EditPaymentMethod = () =>{
       setDetails(parsedData)
       setName(parsedData.name || '');
       setWalletAddress(parsedData.wallet_address || '');
+      setWalletType(parsedData.type || '')
+      setNetwork(parsedData.network || '')
     }
   }, []);
 
@@ -267,7 +273,27 @@ export const EditPaymentMethod = () =>{
                             <input type="text" className={`dashboard-input ${errors.name ? 'error-input' : ''}`} {...register('name', {required: true})}  value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g Etherum" />
                             {errors.name && <span style={{color: 'red'}}>This Feild is required</span>} 
                           </div>
+                        <div className="col-sm-6">
+                          <label htmlFor="" className="p-2 ">Wallet Type</label>
+                          <input type="text" className={`dashboard-input ${errors.walletType ? 'error-input' : ''}`} {...register('walletType', {required: true})}  value={walletType} onChange={(e) => setWalletType(e.target.value)} placeholder="e.g BTC" />
+                          {errors.walletType && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        </div>
 
+
+                        <div className="col-sm-6">
+                          <label htmlFor="" className="p-2">Network</label>
+                          <select className={`${errors.network ? 'error-input' : ''} dashboard-input cursor-pointer cursor-pointer`} {...register('network', {required: true})} type="text"   value={network} onChange={(e) => setNetwork(e.target.value)}>
+                            <option className=''>Select Network</option>
+                            <option value='BTC'>BTC</option>
+                            <option value='ERC20'>ERC20</option>
+                            <option value='DOT'>DOT</option>
+                            <option value='BEP20'>BEP20</option>
+                            <option value='ERC20'>ERC20</option>
+                            <option value='OMNI'>OMNI</option>
+                            <option value='TRC20'>TRC20</option>
+                          </select>
+                          {errors.network && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        </div>
                           <div className="col-12">
                             <label htmlFor="" className="p-2 ">Wallet Address</label>
                             <input type="text" className={`dashboard-input ${errors.walletAddress ? 'error-input' : ''}`} {...register('walletAddress', {required: true})}  value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)} placeholder="e.g 1DC9GBTv9JNb8K58EdFsg1PAeYRCsVi7Rq" />

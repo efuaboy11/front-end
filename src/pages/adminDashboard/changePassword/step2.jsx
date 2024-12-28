@@ -13,9 +13,15 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
+import { useAccess } from '../../../context/accessContext';
 
 export const ChangePassowrd2 = () =>{
-  
+  const { markRouteAsVisited } = useAccess();
+
+  useEffect(() => {
+    markRouteAsVisited("/admin/change-password/step-1/");
+    markRouteAsVisited("/admin/change-password/step-2/");
+  }, [markRouteAsVisited]);
 
   const { authTokens, 
     messages,

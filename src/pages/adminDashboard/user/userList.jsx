@@ -15,6 +15,7 @@ import '../../../css/dashboardCss/adminDahboardCss/kyc.css'
 import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const UserList = () =>{
+  
   const {authTokens, 
     OnbodyClick,
     formatName,

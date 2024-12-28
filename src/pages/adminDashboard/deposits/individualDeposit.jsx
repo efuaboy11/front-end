@@ -5,9 +5,15 @@ import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import pic from '../../../img/Spin.gif'
 import { DashboardFooter } from '../../../component/dashbaordFooter';
+import { useAccess } from '../../../context/accessContext';
 
 
 export const IndividualDeposit = () =>{
+  const { markRouteAsVisited } = useAccess();
+
+  useEffect(() => {
+    markRouteAsVisited("/admin/all-deposits/:id");
+  }, [markRouteAsVisited]);
   const { authTokens, 
     OnbodyClick,
     formatDate,
@@ -106,6 +112,11 @@ export const IndividualDeposit = () =>{
                             <div className='pb-3'>
                               <p className="sm-text-2 light-text pb-1">Payment Method</p>
                               <p><span className='bg-yellow sm-text-2 py-1 px-2'><i class="bi bi-currency-bitcoin"></i> {formatName(details.payment_method_details.name)}</span></p>
+                            </div>
+
+                            <div className='pb-3'>
+                              <p className="sm-text-2 light-text pb-1">Network</p>
+                              <p>{details.payment_method_details.network}</p>
                             </div>
                           </div>
 

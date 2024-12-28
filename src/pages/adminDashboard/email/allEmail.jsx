@@ -160,11 +160,11 @@ export const AllEmail = () =>{
       
     })
     const data = await response.json()
-    sessionStorage.setItem('IndividualUserData', JSON.stringify(data))
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if(response.ok){
       console.log(data)
-      navigate(`/admin/send-email/${data.id}`)
+      navigate(`/admin/send-email-user/${data.id}`)
       setDisablebutton(false)
     }else{
       setDisablebutton(false)
@@ -201,7 +201,7 @@ export const AllEmail = () =>{
 
               <div>
                 <div className='d-none d-sm-block'>
-                  <Link to='/admin/user/add' className='dashboard-btn py-2 px-3'>
+                  <Link to='/admin/send-bulk-email/' className='dashboard-btn py-2 px-3'>
                     <FontAwesomeIcon className='pe-3' icon={faEnvelopesBulk}/>
                     Send Bulk Email
                   </Link>

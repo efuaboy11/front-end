@@ -166,6 +166,8 @@ export const PaymentMethod = () =>{
                     <tr>
                       <th className='sm-text-2 py-2'>Name</th>
                       <th className='sm-text-2'>Wallet Address</th>
+                      <th className='sm-text-2'>Network</th>
+                      <th className='sm-text-2'>Wallet Type</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -176,6 +178,8 @@ export const PaymentMethod = () =>{
                         <tr key={data.id} className={selectedDataId === data.id ? 'dashboard-active-row' : ''}> 
                           <td className='py-3'>{formatName(data.name)}</td>
                           <td>{data.wallet_address}</td>
+                          <td>{data.network}</td>
+                          <td>{data.type}</td>
                           <td>
                             <button disabled={disablebutton} className='Button' onClick={() => IndvividualPaymentMethod(data.id)}>
                               <p className='dashboard-table-arrow'><i class=" bi bi-chevron-right sm-text"></i></p>

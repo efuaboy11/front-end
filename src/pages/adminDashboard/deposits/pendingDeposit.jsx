@@ -11,8 +11,14 @@ import spin from '../../../img/Spin.gif'
 import { useForm } from 'react-hook-form';
 import AllDataContext from '../../../context/Alldata';
 import { DashboardFooter } from '../../../component/dashbaordFooter';
+import { useAccess } from '../../../context/accessContext';
 
 export const PendingDeposit = () =>{
+  const { markRouteAsVisited } = useAccess();
+
+  useEffect(() => {
+    markRouteAsVisited("/admin/all-pending-deposits");
+  }, [markRouteAsVisited]);
   const { authTokens, 
     messages,
     alertVisible,

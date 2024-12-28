@@ -9,13 +9,11 @@ import AllDataContext from '../../../context/Alldata';
 import { DashboardFooter } from '../../../component/dashbaordFooter';
 import { Link } from 'react-router-dom';
 
-export const SendEmail2 = () =>{
+export const SendEmail = () =>{
 
   const [details, setDetails] = useState(null)
-  const [email, setEmail] = useState('')
   const [subject, setSubject] = useState('')
   const [emailMessage, setEmailMessage] = useState('')
-
 
   const [loader, setLoader] = useState(false)
 
@@ -41,6 +39,17 @@ export const SendEmail2 = () =>{
 
   } = useContext(AuthContext)
 
+  useEffect(() =>{
+    const data = sessionStorage.getItem("IndividualData")
+
+    if(data){
+      const parsedData = JSON.parse(data)
+      console.log(parsedData)
+      setDetails(parsedData)
+
+    }
+  }, [])
+
   
   const onSubmit = (data, e) =>{
     setDisablebutton(true)
@@ -58,7 +67,7 @@ export const SendEmail2 = () =>{
 
     const formData = new FormData()
 
-    formData.append('to', email)
+    formData.append('to', details.email)
     formData.append('subject', subject)
     formData.append('body', emailMessage)
 
@@ -81,7 +90,6 @@ export const SendEmail2 = () =>{
         setDisablebutton(false)
         setSubject('')
         setEmailMessage('')
-        setEmail('')
 
       }else{
         const errorData = await response.json()
@@ -112,7 +120,6 @@ export const SendEmail2 = () =>{
   const ClearInput = () =>{
     setEmailMessage('')
     setSubject('')
-    setEmail('')
 
   }
 
@@ -169,8 +176,7 @@ export const SendEmail2 = () =>{
                       </div>
 
                       <div className="col-lg-10 col-md-9 col-8">
-                        <input type="text" className={`dashboard-input ${errors.email ? 'error-input' : ''}`} {...register('email', {required: true})}  value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email:" />
-                        {errors.email && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        <input type="text" className={`dashboard-input cursor-not-allowed ${errors.email ? 'error-input' : ''}`} {...register('email')}  value={`${ details && formatName(details.full_name)} <${details?.email}>`} disabled />
                       </div>
 
                       <div className="col-lg-2 col-md-3 col-4">

@@ -32,6 +32,7 @@ export const AddDeposit = () =>{
     OnbodyClick,
     disablebutton, 
     setDisablebutton,
+    formatName
 
 
 
@@ -210,7 +211,7 @@ export const AddDeposit = () =>{
                           <option></option>
                           {paymentOptionsData.map((data) =>(
 
-                            <option value={data.id} key={data.id}>{data.name}</option>
+                            <option value={data.id} key={data.id}>{formatName(data.name)} ({data.type}) - {data.network}</option>
                           ))}
                         </select>
                         {errors.paymentOption && <span style={{color: 'red'}}>This Feild is required</span>} 

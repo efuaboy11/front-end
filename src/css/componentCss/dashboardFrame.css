@@ -17,6 +17,7 @@
 
 }
 
+
 .dashboard-sidebar-head{
   display: flex;
   justify-content: center;
@@ -24,13 +25,21 @@
   
 }
 
+
 .dahboard-sidebar-count{
   border: solid 1px #404040;
   border-radius: 5px;
   padding: 0px 5px;
 }
+
+
 .dashboard-sidebar-height{
   max-height: 90%;
+}
+
+
+.client-dashboard-sidebar-height{
+  max-height: 60%;
 }
 
 
@@ -72,9 +81,24 @@
   background-color: #1D1D1D;
 }
 
+.client-dashboard-content-user-drop-down-container{
+  position: relative;
+}
+.client-dashboard-content-user-drop-down{
+  position: absolute;
+  margin-top: 20px;
+  /* padding: 20px ; */
+  background-color: #1D1D1D;
+  width: 100%;
+  left: -10px;
+
+}
 
 
-.dashboard-content-user-link:hover{
+
+
+
+.dashboard-content-user-link-hover:hover{
   color: #a0a0a0;
 }
 .dashboard-link{
@@ -120,6 +144,14 @@
   background: #161616;
 }
 
+.dashboard-deposit-interest{
+  background-color: #3C3D37;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
 
 @media screen and (max-width: 1200px){
   .dashboard-content{
@@ -158,11 +190,34 @@
 
 }
 
+@media screen and (max-width: 765px){
+  .client-dashboard-content-user-drop-down{
+    position: absolute;
+    margin-top: 20px;
+    background-color: #1D1D1D;
+    width: 300px;
+    left: -180px;
+  
+  }
+
+}
+
 @media screen and (max-width: 570px){
   .dashboard-content-user-link{
     padding: 15px;
     
   }
+
+  .client-dashboard-content-user-drop-down{
+    position: absolute;
+    margin-top: 20px;
+    background-color: #1D1D1D;
+    width: 300px;
+    left: -230px;
+  
+  }
+
+
 }
 
 @media screen and (max-width: 470px){

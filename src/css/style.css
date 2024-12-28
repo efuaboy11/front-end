@@ -12,6 +12,9 @@ li{
 .cursor-pointer{
   cursor: pointer;
 }
+.italic-text{
+  font-style: italic;
+}
 p, h1, h2, h3, h4, h5, h6{
   padding: 0px;
   margin: 0px;
@@ -62,6 +65,10 @@ ul,  li{
 .light-background2{
   background-color: #D1D8C5;
 
+}
+
+.grey-background{
+  background:#404040;
 }
 .dark-background{
   background-color: #000;
@@ -125,6 +132,10 @@ ul,  li{
   color: #4A249D;
 }
 
+.purple-border-bottom{
+  border-bottom: 2px solid #4A628A;
+}
+
 .sucessfull{
   background-color: #1E5128;
 
@@ -177,6 +188,14 @@ ul,  li{
 
 .border-bottom1{
   border-bottom: 1px solid #404040;
+}
+
+.border1{
+  border: 1px solid #404040;
+}
+
+.border-right1{
+  border-right: 1px solid #404040;
 }
 
 .position-sticky1{
@@ -280,6 +299,10 @@ ul,  li{
   opacity: 0.7; 
   padding: 10px 20px;
   border-radius: 5px;
+}
+
+.cursor-not-allowed{
+  cursor: not-allowed;
 }
 
 

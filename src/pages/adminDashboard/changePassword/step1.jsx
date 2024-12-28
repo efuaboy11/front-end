@@ -11,8 +11,16 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import { useAccess } from '../../../context/accessContext';
 
 export const ChangePassowrd1 = () =>{
+
+  const { markRouteAsVisited } = useAccess();
+
+  useEffect(() => {
+    markRouteAsVisited("/admin/change-password/step-1/");
+  }, [markRouteAsVisited]);
+
 
   const { authTokens, 
     messages,
@@ -45,7 +53,6 @@ export const ChangePassowrd1 = () =>{
 
   
   const onSubmit = (data, e) =>{
-    setLoader(true)
     setDisablebutton(true)
     if(isValid){
       RequestOTP(e)

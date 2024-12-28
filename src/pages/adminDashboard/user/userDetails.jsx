@@ -13,8 +13,15 @@ import { Menu, selectClasses } from '@mui/material';
 import AllDataContext from '../../../context/Alldata';
 import './../../../css/dashboardCss/adminDahboardCss/userDetails.css'
 import spin from '../../../img/Spin.gif'
+import { useAccess } from '../../../context/accessContext';
 
 export const UserDetails = () =>{
+  const { markRouteAsVisited } = useAccess();
+
+  useEffect(() => {
+    markRouteAsVisited("/admin/user/:id");
+  }, [markRouteAsVisited]);
+
   const {authTokens, 
 
     messages,

@@ -14,7 +14,9 @@ export const AddPaymentMethod = () =>{
 
   const [name, setName] = useState('')
   const [walletAddress, setWalletAddress] = useState('')
+  const [walletType, setWalletType] = useState('')
   const [loader, setLoader] = useState(false)
+  const [network, setNetwork] = useState('')
 
 
   const { authTokens, 
@@ -40,6 +42,8 @@ export const AddPaymentMethod = () =>{
   const ClearInput = () =>{
     setName('')
     setWalletAddress('')
+    setWalletType('')
+    setNetwork('')
 
   }
 
@@ -63,6 +67,8 @@ export const AddPaymentMethod = () =>{
 
     formData.append('name', name)
     formData.append('wallet_address', walletAddress)
+    formData.append('type', walletType)
+    formData.append('network', network)
 
     try{
       const response = await fetch(`http://127.0.0.1:8000/api/payment-method/`, {
@@ -82,6 +88,9 @@ export const AddPaymentMethod = () =>{
         setDisablebutton(false)
         setName('')
         setWalletAddress('')
+        setWalletType('')
+        setNetwork('')
+    
 
       }else{
         const errorData = await response.json()
@@ -170,10 +179,33 @@ export const AddPaymentMethod = () =>{
                         </div>
 
                         <div className="col-sm-6">
+                          <label htmlFor="" className="p-2 ">Wallet Type</label>
+                          <input type="text" className={`dashboard-input ${errors.walletType ? 'error-input' : ''}`} {...register('walletType', {required: true})}  value={walletType} onChange={(e) => setWalletType(e.target.value)} placeholder="e.g BTC" />
+                          {errors.walletType && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        </div>
+
+
+                        <div className="col-sm-6">
+                          <label htmlFor="" className="p-2">Network</label>
+                          <select className={`${errors.network ? 'error-input' : ''} dashboard-input cursor-pointer cursor-pointer`} {...register('network', {required: true})} type="text"   value={network} onChange={(e) => setNetwork(e.target.value)}>
+                            <option className=''>Select Network</option>
+                            <option value='BTC'>BTC</option>
+                            <option value='ERC20'>ERC20</option>
+                            <option value='DOT'>DOT</option>
+                            <option value='BEP20'>BEP20</option>
+                            <option value='ERC20'>ERC20</option>
+                            <option value='OMNI'>OMNI</option>
+                            <option value='TRC20'>TRC20</option>
+                          </select>
+                          {errors.network && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        </div>
+                        <div className="col-sm-6">
                           <label htmlFor="" className="p-2 ">Wallet Address</label>
                           <input type="text" className={`dashboard-input ${errors.walletAddress ? 'error-input' : ''}`} {...register('walletAddress', {required: true})}  value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)} placeholder="e.g 1DC9GBTv9JNb8K58EdFsg1PAeYRCsVi7Rq" />
                           {errors.walletAddress && <span style={{color: 'red'}}>This Feild is required</span>} 
                         </div>
+
+
 
                         
                         <div className='col-12 pt-4'>

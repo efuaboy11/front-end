@@ -646,22 +646,22 @@ export const AdminDashFrame = () =>{
 
                 <div>
                   <ul className={` dropdown-bg ${emailDropdown ? "slide-in" : "slide-out"}`}>
-
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Send Email</Link> 
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/send-email/") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/send-email/" onClick={OnbodyClick}>Send Email</Link> 
                     </li>
 
-                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
-                      <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>Bulk Email</Link> 
+
+                    <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/send-bulk-email/") ?"active-dash-link": ""}`}>
+                      <Link className='dashboard-link' to="/admin/send-bulk-email/" onClick={OnbodyClick}>Bulk Email</Link> 
                     </li>
 
                     <li className={`dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/all-email/") ?"active-dash-link": ""}`}>
                       <Link className='dashboard-link' to="/admin/all-email/" onClick={OnbodyClick}>Users Email</Link> 
                     </li>
 
-                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
+                    <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/email-messages/") ?"active-dash-link": ""}`}>
                       <div className="d-flex">
-                        <Link className='dashboard-link' to="/admin/addStudent" onClick={OnbodyClick}>All Email</Link> 
+                        <Link className='dashboard-link' to="/admin/email-messages/" onClick={OnbodyClick}>All Email</Link> 
                         <p className='ps-3'>({emailCount})</p>
                       </div>
                      
@@ -788,7 +788,7 @@ export const AdminDashFrame = () =>{
                   </div>
                 </Link>
                 <div className="dashboard-content-user-link cursor-pointer">
-                  <div className="d-flex " onClick={toggleNavDropdown}>
+                  <div className="d-flex dashboard-content-user-link-hover" onClick={toggleNavDropdown}>
                     <img src={userIcon} width='35px' alt="" />
                     <p className='px-2 pt-1'>AmanilightEquity</p>
                     <p className='pt-1'><FontAwesomeIcon className='xsm-text' icon={faAngleDown}/></p>

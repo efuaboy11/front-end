@@ -82,7 +82,20 @@ import { WalletWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/wal
 import { AddWithdraw } from './pages/adminDashboard/withdraws/AddWithdraw/addWthdraw';
 import { UserLoginDetails } from './pages/adminDashboard/userLoginDetails/userLoginDetails';
 import { AllEmail } from './pages/adminDashboard/email/allEmail';
-import { SendEmail } from './pages/adminDashboard/email/sendEmail';
+import { SendEmail } from './pages/adminDashboard/email/sendEmailUser';
+import { SendBulkEmail } from './pages/adminDashboard/email/sendBulkEmail';
+import { EmailMessage } from './pages/adminDashboard/email/emailMessages';
+import { SendEmail2 } from './pages/adminDashboard/email/sendEmail';
+import PrivateRoute from './utils/PrivateRoute';
+import { ClientDashFrame } from './component/ClientDashFrame';
+import { ClientDashboard } from './pages/clientDashboard/clientDashboard';
+import { AddDeposit1 } from './pages/clientDashboard/Deposit/AddDeposit/step1';
+import { AccessProvider } from './context/accessContext';
+import { ProtectedRoute } from './utils/ProctectedRoute';
+import { AddDeposit2 } from './pages/clientDashboard/Deposit/AddDeposit/step2';
+import { AddDeposit3 } from './pages/clientDashboard/Deposit/AddDeposit/step3';
+import { AddDeposit4 } from './pages/clientDashboard/Deposit/AddDeposit/step4';
+
 
 
 function App() {
@@ -90,136 +103,158 @@ function App() {
     <Router>
       <AuthProvider>
         <AllDataProvider>
+          <AccessProvider>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/otp-page" element={<OTP />} />
+              <Route path="/forgot-password" element={<ForgotPasssword />} />
+              <Route path="/forgot-password-2" element={<ForgotPassWord2 />} />
 
 
-        <ScrollToTop />
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/otp-page" element={<OTP />} />
-          <Route path="/forgot-password" element={<ForgotPasssword />} />
-          <Route path="/forgot-password-2" element={<ForgotPassWord2 />} />
+              <Route path="/dahframe/client" element={< ClientDashFrame/>} />
+              <Route element={<PrivateRoute />}>
+
+                {/* -----------------------------------CLIENT DASHBOARD ---------------------------------- */}
+                
+                <Route path="/dashboard/home/" element={< ClientDashboard/>} />
+
+                {/* Deposit */}
+                <Route path="/dashboard/deposit/step-1/" element={< AddDeposit1/>} />
+                <Route path="/dashboard/deposit/step-2/" element={< AddDeposit2/>} />
+                <Route path="/dashboard/deposit/step-3/" element={< AddDeposit3/>} />   
+                <Route path="/dashboard/deposit/step-4/" element={< AddDeposit4/>} />
+                <Route element={<PrivateRoute requiredRole='ADMIN'/>}>
+                  {/* -----------------------------------ADMIN DASHBOARD ---------------------------------- */}
+                  <Route path="/dahframe" element={< AdminDashFrame/>} />
+                  <Route path="/admin/home" element={< AdminHome/>} /> 
+
+                  {/*deposits  */}
+                  <Route path="/admin/all-deposits" element={< AllDeposit/>} /> 
+                  <Route
+                    path="/admin/all-deposits/:id"
+                    element={<ProtectedRoute element={IndividualDeposit} path="/admin/all-deposits/:id" />}
+                  />
+                  {/* <Route path="/admin/all-deposits/:id" element={< IndividualDeposit/>} />  */}
+                  <Route path="/admin/successful-deposits" element={< SuccessfulDeposit/>} /> 
+                  <Route path="/admin/pending-deposits" element={< PendingDeposit/>} /> 
+                  <Route path="/admin/declined-deposits" element={< DeclinedDeposit/>} /> 
+                  <Route path="/admin/add-deposits" element={< AddDeposit/>} /> \
+
+                  {/* withdraws */}
+                  <Route path="/admin/all-withdraws" element={< AllWithdraw/>} /> 
+                  <Route path="/admin/all-withdraws/:id" element={< IndividualWithdraw/>} /> 
+                  <Route path="/admin/successful-withdraws" element={< SuccessfulWithdraw/>} />
+                  <Route path="/admin/declined-withdraws" element={< DeclinedWithdraw/>} />
+                  <Route path="/admin/pending-withdraws" element={<PendingWithdraw/>} />
+                  <Route path="/admin/add-withdraw" element={<AddWithdraw/>} />
+                  <Route path="/admin/withdraw/select-user" element={<SelectUserWithdraw/>} />
+                  <Route path="/admin/withdraw/payment-options" element={<PaymetntDetailsOptionsWithdraw/>} />
+                  <Route path="/admin/withdraw/bank-card" element={<BankCardWithdraw/>} />
+                  <Route path="/admin/withdraw/bank-account" element={<BankAccountWithdraw/>} />
+                  <Route path="/admin/withdraw/wallet-address" element={<WalletWithdraw/>} />
+                  
 
 
-          {/* -----------------------------------ADMIN DASHBOARD ---------------------------------- */}
-          <Route path="/dahframe" element={< AdminDashFrame/>} />
-          <Route path="/admin/home" element={< AdminHome/>} /> 
+                  {/* Investment */}
+                  <Route path="/admin/all-investment" element={<AllInvestment/>} />
+                  <Route path="/admin/all-investment/:1d" element={<IndividualInvestment/>} />
+                  <Route path="/admin/active-investment" element={<ActiveInvestment/>} />
+                  <Route path="/admin/compeleted-investment" element={<CompeletedInvestment/>} />
+                  <Route path="/admin/canceled-investment" element={<CanceledInvestment/>} />
+                  <Route path="/admin/pending-investment" element={<PendingInvestment/>} />
+                  <Route path="/admin/add-investment" element={<AddInvestment/>} />
 
-           {/*deposits  */}
-          <Route path="/admin/all-deposits" element={< AllDeposit/>} /> 
-          <Route path="/admin/all-deposits/:id" element={< IndividualDeposit/>} /> 
-          <Route path="/admin/successful-deposits" element={< SuccessfulDeposit/>} /> 
-          <Route path="/admin/pending-deposits" element={< PendingDeposit/>} /> 
-          <Route path="/admin/declined-deposits" element={< DeclinedDeposit/>} /> 
-          <Route path="/admin/add-deposits" element={< AddDeposit/>} /> \
+                  {/* Interest */}
+                  <Route path="/admin/all-interest" element={<AllInterest/>} />
 
-          {/* withdraws */}
-          <Route path="/admin/all-withdraws" element={< AllWithdraw/>} /> 
-          <Route path="/admin/all-withdraws/:id" element={< IndividualWithdraw/>} /> 
-          <Route path="/admin/successful-withdraws" element={< SuccessfulWithdraw/>} />
-          <Route path="/admin/declined-withdraws" element={< DeclinedWithdraw/>} />
-          <Route path="/admin/pending-withdraws" element={<PendingWithdraw/>} />
-          <Route path="/admin/add-withdraw" element={<AddWithdraw/>} />
-          <Route path="/admin/withdraw/select-user" element={<SelectUserWithdraw/>} />
-          <Route path="/admin/withdraw/payment-options" element={<PaymetntDetailsOptionsWithdraw/>} />
-          <Route path="/admin/withdraw/bank-card" element={<BankCardWithdraw/>} />
-          <Route path="/admin/withdraw/bank-account" element={<BankAccountWithdraw/>} />
-          <Route path="/admin/withdraw/wallet-address" element={<WalletWithdraw/>} />
-          
+                  {/* Bonus */}
+                  <Route path="/admin/all-bonus" element={<AllBonus/>} />
 
+                  {/* Commission */}
+                  <Route path="/admin/all-commission" element={<Commission/>} />
 
-          {/* Investment */}
-          <Route path="/admin/all-investment" element={<AllInvestment/>} />
-          <Route path="/admin/all-investment/:1d" element={<IndividualInvestment/>} />
-          <Route path="/admin/active-investment" element={<ActiveInvestment/>} />
-          <Route path="/admin/compeleted-investment" element={<CompeletedInvestment/>} />
-          <Route path="/admin/canceled-investment" element={<CanceledInvestment/>} />
-          <Route path="/admin/pending-investment" element={<PendingInvestment/>} />
-          <Route path="/admin/add-investment" element={<AddInvestment/>} />
+                  {/* KYC */}
+                  <Route path="/admin/KYC/list" element={<KYCList/>} />
+                  <Route path="/admin/KYC/:id" element={<IndividualKYC/>} />
+                  <Route path="/admin/KYC/not-uploaded" element={<NotUploadedKYC/>} />
+                  <Route path="/admin/KYC/verified" element={<VerifiedKYC/>} />
+                  <Route path="/admin/KYC/rejected" element={<RejectedKYC/>} />
+                  <Route path="/admin/KYC/pending" element={<PendingKYC/>} />
+                  <Route path="/admin/KYC/add" element={<AddKYC/>} />
 
-          {/* Interest */}
-          <Route path="/admin/all-interest" element={<AllInterest/>} />
+                  {/* User */}
+                  <Route path="/admin/user/list" element={<UserList/>} />
+                  <Route path="/admin/user/:id" element={<UserDetails/>} />
+                  <Route path="/admin/user/disable" element={<DisableUser/>} />
+                  <Route path="/admin/user-verification" element={<UserVerification/>} />
+                  <Route path="/admin/user-verification/pending" element={<PendingUserVerification/>} />
+                  <Route path="/admin/user-verification/canceled" element={<CanceledUserVerification/>} />
+                  <Route path="/admin/user-verification/verified" element={<VerifiedUser/>} />
+                  <Route path="/admin/user-verification/unverified" element={<UnverifiedUser/>} />
+                  <Route path="/admin/user-verification/add" element={<UploadVerification/>} />
+                  <Route path="/admin/user/add" element={<AddUserAdmin/>} />
 
-          {/* Bonus */}
-          <Route path="/admin/all-bonus" element={<AllBonus/>} />
+                  {/* Funds account */}
+                  <Route path="/admin/funds-account/" element={<FundsAccount/>} />
 
-          {/* Commission */}
-          <Route path="/admin/all-commission" element={<Commission/>} />
+                  {/* BlackList Ip */}
+                  <Route path="/admin/blackList-ip/" element={<BlackListIp/>} />
 
-          {/* KYC */}
-          <Route path="/admin/KYC/list" element={<KYCList/>} />
-          <Route path="/admin/KYC/:id" element={<IndividualKYC/>} />
-          <Route path="/admin/KYC/not-uploaded" element={<NotUploadedKYC/>} />
-          <Route path="/admin/KYC/verified" element={<VerifiedKYC/>} />
-          <Route path="/admin/KYC/rejected" element={<RejectedKYC/>} />
-          <Route path="/admin/KYC/pending" element={<PendingKYC/>} />
-          <Route path="/admin/KYC/add" element={<AddKYC/>} />
+                  {/* NewsLetter */}
+                  <Route path="/admin/news-letter/" element={<NewsLetter/>} />
 
-          {/* User */}
-          <Route path="/admin/user/list" element={<UserList/>} />
-          <Route path="/admin/user/:id" element={<UserDetails/>} />
-          <Route path="/admin/user/disable" element={<DisableUser/>} />
-          <Route path="/admin/user-verification" element={<UserVerification/>} />
-          <Route path="/admin/user-verification/pending" element={<PendingUserVerification/>} />
-          <Route path="/admin/user-verification/canceled" element={<CanceledUserVerification/>} />
-          <Route path="/admin/user-verification/verified" element={<VerifiedUser/>} />
-          <Route path="/admin/user-verification/unverified" element={<UnverifiedUser/>} />
-          <Route path="/admin/user-verification/add" element={<UploadVerification/>} />
-          <Route path="/admin/user/add" element={<AddUserAdmin/>} />
+                  {/* Investment Plan */}
+                  <Route path="/admin/investment-plan/" element={<InvestmentPlan/>} />
+                  <Route path="/admin/investment-plan/:id" element={<EditInvestmentPlan/>} />
+                  <Route path="/admin/investment-plan/add" element={<AddInvestmentPlan/>} />
 
-          {/* Funds account */}
-          <Route path="/admin/funds-account/" element={<FundsAccount/>} />
+                  {/* Payment Options */}
+                  <Route path="/admin/payment-method/" element={<PaymentMethod/>} />
+                  <Route path="/admin/payment-method/:id" element={<EditPaymentMethod/>} />
+                  <Route path="/admin/payment-method/add" element={<AddPaymentMethod/>} />
 
-          {/* BlackList Ip */}
-          <Route path="/admin/blackList-ip/" element={<BlackListIp/>} />
+                  {/* User Payment Details */}
+                  <Route path="/admin/payment-account/wallet-address/add" element={<AddCrytoWallet/>} />
+                  <Route path="/admin/payment-account/wallet-address" element={<CyptoWallet/>} />
+                  <Route path="/admin/payment-account/wallet-address/:id" element={<EditCrytoWallet/>} />
 
-          {/* NewsLetter */}
-          <Route path="/admin/news-letter/" element={<NewsLetter/>} />
+                  {/* Bank Account */}
+                  <Route path="/admin/payment-account/bank-account/add" element={<AddBankAccount/>} />
+                  <Route path="/admin/payment-account/bank-account" element={<BankAccount/>} />
+                  <Route path="/admin/payment-account/bank-account/:id" element={<EditBankAccount/>} />
 
-          {/* Investment Plan */}
-          <Route path="/admin/investment-plan/" element={<InvestmentPlan/>} />
-          <Route path="/admin/investment-plan/:id" element={<EditInvestmentPlan/>} />
-          <Route path="/admin/investment-plan/add" element={<AddInvestmentPlan/>} />
+                  {/* Bank Card  */}
+                  <Route path="/admin/payment-account/bank-card/add" element={<AddBankCard/>} />
+                  <Route path="/admin/payment-account/bank-card/" element={<BankCard/>} />
+                  <Route path="/admin/payment-account/bank-card/:id" element={<EditBankCard/>} />
 
-          {/* Payment Options */}
-          <Route path="/admin/payment-method/" element={<PaymentMethod/>} />
-          <Route path="/admin/payment-method/:id" element={<EditPaymentMethod/>} />
-          <Route path="/admin/payment-method/add" element={<AddPaymentMethod/>} />
+                  {/* Change Password */}
+                  <Route path="/admin/change-password/step-2/" element={<ProtectedRoute element={ChangePassowrd2} path="/admin/change-password/step-2/" isMandatory={true}/>}/>
+                  <Route path="/admin/change-password/step-1/" element={<ChangePassowrd1/>} />
+                  <Route path="/admin/change-password/step-3/" element={<ProtectedRoute element={ChangePassowrd3} path="/admin/change-password/step-3/" isMandatory={true}/>}/>
 
-          {/* User Payment Details */}
-          <Route path="/admin/payment-account/wallet-address/add" element={<AddCrytoWallet/>} />
-          <Route path="/admin/payment-account/wallet-address" element={<CyptoWallet/>} />
-          <Route path="/admin/payment-account/wallet-address/:id" element={<EditCrytoWallet/>} />
+                  {/* User details */}
+                  <Route path="/admin/user-login-details/" element={<UserLoginDetails/>} />
 
-          {/* Bank Account */}
-          <Route path="/admin/payment-account/bank-account/add" element={<AddBankAccount/>} />
-          <Route path="/admin/payment-account/bank-account" element={<BankAccount/>} />
-          <Route path="/admin/payment-account/bank-account/:id" element={<EditBankAccount/>} />
+                  {/* Individual Payment Method */}
+                  <Route path="/admin/individual-payment-method/select-user/" element={<SelectUser/>} />
+                  <Route path="/admin/individual-payment-method/payment-option/" element={<PaymetntDetailsOptions/>} />
+                  <Route path="/admin/individual-payment-method/individual-bank-card/" element={<IndividualBankCard/>} />
+                  <Route path="/admin/individual-payment-method/individual-bank-account/" element={<IndividualBankAccount/>} />
+                  <Route path="/admin/individual-payment-method/individual-wallet/" element={<IndividualWallet/>} />
 
-          {/* Bank Card  */}
-          <Route path="/admin/payment-account/bank-card/add" element={<AddBankCard/>} />
-          <Route path="/admin/payment-account/bank-card/" element={<BankCard/>} />
-          <Route path="/admin/payment-account/bank-card/:id" element={<EditBankCard/>} />
-
-          {/* Change Password */}
-          <Route path="/admin/change-password/step-1/" element={<ChangePassowrd1/>} />
-          <Route path="/admin/change-password/step-2/" element={<ChangePassowrd2/>} />
-          <Route path="/admin/change-password/step-3/" element={<ChangePassowrd3/>} />
-
-          {/* User details */}
-          <Route path="/admin/user-login-details/" element={<UserLoginDetails/>} />
-
-          {/* Individual Payment Method */}
-          <Route path="/admin/individual-payment-method/select-user/" element={<SelectUser/>} />
-          <Route path="/admin/individual-payment-method/payment-option/" element={<PaymetntDetailsOptions/>} />
-          <Route path="/admin/individual-payment-method/individual-bank-card/" element={<IndividualBankCard/>} />
-          <Route path="/admin/individual-payment-method/individual-bank-account/" element={<IndividualBankAccount/>} />
-          <Route path="/admin/individual-payment-method/individual-wallet/" element={<IndividualWallet/>} />
-
-          {/* Email */}
-          <Route path="/admin/all-email/" element={<AllEmail/>} />
-          <Route path="/admin/send-email/:id" element={<SendEmail/>} />
-        </Routes>
+                  {/* Email */}
+                  <Route path="/admin/all-email/" element={<AllEmail/>} />
+                  <Route path="/admin/send-email-user/:id" element={<SendEmail/>} />
+                  <Route path="/admin/send-email/" element={<SendEmail2/>} />
+                  <Route path="/admin/send-bulk-email/" element={<SendBulkEmail/>} />
+                  <Route path="/admin/email-messages/" element={<EmailMessage/>} />
+                </Route>
+              </Route>
+            </Routes>
+          </AccessProvider>
         </AllDataProvider>
       </AuthProvider>
     </Router>

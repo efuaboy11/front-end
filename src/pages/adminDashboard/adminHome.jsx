@@ -12,6 +12,7 @@ import { DepositBarChart, KYCDoughnutChart, UserChart, WithdrawtBarChart } from 
 import spin from '../../img/Spin.gif'
 import AllDataContext from '../../context/Alldata';
 import { DashboardFooter } from '../../component/dashbaordFooter';
+import FloatingAlert from '../../component/alert';
 export const AdminHome = () =>{
   const [timeofDay, setTimeOfDay] = useState('')
 
@@ -134,6 +135,14 @@ export const AdminHome = () =>{
     shortName,
     disablebutton, 
     setDisablebutton,
+
+    messages,
+    alertVisible,
+    setAlertVisible,
+    isSuccess,
+    showAlert,
+    setMessage,
+    setIsSuccess,
 
 
   } = useContext(AuthContext)
@@ -348,9 +357,18 @@ export const AdminHome = () =>{
       <div className="position-sticky1">
         <AdminDashFrame />
       </div>
+
+      <div>
+        <FloatingAlert
+          message={messages}
+          isVisible={alertVisible}
+          onClose={() => setAlertVisible(false)}
+          successs={isSuccess}
+        />
+      </div>
       <div className="main-content" onClick={OnbodyClick}>
         <div className="container-xl pb-5 mb-3">
-          <section>
+          <section className='pb-5'>
             <div className="d-flex justify-content-between align-items-center admin-home-header">
               <div>
                 <h2 className="pb-3">Good {timeofDay}, AmanlightEquity!</h2>

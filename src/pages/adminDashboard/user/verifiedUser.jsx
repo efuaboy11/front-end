@@ -213,7 +213,30 @@ export const VerifiedUser = () =>{
     } 
   }
 
+  const IndividualUser = async(id) =>{
+    setSelectedDataId(id)
+    setDisablebutton(true)
 
+    let response = await fetch(`http://127.0.0.1:8000/api/user-profile/admin/${id}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+      
+    })
+    const data = await response.json()
+    sessionStorage.setItem('urlName', 'Users')
+    sessionStorage.setItem('urlLink', '/admin/user/list')
+    sessionStorage.setItem('IndividualUserData', JSON.stringify(data))
+
+    if(response.ok){
+      navigate(`/admin/user/${data.user}`)
+      setDisablebutton(false)
+    }else{
+      setDisablebutton(false)
+    }
+  }
 
   const deleteItem = async () => {
     setDisablebutton(true)
@@ -455,7 +478,7 @@ export const VerifiedUser = () =>{
                                 <div className={`dashboard-table-menu   ${(data.id === lastData?.id || data.id === secondToLastData?.id)? 'dashboard-table-menu-up': 'dashboard-table-menu-down'}`}>
                                   <div>
                                     <p className='dashboard-table-menu-btn cursor-pointer'>
-                                      <button disabled={disablebutton} className='Button py-2'>
+                                      <button disabled={disablebutton} className='Button py-2'  onClick={() => IndividualUser(data.user)}>
                                         <i class="bi bi-person pe-1"></i> User Profile
                                       </button>
                                     </p>

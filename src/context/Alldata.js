@@ -13,7 +13,7 @@ export const AllDataProvider =  ({ children }) =>{
 
   const [recentDeposit, setRecentDeposit] = useState([])
   const [depositData, setDepositData]  = useState([])
-  const [totalDeposit, setTotalDeposit] = useState([])
+  const [totalDeposit, setTotalDeposit] = useState(0.00)
   const [recentPendingDeposit, setRecentPendingDeposit] = useState([])
   const [pendingDepositData, setPendingDepositData] = useState([])
   const [recentSuccessfulDeposit, setRecentSuccessDeposit] = useState([])
@@ -39,7 +39,7 @@ export const AllDataProvider =  ({ children }) =>{
   const [declinedWithdrawCount, setDeclinedWithdrawCount] = useState(0)
   const [recentWithdraw, setRecentWithdraw] = useState([])
   const [withdrawData, setWithdrawData] = useState([])
-  const [totalWithdraw, setTotalWithdraw] = useState([])
+  const [totalWithdraw, setTotalWithdraw] = useState(0.00)
   const [recentPendingWithdraw, setRecentPendingWithdraw] = useState([])
   const [pendingWithdrawData, setPendingWithdrawData] = useState([])
   const [recentSuccessfulWithdraw, setRecentSuccessWithdraw] = useState([])
@@ -84,6 +84,7 @@ export const AllDataProvider =  ({ children }) =>{
   const [activeInvestment, setActiveInvestment] = useState([])
   const [completedInvestment, setCompletedInvestment] = useState([])
   const [declinedInvestment, setDecinedInvestment] = useState([])
+  const [recentInvestemnt, setRecentInvestment] = useState([])
 
   const [investmentLoader, setInvestmentLoader] = useState(true)
   const [pendingInvestmentLoader, setPendingInvestmentLoader] = useState(true)
@@ -100,6 +101,7 @@ export const AllDataProvider =  ({ children }) =>{
   const [interestCount, setInterestCount] = useState(0)
   const [interestData, setInterestData] = useState([])
   const [interestLoader, setInterestLoader] = useState(true)
+  const [totalInterest, setTotalInterest] = useState(0.00)
   const [interestsearchValue, setInterestSearchValue] = useState('')
 
   const [commission, setCommission] = useState('')
@@ -166,6 +168,9 @@ export const AllDataProvider =  ({ children }) =>{
 
 
   const [emailCount, setEmailCount] = useState(0)
+  const [emailData, setEmailData] = useState([])
+  const [emailLoader, setEmailLoader] = useState(true)
+  const [emailSearch, setEmailSearch] = useState("")
 
 
   const [investmentPlanCount, setInvestmentPlanCount] = useState(0)
@@ -193,16 +198,17 @@ export const AllDataProvider =  ({ children }) =>{
   const [newsLetterCount, setNewsLetterCount] = useState(0) 
   const [newsLetterLoader, setNewsLetterLoader] = useState(true)
 
-
-
-
-
-
-
-
-
   const [interestSearch, setInterestSearch] = useState('')
 
+  const [userCommissionData, setUserCommissionData] = useState([])
+  const [userCommissionLoader, setUserCommissionLoader] = useState(true)
+  const [userCommissionCount, setUserCommissionCount] = useState(0)
+  const [totalUserCommission, setTotalUserCommission] = useState(0.00)
+
+ 
+  const [userReferralData, setUserReferralData] = useState([])
+  const [userReferralLoader, setUserReferralLoader] = useState(true)
+  const [userReferralCount, setUserReferralCount] = useState(0)
 
 
 
@@ -265,7 +271,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setDepositData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setDepositData(sortedData)
     }
   }
 
@@ -283,11 +290,11 @@ export const AllDataProvider =  ({ children }) =>{
       if(Array.isArray(data) && data.length > 0){
         setSuccessDepositCount(data.length)       
       }
-      sessionStorage
-.setItem('successDespositCount', data.length)
+      sessionStorage.setItem('successDespositCount', data.length)
 
       const totalAmount = data.reduce((acc, item) => acc + parseFloat(item.amount), 0)
       setTotalDeposit(totalAmount)
+      sessionStorage.setItem('depositTotal', totalAmount)
 
 
       const sortedData = data.sort((a, b) => b.id - a.id);
@@ -325,7 +332,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setSuccessfulDepositData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setSuccessfulDepositData(sortedData)
     }
   }
 
@@ -343,8 +351,7 @@ export const AllDataProvider =  ({ children }) =>{
       if(Array.isArray(data) && data.length > 0){
         setDeclinedDepositCount(data.length)
       }
-      sessionStorage
-.setItem("declinedDeposit", data.length);
+      sessionStorage.setItem("declinedDeposit", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
       // Get the 5 most recent entries
@@ -382,7 +389,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setDeclinedDepositData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setDeclinedDepositData(sortedData)
     }
   }
 
@@ -435,7 +443,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setPendingDepositData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setPendingDepositData(sortedData)
     }
   }
   
@@ -492,7 +501,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setWithdrawData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setWithdrawData(sortedData)
     }
   }
 
@@ -551,7 +561,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setSuccessfulWithdrawData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setSuccessfulWithdrawData(sortedData)
     }
   }
 
@@ -607,7 +618,9 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setPendingWithdrawData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setPendingWithdrawData(sortedData)
+      
     }
   }
 
@@ -664,7 +677,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setDeclinedWithdrawData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setDeclinedWithdrawData(sortedData)
     }
   }
 
@@ -685,6 +699,10 @@ export const AllDataProvider =  ({ children }) =>{
       const sortedData = data.sort((a, b) => b.id - a.id);
       setInterestData(sortedData)
       setInterestLoader(false)
+
+      const totalInterest = data.reduce((acc, item) => acc + parseFloat(item.amount), 0)
+      setTotalInterest(totalInterest)
+      sessionStorage.setItem('InterestTotal', totalInterest)
 
     }else{
       setInterestLoader(false)
@@ -741,7 +759,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setWalletAddressData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setWalletAddressData(sortedData)
     }
   }
 
@@ -792,7 +811,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setBankAccountData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setBankAccountData(sortedData)
     }
   }
 
@@ -844,7 +864,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setBankCardData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setBankCardData(sortedData)
     }
   }
 
@@ -871,7 +892,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setInterestData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setInterestData(sortedData)
     }
   }
 
@@ -920,7 +942,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setInvestmentData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setInvestmentData(sortedData)
     }
   }
 
@@ -942,7 +965,9 @@ export const AllDataProvider =  ({ children }) =>{
       sessionStorage.setItem("activeInvestmentCount", data.length);
 
       const sortedData = data.sort((a, b) => b.id - a.id);
+      const recentData = sortedData.slice(0, 1);
       setActiveInvestment(sortedData)
+      setRecentInvestment(recentData)
       setActiveInvestmentLoader(false)
 
     }else{
@@ -970,7 +995,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setActiveInvestment(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setActiveInvestment(sortedData)
     }
   }
 
@@ -1019,7 +1045,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setPendingInvestment(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setPendingInvestment(sortedData)
     }
   }
 
@@ -1071,7 +1098,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setCompletedInvestment(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setCompletedInvestment(sortedData)
     }
   }
 
@@ -1122,7 +1150,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setDecinedInvestment(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setDecinedInvestment(sortedData)
     }
   }
 
@@ -1757,7 +1786,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setPaymentOptionsData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setPaymentOptionsData(sortedData)
     }
   }
 
@@ -1852,7 +1882,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setInvestPlanData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setInvestPlanData(sortedData)
     }
   }
 
@@ -1872,7 +1903,36 @@ export const AllDataProvider =  ({ children }) =>{
 
       }
 
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setEmailData(sortedData)
+      setEmailLoader(false)
+
       sessionStorage.setItem("emailCount", data.length);
+    }
+  }
+
+  const filterEmail = async() =>{
+    let url;
+
+    if(emailSearch.length !== 0){
+      url = `http://127.0.0.1:8000/api/send-mail/?search=${emailSearch}`
+    }
+
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setEmailData(sortedData)
     }
   }
 
@@ -1928,7 +1988,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      setBonusData(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setBonusData(sortedData)
     }
   }
 
@@ -2003,6 +2064,57 @@ export const AllDataProvider =  ({ children }) =>{
       setNewsLetterLoader(false)
     }else{
       setNewsLetterLoader(false)
+    }
+    
+  }
+
+
+  const UserCommissionFunction = async() =>{
+    let response = await fetch('http://127.0.0.1:8000/api/user-commission/', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    })
+
+    const data = await response.json()
+    if(response.ok){
+      if(Array.isArray(data) && data.length > 0){
+        setUserCommissionCount(data.length)
+      }
+
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      const totalCommission = data.reduce((acc, item) => acc + parseFloat(item.amount), 0)
+      setTotalUserCommission(totalCommission)
+      setUserCommissionData(sortedData)
+      setUserCommissionLoader(false)
+    }else{
+      setUserCommissionLoader(false)
+    }
+    
+  }
+
+  const UserReferralFunction = async() =>{
+    let response = await fetch('http://127.0.0.1:8000/api/user-referral/', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    })
+
+    const data = await response.json()
+    if(response.ok){
+      if(Array.isArray(data) && data.length > 0){
+        setUserReferralCount(data.length)
+      }
+
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setUserReferralData(sortedData)
+      setUserReferralLoader(false)
+    }else{
+      setUserReferralLoader(false)
     }
     
   }
@@ -2181,6 +2293,9 @@ export const AllDataProvider =  ({ children }) =>{
         InterestFunction,
         filterInterest,
 
+        totalInterest,
+        setTotalInterest,
+
         interestSearch,
         setInterestSearch,
 
@@ -2216,6 +2331,8 @@ export const AllDataProvider =  ({ children }) =>{
         setCompletedInvestment,
         declinedInvestment,
         setDecinedInvestment,
+        recentInvestemnt,
+        setRecentInvestment,
 
 
         investmentLoader,
@@ -2418,8 +2535,14 @@ export const AllDataProvider =  ({ children }) =>{
 // ---------------------------- EMAIL ----------------------//
         emailCount,
         setEmailCount,
-
+        emailData,
+        setEmailData,
+        emailLoader,
+        setEmailLoader,
+        emailSearch,
+        setEmailSearch,
         EmailFunction,
+        filterEmail,
 
 // ---------------------------- INVESTMENT PLAN ----------------------//
         investmentPlanCount,
@@ -2479,7 +2602,31 @@ export const AllDataProvider =  ({ children }) =>{
         newsLetterLoader,
         setNewsLetterLoader,
         NewsLetterFunction,
+
+    // ---------------------------- USER COMMISSION ----------------------//
+    userCommissionData,
+    setUserCommissionData,
+    userCommissionLoader,
+    setUserCommissionLoader,
+    userCommissionCount,
+    setUserCommissionCount,
+    totalUserCommission,
+    setTotalUserCommission,
+    UserCommissionFunction,
+
+
+
+      // ---------------------------- USER REFERRAL ----------------------//
+      userReferralData,
+      setUserReferralData,
+      userReferralLoader,
+      setUserReferralLoader,
+      userReferralCount,
+      setUserReferralCount,
+      UserReferralFunction,
  }
+
+ 
 
 
  return(

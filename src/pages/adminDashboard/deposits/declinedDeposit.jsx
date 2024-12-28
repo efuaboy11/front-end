@@ -10,8 +10,14 @@ import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import AllDataContext from '../../../context/Alldata';
 import { DashboardFooter } from '../../../component/dashbaordFooter';
+import { useAccess } from '../../../context/accessContext';
 
 export const DeclinedDeposit = () =>{
+  const { markRouteAsVisited } = useAccess();
+
+  useEffect(() => {
+    markRouteAsVisited("/admin/declined-deposits");
+  }, [markRouteAsVisited]);
   const { authTokens, 
     messages,
     alertVisible,
