@@ -105,6 +105,8 @@ import { WithdrawReviewDetails } from './pages/clientDashboard/withdraw/addWithd
 import { WithdrawFinalPage } from './pages/clientDashboard/withdraw/addWithdraw/finalPage';
 import { ClientUploadKYC } from './pages/clientDashboard/kyc/uploadKyc';
 import { ClientKYC } from './pages/clientDashboard/kyc/kyc';
+import { ClientUserVerification } from './pages/clientDashboard/userVerification/userVerifcation';
+import { ClientUploadUserVerification } from './pages/clientDashboard/userVerification/uploadVerification';
 
 
 
@@ -149,6 +151,9 @@ function App() {
                 {/* KYC */}
                 <Route path="/dashboard/kyc-upload/" element={< ClientUploadKYC/>} />\
                 <Route path="/dashboard/kyc-aml/" element={< ClientKYC/>} />
+                {/* User Verification */}
+                <Route path="/dashboard/user-verification/" element={< ClientUserVerification/>} />
+                <Route path="/dashboard/user-verification/upload/" element={< ClientUploadUserVerification/>} />
                 <Route element={<PrivateRoute requiredRole='ADMIN'/>}>
                   {/* -----------------------------------ADMIN DASHBOARD ---------------------------------- */}
                   <Route path="/dahframe" element={< AdminDashFrame/>} />

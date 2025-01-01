@@ -91,6 +91,16 @@ export const UploadVerification = () =>{
 
   const ClearInput = () =>{
     setUser('')
+    setFirstName('')
+    setLastName('')
+    setGender('')
+    setDOB('')
+    setPhoneNumber('')
+    setSSN('')
+    setAddress('')
+    setCity('')
+    setState('')
+    setCountry('')
     
 
   }

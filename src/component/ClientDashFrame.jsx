@@ -453,8 +453,8 @@ export const ClientDashFrame = () =>{
 
                   <div>
                     <ul className={` dropdown-bg ${verificationDropdown ? "slide-in" : "slide-out"}`}>
-                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/user-verification/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/user-verification/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 py-2">
                             <p>User verification</p> 
                           </div>

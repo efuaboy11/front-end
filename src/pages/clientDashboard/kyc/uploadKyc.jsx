@@ -188,7 +188,7 @@ export const ClientUploadKYC = () =>{
               <div className="row justify-content-center">
                 <div className="col-11 col-sm-10 col-md-8 col-xxl-7 pt-4">
                   <div className='text-center pb-3'>
-                  <Link to='/dashboard/kyc-aml/' className='light-link'><i class="bi bi-arrow-left pe-2"></i> Back</Link>
+                    <Link to='/dashboard/kyc-aml/' className='light-link'><i class="bi bi-arrow-left pe-2"></i> Back</Link>
                     <p className="dashboard-header pb-3">Begin your ID-Verification</p>
                     <p className="small-text-2 light-text">To comply with regulation you will have to go through indentity verification (KYC/AML) to prevent fraud causes.</p>
                   </div>
