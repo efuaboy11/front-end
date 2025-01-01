@@ -16,7 +16,7 @@ import { set, useForm } from 'react-hook-form';
 import { ProcessingSpiner } from '../../../../component/spin';
 import pic from '../../../../img/good-mark.png'
 
-export const AddDeposit4 = () =>{
+export const WithdrawFinalPage = () =>{
   const {authTokens,
     OnbodyClick,
   } = useContext(AuthContext)
@@ -37,12 +37,12 @@ export const AddDeposit4 = () =>{
           <div className='text-center col-11 col-sm-10 col-md-8 col-xxl-6 pt-5'>
             <img src={pic} alt="" width='150px'/>
             <p className="dashboard-header">Successful</p>
-            <p className='light-text pb-3'>Your deposit has been received. We will review the details you provided, and your account will be funded upon verification of authenticity. Thank you for investing with AmaniLightEquity! </p>
+            <p className='light-text pb-3'>Your withdraw has been received. We will review the details you provided, and your payment gateway account will be funded upon verification of authenticity. Thank you for investing with AmaniLightEquity! </p>
             <Link to='/dashboard/home/' className="Link">
               <p className='dashboard-btn width-100 pt-2 pb-3'><i class="bi bi-house-door-fill pe-2"></i>Home</p>   
             </Link>  
             <div  className='pt-3'>
-              <Link to='/dashboard/deposit/step-1/' className='light-link'>Add Deposit</Link>
+              <Link to='/dashboard/add-withdraw/' className='light-link'>Withdraw Funds</Link>
             </div>   
 
           </div>

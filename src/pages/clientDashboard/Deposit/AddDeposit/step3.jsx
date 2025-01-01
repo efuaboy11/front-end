@@ -48,7 +48,7 @@ export const AddDeposit3 = () =>{
   const [details, setDetails] = useState(null)
   const [amount, setAmount] = useState('')
   const [img, setImg] = useState("")
-
+  const [processingText, setProcessingText] = useState('Processing')
 
 
   const handleImgFile = (event) => {
@@ -93,6 +93,7 @@ export const AddDeposit3 = () =>{
 
   const addDeposit = async(e) =>{
     e.preventDefault()
+    setProcessingText('Finalizing Deposit')
     setLoader(true)
 
     const formData = new FormData()
@@ -158,7 +159,7 @@ export const AddDeposit3 = () =>{
  
 
       {loader &&
-        <ProcessingSpiner />
+        <ProcessingSpiner text={processingText}/>
       }
 
 
@@ -279,7 +280,7 @@ export const AddDeposit3 = () =>{
         } 
       </div>
 
-      <div className='py-4'>
+      <div className='py-5'>
         <DashboardFooter />
       </div>
 

@@ -95,6 +95,16 @@ import { ProtectedRoute } from './utils/ProctectedRoute';
 import { AddDeposit2 } from './pages/clientDashboard/Deposit/AddDeposit/step2';
 import { AddDeposit3 } from './pages/clientDashboard/Deposit/AddDeposit/step3';
 import { AddDeposit4 } from './pages/clientDashboard/Deposit/AddDeposit/step4';
+import { DepositHistory } from './pages/clientDashboard/Deposit/DepositHistory';
+import { AddWithdraw1 } from './pages/clientDashboard/withdraw/addWithdraw/step1';
+import { ClientPaymetntDetailsOptionsWithdraw } from './pages/clientDashboard/withdraw/addWithdraw/paymentOptions';
+import { ClientBankCardWithdraw } from './pages/clientDashboard/withdraw/addWithdraw/bankCard';
+import { ClientBankAccountWithdraw } from './pages/clientDashboard/withdraw/addWithdraw/bankAccount';
+import { ClientWalletWithdraw } from './pages/clientDashboard/withdraw/addWithdraw/walletAddress';
+import { WithdrawReviewDetails } from './pages/clientDashboard/withdraw/addWithdraw/reviewDetails';
+import { WithdrawFinalPage } from './pages/clientDashboard/withdraw/addWithdraw/finalPage';
+import { ClientUploadKYC } from './pages/clientDashboard/kyc/uploadKyc';
+import { ClientKYC } from './pages/clientDashboard/kyc/kyc';
 
 
 
@@ -125,6 +135,20 @@ function App() {
                 <Route path="/dashboard/deposit/step-2/" element={< AddDeposit2/>} />
                 <Route path="/dashboard/deposit/step-3/" element={< AddDeposit3/>} />   
                 <Route path="/dashboard/deposit/step-4/" element={< AddDeposit4/>} />
+                <Route path="/dashboard/deposit/history/" element={< DepositHistory/>} />
+
+                {/* Withdraw */}
+                <Route path="/dashboard/add-withdraw/" element={< AddWithdraw1/>} />
+                <Route path="/dashboard/withdraw/payment-options/" element={< ClientPaymetntDetailsOptionsWithdraw/>} />
+                <Route path="/dashboard/withdraw/bank-card/" element={< ClientBankCardWithdraw/>} />
+                <Route path="/dashboard/withdraw/bank-account/" element={< ClientBankAccountWithdraw/>} />
+                <Route path="/dashboard/withdraw/wallet-address/" element={< ClientWalletWithdraw/>} />
+                <Route path="/dashboard/withdraw/review-details/" element={< WithdrawReviewDetails/>} />
+                <Route path="/dashboard/withdraw/successful/" element={< WithdrawFinalPage/>} />
+
+                {/* KYC */}
+                <Route path="/dashboard/kyc-upload/" element={< ClientUploadKYC/>} />\
+                <Route path="/dashboard/kyc-aml/" element={< ClientKYC/>} />
                 <Route element={<PrivateRoute requiredRole='ADMIN'/>}>
                   {/* -----------------------------------ADMIN DASHBOARD ---------------------------------- */}
                   <Route path="/dahframe" element={< AdminDashFrame/>} />

@@ -96,6 +96,7 @@ export const AddDeposit1 = () =>{
     <div>
       <div className="position-sticky1">
         <ClientDashFrame />
+      </div>
         <div>
           <FloatingAlert
             message={messages}
@@ -151,7 +152,7 @@ export const AddDeposit1 = () =>{
         </div>
 
 
-      </div>
+
     </div>
       
   )

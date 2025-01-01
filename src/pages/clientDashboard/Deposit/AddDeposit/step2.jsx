@@ -49,6 +49,7 @@ export const AddDeposit2 = () =>{
   const navigate  = useNavigate()
   const [details, setDetails] = useState(null)
   const [amount, setAmount] = useState('')
+  const [processingText, setProcessingText] = useState('Processing')
 
   useEffect(() =>{
     updateDateTime()
@@ -62,7 +63,7 @@ export const AddDeposit2 = () =>{
     if (loader) {
       const timer = setTimeout(() => {
         setLoader(false);
-      }, 6000); // Reset after 1 second
+      }, 3000); // Reset after 1 second
 
       return () => clearTimeout(timer); // Cleanup the timer to avoid memory leaks
     }
@@ -80,11 +81,12 @@ export const AddDeposit2 = () =>{
   }, [])
 
   const NavigateToStep3 = () =>{
+    setProcessingText("Reviewing")
     setLoader(true)
     const timer = setTimeout(() => {
       navigate('/dashboard/deposit/step-3/')
       setLoader(false)
-    }, 6000); // Reset after 1 second
+    }, 3000); // Reset after 1 second
 
     return () => clearTimeout(timer);
  
@@ -106,7 +108,7 @@ export const AddDeposit2 = () =>{
  
 
       {loader &&
-        <ProcessingSpiner />
+        <ProcessingSpiner text={processingText}/>
       }
 
 
@@ -189,7 +191,7 @@ export const AddDeposit2 = () =>{
         } 
       </div>
 
-      <div className='py-4'>
+      <div className='py-5'>
         <DashboardFooter />
       </div>
 

@@ -53,14 +53,14 @@ export const AddWithdraw = () =>{
   const onSubmit = (data, e) =>{
     setDisablebutton(true)
     if(isValid){
-      addDeposit(e)
+      addWithdraw(e)
       
     }else{
       setDisablebutton(false)
     }
   }
 
-  const addDeposit = async(e) =>{
+  const addWithdraw = async(e) =>{
     e.preventDefault()
     setLoader(true)
     setDisablebutton(true)

@@ -242,8 +242,8 @@ export const ClientDashFrame = () =>{
                       </li>
 
 
-                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/add-withdraw/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/add-withdraw/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 pb-2">
                             <p>Withdraw Spot</p> 
                           </div>
@@ -286,8 +286,8 @@ export const ClientDashFrame = () =>{
 
                   <div>
                     <ul className={` dropdown-bg ${historyDropdown ? "slide-in" : "slide-out"}`}>
-                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/deposit/history/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/deposit/history/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 py-2">
                             <p>Deposit History</p> 
                           </div>
@@ -461,8 +461,8 @@ export const ClientDashFrame = () =>{
                         </Link>
                       </li>
 
-                      <li className={`dashboard-sidebar-dropdown-link  ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link  ${isActiveDashLink("/dashboard/kyc-aml/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/kyc-aml/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 pb-2">
                             <p>KYC verification</p> 
                           </div>
@@ -617,7 +617,7 @@ export const ClientDashFrame = () =>{
                             </Link>
                           </li>
                           <li className='pb-3'>
-                            <Link to='/admin/user-login-details/' className='light-link'>
+                            <Link to='/dashboard/kyc-aml/' className='light-link'>
                               <div className="d-flex">
                                 <i class="bi bi-shield-shaded pe-2"></i>
                                 <p className=''>KYC Verification</p>

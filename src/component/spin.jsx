@@ -20,15 +20,15 @@ export const LoadingSpiner = () =>{
 }
 
 
-export const ProcessingSpiner = () =>{
+export const ProcessingSpiner = ({text}) =>{
   return(
     <div>
         <div className="spinner-container">
-          <div className="spinner-content">
+          <div className="spinner-content-2">
             <div className="spinner-sub-container">
               <div class="spinner"></div>
             </div>
-            <p className='md-text text-center light-text'>Processing...</p>
+            <p className='md-text text-center light-text'>{text}...</p>
           </div>
         </div>
 

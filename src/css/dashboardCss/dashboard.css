@@ -39,6 +39,11 @@
   background-color: #1D1D1D;
 }
 
+.dashboard-purple-bg{
+  background-color: #4A249D;
+
+}
+
 
 
 .dashboard-input{
@@ -165,6 +170,82 @@
 
 .dashboard-active-row{
   background-color: #161616;
+}
+
+
+.dashboard-yellow-btn{
+  color: #fff;
+  text-decoration: none;
+  background-color:rgb(255, 138, 8, 0.1);
+  border: 1px solid rgb(255, 138, 8, 0.5);
+  border-radius: 5px;
+  transition: all ease 1s;
+  
+
+}
+
+
+.dashboard-yellow-btn:hover{
+  background-color:rgb(255, 138, 8, 0.3);
+  color: #fff;
+
+
+}
+
+.dashboard-yellow-bg{
+  background-color:rgb(255, 138, 8, 0.1);
+  border: 1px solid rgb(255, 138, 8, 0.5);
+}
+
+
+.dashboard-red-btn{
+  color: #fff;
+  text-decoration: none;
+  background-color: rgba(165, 42, 42, 0.8);
+  border: 1px solid #FF2929;
+  border-radius: 5px;
+  transition: all ease 1s;
+  
+
+}
+
+
+.dashboard-red-btn:hover{
+  background-color:rgb(165, 42, 42, 1);
+  color: #fff;
+
+
+}
+
+.dashboard-red-bg{
+  background-color: rgba(165, 42, 42, 0.8);
+  border: 1px solid #FF2929;
+}
+
+
+.dashboard-green-btn{
+  color: #fff;
+  text-decoration: none;
+  background-color: rgba(31, 69, 41, 1);
+  border: 1px solid #00712D;
+  border-radius: 5px;
+  transition: all ease 1s;
+  
+
+}
+
+
+.dashboard-green-btn:hover{
+  background-color: rgba(31, 69, 41, 0.7);
+  border: 1px solid #00712D;
+  color: #fff;
+
+
+}
+
+.dashboard-green-bg{
+  background-color: rgba(31, 69, 41, 1);
+  border: 1px solid #00712D;
 }
 
 
@@ -441,6 +522,16 @@
   margin-right: 13px;
 
 
+}
+.dashboard-client-deposit-history-boxes{
+  background-color: #5B34B0;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 }
 @media screen and (max-width: 1200px){
   .dashboard-footer{

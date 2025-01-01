@@ -31,6 +31,8 @@ export const AuthProvider = ({children}) =>{
     const [showSidebar, setShowSidebar] = useState(null)
 
     const [copied, setCopied] = useState(false)
+
+    const [errorMessages, setErrorMessage] = useState('')
     
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -161,6 +163,29 @@ export const AuthProvider = ({children}) =>{
   
         setCurrentDateTime(formattedDateTime);
     };
+
+    const ImageHandler = (event) =>{
+        if (event.target.files.length > 0) {
+          const file = event.target.files[0];
+          const fileSizeInKB = file.size / 1024; // Convert bytes to KB
+          const fileType = file.type;
+    
+          // Validate file size (10KB to 5120KB)
+          if (fileSizeInKB < 10 || fileSizeInKB > 5120) {
+            setErrorMessage("File size must be between 10KB and 5120KB.");
+            return false;
+          }
+    
+          // Validate file type (jpg/jpeg/png)
+          if (!["image/jpeg", "image/png"].includes(fileType)) {
+            setErrorMessage("File must be in JPG, JPEG, or PNG format.");
+            return false;
+          }
+    
+          return true
+        }
+        return false;
+      }
 
 
     const userDetails = async (profileId) => {
@@ -460,6 +485,9 @@ export const AuthProvider = ({children}) =>{
         currentDateTime, 
         setCurrentDateTime,
         updateDateTime,
+        ImageHandler,
+        errorMessages, 
+        setErrorMessage
     }
 
     return (
