@@ -17,7 +17,7 @@ import { useAccess } from '../../../context/accessContext';
 import { ClientDashFrame } from '../../../component/ClientDashFrame';
 import { DashboardFooter } from '../../../component/dashbaordFooter';
 
-export const DepositHistory = () =>{
+export const WithdrawHistory = () =>{
 
   const {authTokens, 
 
@@ -45,77 +45,77 @@ export const DepositHistory = () =>{
 
 
   const {
-    depositCount,
-    depositData,
-    setDepositData,
-    depositLoader,
-    allDepositSearch, 
-    setallDepositSearch,
-    DepositFunction,
-    filterDeposits,
+    withdrawCount,
+    withdrawData,
+    setWithdrawData,
+    withdrawLoader,
+    allWithdrawSearch,
+    setallWithdrawSearch,
+    WithdrawFunction,
+    filterWithdraws,
 
 
-    successDespositCount,
-    successfulDepositData,
-    setSuccessfulDepositData,
-    successfulDepositLoader,
-    successfulDepositSearch,
-    setSuccessfulDepositSearch,
-    SuccessfulDepositFunction,
-    filterSuccessfulDeposits,
+    SuccessWithdrawCount,
+    successfulWithdrawData,
+    setSuccessfulWithdrawData,
+    successfulWithdrawLoader,
+    successfulWithdrawSearch,
+    setSuccessWithdrawSearch,
+    SuccessfulWithdrawFunction,
+    filterSuccessfulWithdraws,
 
 
-    pendingDespositCount,
-    pendingDepositData,
-    setPendingDepositData,
-    pendingDepositLoader,
-    pendingDepositSearch,
-    setPendingDepositSearch,
-    PendingDepositFunction,
-    filterPendingDeposits,
+    pendingWithdrawCount,
+    pendingWithdrawData,
+    setPendingWithdrawData,
+    pendingWithdrawLoader,
+    pendingWithdrawSearch,
+    setPendingWithdrawSearch,
+    PendingWithdrawFunction,
+    filterPendingWithdraws,
 
-    declinedDepositCount,
-    declinedDepositData,
-    setDeclinedDepositData,
-    declinedDepositLoader,
-    declinedDepositSearch,
-    setDeclinedDepositSearch,
-    DeclinedDepositFunction,
-    filterDeclinedDeposits,
+    declinedWithdrawCount,
+    declinedWithdrawData,
+    setDeclinedWithdrawData,
+    declinedWithdrawLoader,
+    declinedWithdrawSearch,
+    setDeclinedWithdrawSearch,
+    DeclinedWithdrawFunction,
+    filterDeclinedWithdraws,
 
   } = useContext(AllDataContext)
 
   useEffect(() =>{
-    if(!successfulDepositSearch){
-      SuccessfulDepositFunction()
-    }else if(successfulDepositSearch){
-      filterSuccessfulDeposits()
+    if(!successfulWithdrawSearch){
+      SuccessfulWithdrawFunction()
+    }else if(successfulWithdrawSearch){
+      filterSuccessfulWithdraws()
     }
-  }, [successfulDepositSearch])
+  }, [successfulWithdrawSearch])
 
   useEffect(() =>{
-    if(!allDepositSearch){
-      DepositFunction()
-    }else if(allDepositSearch){
-      filterDeposits()
+    if(!allWithdrawSearch){
+      WithdrawFunction()
+    }else if(allWithdrawSearch){
+      filterWithdraws()
     }
-  }, [allDepositSearch])
+  }, [allWithdrawSearch])
 
   useEffect(() =>{
-    if(!pendingDepositSearch){
-      PendingDepositFunction()
-    }else if(pendingDepositSearch){
-      filterPendingDeposits()
+    if(!pendingWithdrawSearch){
+      PendingWithdrawFunction()
+    }else if(pendingWithdrawSearch){
+      filterPendingWithdraws()
     }
-  }, [pendingDepositSearch])
+  }, [pendingWithdrawSearch])
 
   useEffect(() =>{
-    if(!declinedDepositSearch){
-      DeclinedDepositFunction()
-    }else if(declinedDepositSearch){
-      filterDeclinedDeposits()
+    if(!declinedWithdrawSearch){
+      DeclinedWithdrawFunction()
+    }else if(declinedWithdrawSearch){
+      filterDeclinedWithdraws()
     }
-  }, [declinedDepositSearch])
+  }, [declinedWithdrawSearch])
 
 
 
@@ -125,10 +125,10 @@ export const DepositHistory = () =>{
 
 
 
-  const [allDeposit, setAllDeposit] = useState(true)
-  const [successDepositInformation, setSuccessDepositInformation] = useState(false)
-  const [pendingDeposit ,setPendingDeppsit] = useState(false)
-  const [declinedDeposit, setDeclinedDeposit] = useState(false)
+  const [allWithdraw, setAllWithdraw] = useState(true)
+  const [successWithdraw, setSuccessWithdraw] = useState(false)
+  const [pendingWithdraw ,setPendingWithdraw] = useState(false)
+  const [declinedWithdraw, setDeclinedWithdraw] = useState(false)
 
 
   const [currentTab, setCurrentTab] = useState('')
@@ -136,135 +136,132 @@ export const DepositHistory = () =>{
 
   useEffect (() =>{
     const checkCurrentTab = () =>{
-      if(allDeposit){
-        setCurrentTab('All Deposit')
-        setCurrentTabIcon(<p className='mx-2 dashboard-client-deposit-history-boxes'>{depositCount}</p>)
+      if(allWithdraw){
+        setCurrentTab('All Withraw')
+        setCurrentTabIcon( <p className='mx-2 dashboard-client-deposit-history-boxes'>{withdrawCount}</p>)
       }
-      if(successDepositInformation){
+      if(successWithdraw){
         setCurrentTab('Confirmed')
-        setCurrentTabIcon(<p className='mx-2 dashboard-client-deposit-history-boxes'>{successDespositCount}</p>)
+        setCurrentTabIcon (<p className='mx-2 dashboard-client-deposit-history-boxes'>{SuccessWithdrawCount}</p>)
       }
-      if(pendingDeposit){
+      if(pendingWithdraw){
         setCurrentTab('Pending')
-        setCurrentTabIcon(<p className='mx-2 dashboard-client-deposit-history-boxes'>{pendingDespositCount}</p>)
+        setCurrentTabIcon( <p className='mx-2 dashboard-client-deposit-history-boxes'>{pendingWithdrawCount}</p>)
       }
-      if(declinedDeposit){
+      if(declinedWithdraw){
         setCurrentTab('Declined')
-        setCurrentTabIcon(<p className='mx-2 dashboard-client-deposit-history-boxes'>{declinedDepositCount}</p>)
+        setCurrentTabIcon( <p className='mx-2 dashboard-client-deposit-history-boxes'>{declinedWithdrawCount}</p>)
       }
 
     }
     checkCurrentTab()
-  }, [allDeposit, successDepositInformation, pendingDeposit])
+  }, [allWithdraw, successWithdraw, pendingWithdraw, declinedWithdraw])
 
 
 
 
 
-  const [allDepositCurrentPage, setAllDepositCurrentPage] = useState(0)
-  const allDepositdataPerPage = 5;
-  const allDepositPageCount = Math.ceil(depositData.length / allDepositdataPerPage)
+  const [allWithdrawCurrentPage, setAllWithdrawCurrentPage] = useState(0)
+  const allWithdrawdataPerPage = 5;
+  const allWithdrawPageCount = Math.ceil(withdrawData.length / allWithdrawdataPerPage)
 
-  const [successfulDepositCurrentPage, setSuccessfulDepositCurrentPage] = useState(0)
-  const successfulDepositdataPerPage = 5;
-  const successfulDepositPageCount = Math.ceil(successfulDepositData.length / successfulDepositdataPerPage)
+  const [successfulWithdrawCurrentPage, setSuccessfulWithdrawCurrentPage] = useState(0)
+  const successfulWithdrawdataPerPage = 5;
+  const successfulWithdrawPageCount = Math.ceil(successfulWithdrawData.length / successfulWithdrawdataPerPage)
 
-  const [pendingDepositCurrentPage, setWPendingDepositCurrentPage] = useState(0)
-  const pendingDepositdataPerPage = 5
-  const pendingDepositPageCount = Math.ceil(pendingDepositData.length / pendingDepositdataPerPage)
+  const [pendingWithdrawCurrentPage, setPendingWithdrawCurrentPage] = useState(0)
+  const pendingWithdrawdataPerPage = 5
+  const pendingWithdrawPageCount = Math.ceil(pendingWithdrawData.length / pendingWithdrawdataPerPage)
 
-  const [declinedDepositCurrentPage, setDeclinedDepositCurrentPage] = useState(0)
-  const declinedDepositDataPerPage = 5
-  const declinedDepositPageCount = Math.ceil(declinedDepositData.length / declinedDepositDataPerPage)
+  const [declinedWithdrawCurrentPage, setDeclinedWithdrawCurrentPage] = useState(0)
+  const declinedWithdrawDataPerPage = 5
+  const declinedWithdrawPageCount = Math.ceil(declinedWithdrawData.length / declinedWithdrawDataPerPage)
  
 
 
   const toogleMenu = () =>{
     setMenu(!menu)
   }
-  const toogleAllDeposit = () =>{
-    if(!allDeposit){
-      setAllDeposit(!allDeposit)
+  const toogleAllWithdraw = () =>{
+    if(!allWithdraw){
+      setAllWithdraw(!allWithdraw)
     }
-    setPendingDeppsit(false)
-    setSuccessDepositInformation(false)
-    setDeclinedDeposit(false)
+    setPendingWithdraw(false)
+    setSuccessWithdraw(false)
+    setDeclinedWithdraw(false)
 
   }
-  const toogleSuccessfulDeposit = () =>{
-    if(!successDepositInformation){
-      setSuccessDepositInformation(!successDepositInformation)
+  const toogleSuccessfulWithdraw = () =>{
+    if(!successWithdraw){
+      setSuccessWithdraw(!successWithdraw)
     }
-    setAllDeposit(false)
-    setPendingDeppsit(false)
-    setDeclinedDeposit(false)
-
-  }
-
-  const tooglePendingDeposit = () =>{
-    if(!pendingDeposit){
-      setPendingDeppsit(!pendingDeposit)
-    }
-    setAllDeposit(false)
-    setSuccessDepositInformation(false)
-    setDeclinedDeposit(false)
+    setAllWithdraw(false)
+    setPendingWithdraw(false)
+    setDeclinedWithdraw(false)
 
   }
 
-  const toogleDeclinedDeposit = () =>{
-    if(!declinedDeposit){
-      setDeclinedDeposit(!declinedDeposit)
+  const tooglePendingWithdraw = () =>{
+    if(!pendingWithdraw){
+      setPendingWithdraw(!pendingWithdraw)
     }
-    setAllDeposit(false)
-    setPendingDeppsit(false)
-    setSuccessDepositInformation(false)
+    setAllWithdraw(false)
+    setSuccessWithdraw(false)
+    setDeclinedWithdraw(false)
+
+  }
+
+  const toogleDeclinedWithdraw = () =>{
+    if(!declinedWithdraw){
+      setDeclinedWithdraw(!declinedWithdraw)
+    }
+    setAllWithdraw(false)
+    setPendingWithdraw(false)
+    setSuccessWithdraw(false)
 
   }
 
 
 
-  const allDepositCurrentData = depositData.slice(
-    allDepositCurrentPage * allDepositdataPerPage,
-    (allDepositCurrentPage + 1) * allDepositdataPerPage
+  const allWithdrawCurrentData = withdrawData.slice(
+    allWithdrawCurrentPage * allWithdrawdataPerPage,
+    (allWithdrawCurrentPage + 1) * allWithdrawdataPerPage
   )
-  const allDeposithandlePageClick = ({selected}) =>{
-    setAllDepositCurrentPage(selected)
+  const allWithdrawhandlePageClick = ({selected}) =>{
+    setAllWithdrawCurrentPage(selected)
   }
 
-  const successfulDepositCurrentData = successfulDepositData.slice(
-    successfulDepositCurrentPage * successfulDepositdataPerPage,
-    (successfulDepositCurrentPage + 1) * successfulDepositdataPerPage
+  const successfulWithdrawCurrentData = successfulWithdrawData.slice(
+    successfulWithdrawCurrentPage * successfulWithdrawdataPerPage,
+    (successfulWithdrawCurrentPage + 1) * successfulWithdrawdataPerPage
   )
-  const SuccessfulDeposithandlePageClick = ({selected}) =>{
-    setSuccessfulDepositCurrentPage(selected)
+  const SuccessfulWithdrawthandlePageClick = ({selected}) =>{
+    setSuccessfulWithdrawCurrentPage(selected)
   }
 
-  const PendingDepositCurrentData = pendingDepositData.slice(
-    pendingDepositCurrentPage * pendingDepositdataPerPage,
-    (pendingDepositCurrentPage + 1) * pendingDepositdataPerPage
+  const PendingWithdrawCurrentData = pendingWithdrawData.slice(
+    pendingWithdrawCurrentPage * pendingWithdrawdataPerPage,
+    (pendingWithdrawCurrentPage + 1) * pendingWithdrawdataPerPage
 
-  )
-
-  const PendingDepositHandlePageClick = ({selected}) =>{
-    setWPendingDepositCurrentPage(selected)
-  }
-
-  const DeclinedCurrentData = declinedDepositData.slice(
-    declinedDepositCurrentPage * declinedDepositDataPerPage,
-    (declinedDepositCurrentPage + 1) * declinedDepositDataPerPage
   )
 
-  const DeclinedDepositHandlePageClick = ({selected}) =>{
-    setDeclinedDepositCurrentPage(selected)
+  const PendingWithdrawHandlePageClick = ({selected}) =>{
+    setPendingWithdrawCurrentPage(selected)
+  }
+
+  const DeclinedCurrentData = declinedWithdrawData.slice(
+    declinedWithdrawCurrentPage * declinedWithdrawDataPerPage,
+    (declinedWithdrawCurrentPage + 1) * declinedWithdrawDataPerPage
+  )
+
+  const DeclinedWithdrawHandlePageClick = ({selected}) =>{
+    setDeclinedWithdrawCurrentPage(selected)
   }
 
 
-
-
-
-  const IndividualDeposit = async(id) =>{
+  const IndividualWithdraw = async(id) =>{
     setDisablebutton(true)
-    let response = await fetch(`http://127.0.0.1:8000/api/deposits/${id}/`, {
+    let response = await fetch(`http://127.0.0.1:8000/api/withdraw/${id}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -273,21 +270,16 @@ export const DepositHistory = () =>{
       
     })
     const data = await response.json()
-    sessionStorage.setItem('IndividualDepsoit', JSON.stringify(data))
+    sessionStorage.setItem('IndividualData', JSON.stringify(data))
 
     if (response.ok){
-      navigate(`/dashboard/deposit/history/${data.transaction_id}`)
+      navigate(`/dashboard/withdraw/history/${data.transaction_id}`)
       setDisablebutton(false)
     }else{
       setDisablebutton(false)
     }
 
   }
-
-
-
-
-
 
   
   return(
@@ -315,15 +307,15 @@ export const DepositHistory = () =>{
                   <div>
                     <div>
                       <p className='light-text'>Transactions</p>
-                      <p className='dashboard-header'>Deposit History</p>
+                      <p className='dashboard-header'>Withdraw History</p>
                     </div>
                   </div>
 
                     <div>
                       <div className='pt-3'>
-                        <Link to='/dashboard/deposit/step-1/'  className='dashboard-btn py-2 px-3'>
+                        <Link to='/dashboard/add-withdraw/'  className='dashboard-btn py-2 px-3'>
                           <i class="bi bi-plus-lg pe-2"></i>
-                          Deposit Funds
+                          Withdraw Spot
                         </Link>
                       </div>
                     </div>
@@ -352,42 +344,42 @@ export const DepositHistory = () =>{
 
                           <div className="user-details-menu-tabs">
                             <div className="d-flex">
-                              <div className='cursor-pointer' onClick={toogleAllDeposit}>
-                                <div className={`${allDeposit ? 'active-line-container' : 'd-none'} `}>
+                              <div className='cursor-pointer' onClick={toogleAllWithdraw}>
+                                <div className={`${allWithdraw ? 'active-line-container' : 'd-none'} `}>
                                   <div className='active-line'></div>
                                 </div>
-                                <div className={`pe-5 d-flex ${allDeposit ? 'purple-text' : ''}`}>
-                                  <p>All Deposit</p>
-                                  <p className='ms-2 dashboard-client-deposit-history-boxes'>{depositCount}</p>
+                                <div className={`pe-5 d-flex ${allWithdraw ? 'purple-text' : ''}`}>
+                                  <p>All Withdraw</p>
+                                  <p className='ms-2 dashboard-client-deposit-history-boxes'>{withdrawCount}</p>
                                 </div>
                               </div>
 
-                              <div className="cursor-pointer" onClick={toogleSuccessfulDeposit}>
-                                <div className={`${successDepositInformation ? 'active-line-container' : 'd-none'}  `}>
+                              <div className="cursor-pointer" onClick={toogleSuccessfulWithdraw}>
+                                <div className={`${successWithdraw ? 'active-line-container' : 'd-none'}  `}>
                                   <div className='active-line'></div>
                                 </div>
-                                <div className={`pe-5 d-flex ${successDepositInformation ? 'purple-text' : ''}`}>
-                                  <p >Confirmed Deposit</p>
-                                  <p className='ms-2 dashboard-client-deposit-history-boxes'>{successDespositCount}</p>
+                                <div className={`pe-5 d-flex ${successWithdraw ? 'purple-text' : ''}`}>
+                                  <p >Confirmed Withdraw</p>
+                                  <p className='ms-2 dashboard-client-deposit-history-boxes'>{SuccessWithdrawCount}</p>
                                 </div>
                               </div>
 
-                              <div className="cursor-pointer" onClick={tooglePendingDeposit}>
-                                <div className={`${pendingDeposit ? 'active-line-container' : 'd-none'}  `}>
+                              <div className="cursor-pointer" onClick={tooglePendingWithdraw}>
+                                <div className={`${pendingWithdraw ? 'active-line-container' : 'd-none'}  `}>
                                   <div className='active-line'></div>
                                 </div>
-                                <div className={`pe-5 d-flex ${pendingDeposit ? 'purple-text' : ''}`}>
-                                  <p>Pending Deposit</p>
-                                  <p className='ms-2 dashboard-client-deposit-history-boxes'>{pendingDespositCount}</p>
+                                <div className={`pe-5 d-flex ${pendingWithdraw ? 'purple-text' : ''}`}>
+                                  <p>Pending Withdraw</p>
+                                  <p className='ms-2 dashboard-client-deposit-history-boxes'>{pendingWithdrawCount}</p>
                                 </div>
                               </div>
-                              <div className="cursor-pointer" onClick={toogleDeclinedDeposit}>
-                                <div className={`${declinedDeposit ? 'active-line-container' : 'd-none'}  `}>
+                              <div className="cursor-pointer" onClick={toogleDeclinedWithdraw}>
+                                <div className={`${declinedWithdraw ? 'active-line-container' : 'd-none'}  `}>
                                   <div className='active-line'></div>
                                 </div>
-                                <div className={`pe-5 d-flex ${declinedDeposit ? 'purple-text' : ''}`}>
-                                  <p>Declined Deposit</p>
-                                  <p className='ms-2 dashboard-client-deposit-history-boxes'>{declinedDepositCount}</p>
+                                <div className={`pe-5 d-flex ${declinedWithdraw ? 'purple-text' : ''}`}>
+                                  <p>Declined Withdraw</p>
+                                  <p className='ms-2 dashboard-client-deposit-history-boxes'>{declinedWithdrawCount}</p>
                                 </div>
                               </div>
                             </div>
@@ -398,37 +390,37 @@ export const DepositHistory = () =>{
                             {menu && 
                               <div className={`user-details-table-menu`}>
                                 <div>
-                                  <p className='dashboard-table-menu-btn cursor-pointer' onClick={toogleAllDeposit}>
+                                  <p className='dashboard-table-menu-btn cursor-pointer' onClick={toogleAllWithdraw}>
                                     <button disabled={disablebutton} className='Button py-2 d-flex'>
                                       <div className={`d-flex`}>
-                                        <p className='me-2 dashboard-client-deposit-history-boxes'>{depositCount}</p>
+                                        <p className='me-2 dashboard-client-deposit-history-boxes'>{withdrawCount}</p>
                                         <p>All</p>
                                       </div>
                                     </button>
                                   </p>
 
-                                  <p className='dashboard-table-menu-btn cursor-pointer' onClick={toogleSuccessfulDeposit}>
+                                  <p className='dashboard-table-menu-btn cursor-pointer' onClick={toogleSuccessfulWithdraw}>
                                     <button disabled={disablebutton} className='Button py-2 d-flex'>
                                       <div className={`d-flex`}>
-                                      <p className='me-2 dashboard-client-deposit-history-boxes'>{successDespositCount}</p>
+                                        <p className='me-2 dashboard-client-deposit-history-boxes'>{SuccessWithdrawCount}</p>
                                         <p >Confirmed </p>
                                       </div>
                                     </button>
                                   </p>
 
-                                  <p className='dashboard-table-menu-btn cursor-pointer' onClick={tooglePendingDeposit}>
+                                  <p className='dashboard-table-menu-btn cursor-pointer' onClick={tooglePendingWithdraw}>
                                     <button disabled={disablebutton} className='Button py-2 d-flex'>
                                       <div className={`d-flex`}>
-                                        <p className='me-2 dashboard-client-deposit-history-boxes'>{pendingDespositCount}</p>
+                                        <p className='me-2 dashboard-client-deposit-history-boxes'>{pendingWithdrawCount}</p>
                                         <p>Pending </p>
                                       </div>
                                     </button>
                                   </p>
 
-                                  <p className='dashboard-table-menu-btn cursor-pointer' onClick={toogleDeclinedDeposit}>
+                                  <p className='dashboard-table-menu-btn cursor-pointer' onClick={toogleDeclinedWithdraw}>
                                     <button disabled={disablebutton} className='Button py-2 d-flex'>
                                       <div className={`d-flex`}>
-                                        <p className='me-2 dashboard-client-deposit-history-boxes'>{declinedDepositCount}</p>
+                                        <p className='me-2 dashboard-client-deposit-history-boxes'>{declinedWithdrawCount}</p>
                                         <p>Declined </p>
                                       </div>
                                     </button>
@@ -441,17 +433,17 @@ export const DepositHistory = () =>{
                         </div>
                       </div>
 
-                      {allDeposit && 
+                      {allWithdraw && 
                         <section className='py-2 mt-3 px-4'>
 
                           <div className='pb-3 ps-2'>
-                            <h5>All Deposit</h5>
-                            <p className='light-text'>Total {depositCount} deposit made</p>
+                            <h5>All Withdraw</h5>
+                            <p className='light-text'>Total {withdrawCount} withdraw made</p>
                           </div>
 
                           <div className='d-flex justify-content-end'>
                             <div className='pb-3'>
-                              <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={allDepositSearch} onChange={(e) => setallDepositSearch(e.target.value)} />
+                              <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={allWithdrawSearch} onChange={(e) => setallWithdrawSearch(e.target.value)} />
                             </div>
                           </div>
                           <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
@@ -470,17 +462,17 @@ export const DepositHistory = () =>{
                                 </thead>
 
                                 <tbody>
-                                  {allDepositCurrentData.length > 0 ? (
-                                    allDepositCurrentData.map((data) =>(
+                                  {allWithdrawCurrentData.length > 0 ? (
+                                    allWithdrawCurrentData.map((data) =>(
                                       <tr key={data.id}>
-                                        <td className='py-2' >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_details.name}</span></td>
+                                        <td className='py-2' >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_name}</span></td>
                                         <td>{data.payment_method_details.network}</td>
                                         <td>{formatCurrency(data.amount)} USD</td>
                                         <td>{formatDate(data.created_at)}</td>
                                         <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>     
                                         <td>
                                           <div className="d-flex justify-content-end">
-                                            <button disabled={disablebutton} className='Button' onClick={() => IndividualDeposit(data.id)}>
+                                            <button disabled={disablebutton} className='Button' onClick={() => IndividualWithdraw(data.id)}>
                                               <p className='dashboard-table-arrow'><i class=" bi bi-chevron-right sm-text"></i></p>
                                             </button>
                                           </div>
@@ -500,7 +492,7 @@ export const DepositHistory = () =>{
                             </div>
 
 
-                            {depositLoader && (
+                            {withdrawLoader && (
                               <div className="d-flex justify-content-center py-4">
                                 <img src={spin} alt="" width='60px'/>
                               </div>  
@@ -512,8 +504,8 @@ export const DepositHistory = () =>{
                             <ReactPaginate
                               previousLabel={<FontAwesomeIcon icon={faChevronLeft}/>}
                               nextLabel={<FontAwesomeIcon icon={faChevronRight}/>}
-                              pageCount={allDepositPageCount}
-                              onPageChange={allDeposithandlePageClick}
+                              pageCount={allWithdrawPageCount}
+                              onPageChange={allWithdrawhandlePageClick}
                               containerClassName={"pagination"}
                               previousLinkClassName={"pagination__link"}
                               nextLinkClassName={"pagination__link"}
@@ -526,17 +518,17 @@ export const DepositHistory = () =>{
 
                         </section>
                       }
-                      {successDepositInformation &&              
+                      {successWithdraw &&              
                         <section className='py-2 mt-3 px-4'>
 
                           <div className='pb-3 ps-2'>
-                            <h5>Confirmed Deposit</h5>
-                            <p className='light-text'>Total {successDespositCount} deposit made</p>
+                            <h5>Confirmed Withdraw</h5>
+                            <p className='light-text'>Total {SuccessWithdrawCount} withdraw made</p>
                           </div>
 
                           <div className='d-flex justify-content-end'>
                             <div className='pb-3'>
-                              <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={successfulDepositSearch} onChange={(e) => setSuccessfulDepositSearch(e.target.value)} />
+                              <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={successfulWithdrawSearch} onChange={(e) => setSuccessWithdrawSearch(e.target.value)} />
                             </div>
                           </div>
                           <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
@@ -555,17 +547,17 @@ export const DepositHistory = () =>{
                                 </thead>
 
                                 <tbody>
-                                  {successfulDepositCurrentData.length > 0 ? (
-                                    successfulDepositCurrentData.map((data) =>(
+                                  {successfulWithdrawCurrentData.length > 0 ? (
+                                    successfulWithdrawCurrentData.map((data) =>(
                                       <tr key={data.id}>
-                                        <td className='py-2' >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_details.name}</span></td>
+                                        <td className='py-2' >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_name}</span></td>
                                         <td>{data.payment_method_details.network}</td>
                                         <td>{formatCurrency(data.amount)} USD</td>
                                         <td>{formatDate(data.created_at)}</td>
                                         <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>     
                                         <td>
                                           <div className="d-flex justify-content-end">
-                                            <button disabled={disablebutton} className='Button' onClick={() => IndividualDeposit(data.id)}>
+                                            <button disabled={disablebutton} className='Button' onClick={() => IndividualWithdraw(data.id)}>
                                               <p className='dashboard-table-arrow'><i class=" bi bi-chevron-right sm-text"></i></p>
                                             </button>
                                           </div>
@@ -585,7 +577,7 @@ export const DepositHistory = () =>{
                             </div>
 
 
-                            {successfulDepositLoader && (
+                            {successfulWithdrawLoader && (
                               <div className="d-flex justify-content-center py-4">
                                 <img src={spin} alt="" width='60px'/>
                               </div>  
@@ -597,8 +589,8 @@ export const DepositHistory = () =>{
                             <ReactPaginate
                               previousLabel={<FontAwesomeIcon icon={faChevronLeft}/>}
                               nextLabel={<FontAwesomeIcon icon={faChevronRight}/>}
-                              pageCount={successfulDepositPageCount}
-                              onPageChange={SuccessfulDeposithandlePageClick}
+                              pageCount={successfulWithdrawPageCount}
+                              onPageChange={SuccessfulWithdrawthandlePageClick}
                               containerClassName={"pagination"}
                               previousLinkClassName={"pagination__link"}
                               nextLinkClassName={"pagination__link"}
@@ -612,17 +604,17 @@ export const DepositHistory = () =>{
                         </section>
                       }
 
-                      {pendingDeposit &&              
+                      {pendingWithdraw &&              
                         <section className='py-2 mt-3 px-4'>
 
                           <div className='pb-3 ps-2'>
-                            <h5>Pending Deposit</h5>
-                            <p className='light-text'>Total {pendingDespositCount} deposit made</p>
+                            <h5>Pending Withdraw</h5>
+                            <p className='light-text'>Total {pendingWithdrawCount} withdraw made</p>
                           </div>
 
                           <div className='d-flex justify-content-end'>
                             <div className='pb-3'>
-                              <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={pendingDepositSearch} onChange={(e) => setPendingDepositSearch(e.target.value)} />
+                              <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={pendingWithdrawSearch} onChange={(e) => setPendingWithdrawSearch(e.target.value)} />
                             </div>
                           </div>
                           <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
@@ -641,17 +633,17 @@ export const DepositHistory = () =>{
                                 </thead>
 
                                 <tbody>
-                                  {PendingDepositCurrentData.length > 0 ? (
-                                    PendingDepositCurrentData.map((data) =>(
+                                  {PendingWithdrawCurrentData.length > 0 ? (
+                                    PendingWithdrawCurrentData.map((data) =>(
                                       <tr key={data.id}>
-                                        <td className='py-2' >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_details.name}</span></td>
+                                        <td className='py-2' >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_name}</span></td>
                                         <td>{data.payment_method_details.network}</td>
                                         <td>{formatCurrency(data.amount)} USD</td>
                                         <td>{formatDate(data.created_at)}</td>
                                         <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>     
                                         <td>
-                                          <div className="d-flex justify-content-end">
-                                            <button disabled={disablebutton} className='Button' onClick={() => IndividualDeposit(data.id)}>
+                                          <div className="d-flex justify-content-end" onClick={() => IndividualWithdraw(data.id)}>
+                                            <button disabled={disablebutton} className='Button'>
                                               <p className='dashboard-table-arrow'><i class=" bi bi-chevron-right sm-text"></i></p>
                                             </button>
                                           </div>
@@ -671,7 +663,7 @@ export const DepositHistory = () =>{
                             </div>
 
 
-                            {pendingDepositLoader && (
+                            {pendingWithdrawLoader && (
                               <div className="d-flex justify-content-center py-4">
                                 <img src={spin} alt="" width='60px'/>
                               </div>  
@@ -683,8 +675,8 @@ export const DepositHistory = () =>{
                             <ReactPaginate
                               previousLabel={<FontAwesomeIcon icon={faChevronLeft}/>}
                               nextLabel={<FontAwesomeIcon icon={faChevronRight}/>}
-                              pageCount={pendingDepositPageCount}
-                              onPageChange={PendingDepositHandlePageClick}
+                              pageCount={pendingWithdrawPageCount}
+                              onPageChange={PendingWithdrawHandlePageClick}
                               containerClassName={"pagination"}
                               previousLinkClassName={"pagination__link"}
                               nextLinkClassName={"pagination__link"}
@@ -698,17 +690,17 @@ export const DepositHistory = () =>{
                         </section>
                       }
 
-                      {declinedDeposit &&
+                      {declinedWithdraw &&
                         <section className='py-2 mt-3 px-4'>
 
                           <div className='pb-3 ps-2'>
-                            <h5>Declined Deposit</h5>
-                            <p className='light-text'>Total {declinedDepositCount} deposit made</p>
+                            <h5>Declined Withdraw</h5>
+                            <p className='light-text'>Total {declinedWithdrawCount} withdraw made</p>
                           </div>
 
                           <div className='d-flex justify-content-end'>
                             <div className='pb-3'>
-                              <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={declinedDepositSearch} onChange={(e) => setDeclinedDepositSearch(e.target.value)} />
+                              <input type="text" className="p-2 dashboard-search-input" placeholder="search..." value={declinedWithdrawSearch} onChange={(e) => setDeclinedWithdrawSearch(e.target.value)} />
                             </div>
                           </div>
                           <div className='dashboard-boxes border-radius-5px dahboard-table  dash-scroll-bar non-wrap-text'>
@@ -730,14 +722,14 @@ export const DepositHistory = () =>{
                                   {DeclinedCurrentData.length > 0 ? (
                                     DeclinedCurrentData.map((data) =>(
                                       <tr key={data.id}>
-                                        <td className='py-2' >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_details.name}</span></td>
+                                        <td className='py-2' >{data.transaction_id} <br /> <span className="sm-text-2">via {data.payment_method_name}</span></td>
                                         <td>{data.payment_method_details.network}</td>
                                         <td>{formatCurrency(data.amount)} USD</td>
                                         <td>{formatDate(data.created_at)}</td>
                                         <td><p p className={`dashboard-status ps-3 ${data.status === "pending" ? "pending" : "sucessfull"} ${data.status === "declined" && "failed"}`}>{formatName(data.status)}</p></td>     
                                         <td>
                                           <div className="d-flex justify-content-end">
-                                            <button disabled={disablebutton} className='Button' onClick={() => IndividualDeposit(data.id)}>
+                                            <button disabled={disablebutton} className='Button' onClick={() => IndividualWithdraw(data.id)}>
                                               <p className='dashboard-table-arrow'><i class=" bi bi-chevron-right sm-text"></i></p>
                                             </button>
                                           </div>
@@ -757,7 +749,7 @@ export const DepositHistory = () =>{
                             </div>
 
 
-                            {declinedDepositLoader && (
+                            {declinedWithdrawLoader && (
                               <div className="d-flex justify-content-center py-4">
                                 <img src={spin} alt="" width='60px'/>
                               </div>  
@@ -769,8 +761,8 @@ export const DepositHistory = () =>{
                             <ReactPaginate
                               previousLabel={<FontAwesomeIcon icon={faChevronLeft}/>}
                               nextLabel={<FontAwesomeIcon icon={faChevronRight}/>}
-                              pageCount={declinedDepositPageCount}
-                              onPageChange={DeclinedDepositHandlePageClick}
+                              pageCount={declinedWithdrawPageCount}
+                              onPageChange={DeclinedWithdrawHandlePageClick}
                               containerClassName={"pagination"}
                               previousLinkClassName={"pagination__link"}
                               nextLinkClassName={"pagination__link"}
@@ -791,12 +783,6 @@ export const DepositHistory = () =>{
                 </div>
               </section>
             </div>
-
-            {/* <div>
-              <div className="d-flex justify-content-center  align-items-center height-90vh">
-                 <img src={spin} alt="" width='60px'/>
-               </div>                         
-            </div> */}
 
 
         </div>

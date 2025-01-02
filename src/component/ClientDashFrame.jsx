@@ -295,8 +295,8 @@ export const ClientDashFrame = () =>{
                       </li>
 
 
-                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/withdraw/history/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/withdraw/history/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 pb-2">
                             <p>Withdraw History</p> 
                           </div>

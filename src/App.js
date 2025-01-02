@@ -107,6 +107,9 @@ import { ClientUploadKYC } from './pages/clientDashboard/kyc/uploadKyc';
 import { ClientKYC } from './pages/clientDashboard/kyc/kyc';
 import { ClientUserVerification } from './pages/clientDashboard/userVerification/userVerifcation';
 import { ClientUploadUserVerification } from './pages/clientDashboard/userVerification/uploadVerification';
+import { WithdrawHistory } from './pages/clientDashboard/withdraw/withdrawHistory';
+import { ClientIndividualWithdraw } from './pages/clientDashboard/withdraw/individualWithdraw';
+import { ClientIndividualDeposit } from './pages/clientDashboard/Deposit/individualDeposit';
 
 
 
@@ -138,7 +141,7 @@ function App() {
                 <Route path="/dashboard/deposit/step-3/" element={< AddDeposit3/>} />   
                 <Route path="/dashboard/deposit/step-4/" element={< AddDeposit4/>} />
                 <Route path="/dashboard/deposit/history/" element={< DepositHistory/>} />
-
+                <Route path="/dashboard/deposit/history/:id" element={< ClientIndividualDeposit/>} />
                 {/* Withdraw */}
                 <Route path="/dashboard/add-withdraw/" element={< AddWithdraw1/>} />
                 <Route path="/dashboard/withdraw/payment-options/" element={< ClientPaymetntDetailsOptionsWithdraw/>} />
@@ -147,7 +150,8 @@ function App() {
                 <Route path="/dashboard/withdraw/wallet-address/" element={< ClientWalletWithdraw/>} />
                 <Route path="/dashboard/withdraw/review-details/" element={< WithdrawReviewDetails/>} />
                 <Route path="/dashboard/withdraw/successful/" element={< WithdrawFinalPage/>} />
-
+                <Route path="/dashboard/withdraw/history/" element={< WithdrawHistory/>} />
+                <Route path="/dashboard/withdraw/history/:id" element={< ClientIndividualWithdraw/>} />
                 {/* KYC */}
                 <Route path="/dashboard/kyc-upload/" element={< ClientUploadKYC/>} />\
                 <Route path="/dashboard/kyc-aml/" element={< ClientKYC/>} />

@@ -105,7 +105,7 @@ export const AddWithdraw1 = () =>{
         <div className="main-content pb-5" onClick={OnbodyClick}>
 
           <div className="container-lg">
-            {(userProfile?.kyc_verification.length > 0 && userProfile?.kyc_verification.status === 'verified') ? (
+            {userProfile?.kyc_verification.status === 'verified' ? (
               <div>
                 {!loader && 
                   <div className="row justify-content-center">

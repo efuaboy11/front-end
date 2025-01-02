@@ -153,6 +153,8 @@ export const WithdrawReviewDetails = () =>{
     formData.append('amount', amount)
 		formData.append('payment_method_type', paymentTypeID)
 		formData.append('payment_method_id', paymentMethodID)
+    formData.append('status', 'pending')
+
 
     try{
       const response = await fetch('http://127.0.0.1:8000/api/withdraw/', {
