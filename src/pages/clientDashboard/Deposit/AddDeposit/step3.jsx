@@ -70,6 +70,17 @@ export const AddDeposit3 = () =>{
     }
   }
 
+  const Cancel = () =>{
+    setProcessingText('Canceling')
+    setLoader(true)
+    const timer = setTimeout(() => {
+      navigate('/dashboard/deposit/step-1/')
+      setLoader(false)
+    }, 3000); // Reset after 1 second
+
+    return () => clearTimeout(timer);
+  }
+
   const {
     register,
     handleSubmit,
@@ -251,7 +262,9 @@ export const AddDeposit3 = () =>{
 
                       <div className='mx-4 pt-3'>
                         <button className="dashboard-btn width-100 pt-2 pb-3" type="submit" disabled={disablebutton}>Paid {formatName(details.name)}</button>      
-                        <p className='text-center failed-text mt-2'>Cancel Transaction</p>  
+                        <div className="d-flex justify-content-center pt-2"> 
+                          <button onClick={Cancel}  className='text-center py-2 px-4 dashboard-red-btn mt-2 '>Cancel Transaction</button>  
+                        </div> 
                       </div>
                     </form> 
                   </div>          

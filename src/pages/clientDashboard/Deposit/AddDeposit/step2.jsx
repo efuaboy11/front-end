@@ -56,6 +56,17 @@ export const AddDeposit2 = () =>{
 
   }, [])
 
+  const Cancel = () =>{
+    setProcessingText('Canceling')
+    setLoader(true)
+    const timer = setTimeout(() => {
+      navigate('/dashboard/deposit/step-1/')
+      setLoader(false)
+    }, 3000); // Reset after 1 second
+
+    return () => clearTimeout(timer);
+  }
+
 
 
 
@@ -140,7 +151,7 @@ export const AddDeposit2 = () =>{
 
                       <div className='col-6'>
                         <p className='light-text'>Payment Method:</p>
-                        <p>{formatName(details.name)} (details.type)</p>
+                        <p>{formatName(details.name)} ({details.type})</p>
                       </div>
 
                       <div className='col-6'>
@@ -163,8 +174,10 @@ export const AddDeposit2 = () =>{
                   </div>
 
                   <div className='mx-5 pt-3'>
-                    <button onClick={NavigateToStep3} className="dashboard-btn width-100 pt-2 pb-3" type="submit" disabled={disablebutton}>Confirm & Pay</button>      
-                    <p className='text-center failed-text mt-2'>Cancel Transaction</p>  
+                    <button onClick={NavigateToStep3} className="dashboard-btn width-100 pt-2 pb-3" type="submit" disabled={disablebutton}>Confirm & Pay</button>    
+                    <div className="d-flex justify-content-center pt-2"> 
+                      <button onClick={Cancel}  className='text-center py-2 px-4 dashboard-red-btn mt-2 '>Cancel Transaction</button>  
+                    </div> 
                   </div>
 
 

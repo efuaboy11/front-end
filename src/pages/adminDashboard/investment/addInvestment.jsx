@@ -57,14 +57,14 @@ export const AddInvestment = () =>{
   const onSubmit = (data, e) =>{
     setDisablebutton(true)
     if(isValid){
-      addDeposit(e)
+      addInvestment(e)
       
     }else{
       setDisablebutton(false)
     }
   }
 
-  const addDeposit = async(e) =>{
+  const addInvestment = async(e) =>{
     e.preventDefault()
     setLoader(true)
 

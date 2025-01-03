@@ -197,6 +197,17 @@ export const WithdrawReviewDetails = () =>{
     }    
   }
 
+  const Cancel = () =>{
+    setProcessingText('Canceling')
+    setLoader(true)
+    const timer = setTimeout(() => {
+      navigate('/dashboard/add-withdraw/')
+      setLoader(false)
+    }, 3000); // Reset after 1 second
+
+    return () => clearTimeout(timer);
+  }
+
 
 
   useEffect(() =>{
@@ -228,19 +239,6 @@ export const WithdrawReviewDetails = () =>{
 
 
   }, [])
-
-  const NavigateToStep3 = () =>{
-    setProcessingText("Reviewing")
-    setLoader(true)
-    const timer = setTimeout(() => {
-      navigate('/dashboard/deposit/step-3/')
-      setLoader(false)
-    }, 4000); 
-
-    return () => clearTimeout(timer);
- 
-  }
-
 
   return(
     <div>
@@ -504,7 +502,9 @@ export const WithdrawReviewDetails = () =>{
 
                   <div className='mx-5 pt-3'>
                     <button onClick={addWithdraw} className="dashboard-btn width-100 pt-2 pb-3" type="submit" disabled={disablebutton}>Confirm & Pay</button>      
-                    <p className='text-center failed-text mt-2'>Cancel Transaction</p>  
+                    <div className="d-flex justify-content-center pt-2"> 
+                      <button onClick={Cancel}  className='text-center py-2 px-4 dashboard-red-btn mt-2 '>Cancel Transaction</button>  
+                    </div>  
                   </div>
 
 

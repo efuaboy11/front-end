@@ -1,4 +1,4 @@
-import { faAngleDown, faArrowLeft, faBan, faBars, faCoins, faCube, faEnvelope, faEnvelopesBulk, faHandHoldingDollar, faL, faLock, faMoneyBillTransfer, faPercent, faRightLeft, faSackDollar, faShield } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faArrowLeft, faBan, faBars, faCoins, faCube, faEnvelope, faEnvelopesBulk, faHandHoldingDollar, faHandshake, faL, faLock, faMoneyBillTransfer, faPercent, faRightLeft, faSackDollar, faShield } from '@fortawesome/free-solid-svg-icons'
 import '../css/componentCss/dashboardFrame.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
@@ -180,8 +180,8 @@ export const ClientDashFrame = () =>{
 
                   <div>
                     <ul className={` dropdown-bg ${tradeDropdown ? "slide-in" : "slide-out"}`}>
-                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/investment/plan/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/investment/plan/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 py-2">
                             <p>Buy Plan</p> 
                           </div>
@@ -189,8 +189,8 @@ export const ClientDashFrame = () =>{
                       </li>
 
 
-                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/investment/history/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/investment/history/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 pb-2">
                             <p>My Investment</p> 
                           </div>
@@ -394,8 +394,8 @@ export const ClientDashFrame = () =>{
 
                   <div>
                     <ul className={` dropdown-bg ${paymentGatewayDropdown ? "slide-in" : "slide-out"}`}>
-                    <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                    <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/payment-gateway/crypto-wallet/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/payment-gateway/crypto-wallet/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 py-2">
                             <p>Crypto Wallet</p> 
                           </div>
@@ -403,8 +403,8 @@ export const ClientDashFrame = () =>{
                       </li>
 
 
-                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/payment-gateway/bank-account/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/payment-gateway/bank-account/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 pb-2">
                             <p>Bank Account </p> 
                           </div>
@@ -412,17 +412,12 @@ export const ClientDashFrame = () =>{
                       </li>
 
 
-                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/payment-gateway/bank-card/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/payment-gateway/bank-card/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 pb-2">
                             <p>Bank Card</p> 
                           </div>
                         </Link>
-                      </li>
-
-
-                      <li className={`pb-2 dashboard-sidebar-dropdown-link ps-5 pt-2 ${isActiveDashLink("/admin/add-investment") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/add-investment" onClick={OnbodyClick}>Add New</Link> 
                       </li>
                       
                     </ul>
@@ -480,7 +475,7 @@ export const ClientDashFrame = () =>{
                   <div className='row mb-2 dashboard-sidebar-list' onClick={toggleSupport}>
                     <div className='col-8 ps-4 '>
                       <div className="d-flex">
-                        <FontAwesomeIcon className='me-3 pt-1 sm-text' icon={faShield}/>
+                        <FontAwesomeIcon className='me-3 pt-1 sm-text' icon={faHandshake}/>
                         <p className='pt-1'>Support</p>
                       </div>
 
@@ -626,7 +621,7 @@ export const ClientDashFrame = () =>{
                           </li>
 
                           <li className='pb-3'>
-                            <Link to='/admin/user-login-details/' className='light-link'>
+                            <Link to='/dashboard/payment-gateway/' className='light-link'>
                               <div className="d-flex">
                                 <i class="bi  bi-wallet2 pe-2"></i>
                                 <p className=''>Payment Accounts</p>

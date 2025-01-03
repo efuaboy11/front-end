@@ -12,6 +12,10 @@
 .dashboard-header{
   font-size: 40px;
 }
+
+.dashboard-sub-header{
+  font-size: 30px;
+}
 .dashboard-number-form{
   width: 45px;
   height: 45px;
@@ -243,9 +247,18 @@
 
 }
 
+
 .dashboard-green-bg{
   background-color: rgba(31, 69, 41, 1);
   border: 1px solid #00712D;
+}
+
+.dashboard-cancel-btn{
+  color: #FF2929;
+}
+
+.dashboard-cancel-btn:hover{
+  color: rgba(165, 42, 42, 1);
 }
 
 
@@ -280,11 +293,12 @@
 }
 
 .dashboard-inverse-btn{
-  background-color: #d3d3d3; 
+  background-color: #a0a0a0; 
   color: #000;  
   /* opacity: 0.7;  */
   border-radius: 5px;
   transition: all ease 0.5s;
+  border: none;
 }
 
 .dashboard-inverse-btn:hover{
@@ -534,6 +548,8 @@
   border-radius: 5px;
   border: 1px solid #a0a0a0;
 }
+
+
 @media screen and (max-width: 1200px){
   .dashboard-footer{
     margin-left: 0px;
@@ -589,6 +605,10 @@
 @media screen and (max-width: 500px){
   .dashboard-header{
     font-size: 25px;
+  }
+
+  .dashboard-sub-header{
+    font-size: 16px;
   }
 
 

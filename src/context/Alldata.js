@@ -1854,8 +1854,8 @@ export const AllDataProvider =  ({ children }) =>{
       }
       sessionStorage.setItem("investmentPlanCount", data.length);
 
-      const sortedData = data.sort((a, b) => b.id - a.id);
-      setInvestPlanData(sortedData)
+      // const sortedData = data.sort((a, b) => b.id - a.id);
+      setInvestPlanData(data)
       setInvestmentPlanLoader(false)
     }else{
       setInvestmentPlanLoader(false)
@@ -1882,8 +1882,8 @@ export const AllDataProvider =  ({ children }) =>{
     const data = await response.json()
 
     if(response.ok){
-      const sortedData = data.sort((a, b) => b.id - a.id);
-      setInvestPlanData(sortedData)
+      // const sortedData = data.sort((a, b) => b.id - a.id);
+      setInvestPlanData(data)
     }
   }
 

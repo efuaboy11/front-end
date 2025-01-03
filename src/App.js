@@ -110,6 +110,23 @@ import { ClientUploadUserVerification } from './pages/clientDashboard/userVerifi
 import { WithdrawHistory } from './pages/clientDashboard/withdraw/withdrawHistory';
 import { ClientIndividualWithdraw } from './pages/clientDashboard/withdraw/individualWithdraw';
 import { ClientIndividualDeposit } from './pages/clientDashboard/Deposit/individualDeposit';
+import { ClientInvestmentPlan } from './pages/clientDashboard/investment/investmentPlan';
+import { ClientInvestmentAddAmount } from './pages/clientDashboard/investment/addAmount';
+import { ClientInvestmentReviewDetails } from './pages/clientDashboard/investment/reviewDetails';
+import { InvestmentFinalPage } from './pages/clientDashboard/investment/finalPage';
+import { ClientInsufficientBalance } from './pages/clientDashboard/investment/insufficientBalance';
+import { InvestmentHistory } from './pages/clientDashboard/investment/InvestmentHistory';
+import { ClientIndividualInvestment } from './pages/clientDashboard/investment/individualInvestment';
+import { ClientPaymetntDetailsOptions } from './pages/clientDashboard/userPaymentDetails/paymentDetailsOptions';
+import { ClientCyptoWallet } from './pages/clientDashboard/userPaymentDetails/walletAddress/cyptoWallet';
+import { ClientAddCrytoWallet } from './pages/clientDashboard/userPaymentDetails/walletAddress/addWallet';
+import { ClientEditCrytoWallet } from './pages/clientDashboard/userPaymentDetails/walletAddress/editCryptoWallet';
+import { ClientBankAccount } from './pages/clientDashboard/userPaymentDetails/BankAccount/bankAccount';
+import { ClientAddBankAccount, ClientAddBankAccountAdd } from './pages/clientDashboard/userPaymentDetails/BankAccount/addBankAccount';
+import { ClientEditBankAccount } from './pages/clientDashboard/userPaymentDetails/BankAccount/editBankAccount';
+import { ClientBankCard } from './pages/clientDashboard/userPaymentDetails/BankCard/bankCard';
+import { ClientAddBankCard } from './pages/clientDashboard/userPaymentDetails/BankCard/addBankCard';
+import { ClientEditBankCard } from './pages/clientDashboard/userPaymentDetails/BankCard/editBankCard';
 
 
 
@@ -155,9 +172,34 @@ function App() {
                 {/* KYC */}
                 <Route path="/dashboard/kyc-upload/" element={< ClientUploadKYC/>} />\
                 <Route path="/dashboard/kyc-aml/" element={< ClientKYC/>} />
-                {/* User Verification */}
-                <Route path="/dashboard/user-verification/" element={< ClientUserVerification/>} />
+                {/* User Verification */}                 <Route path="/dashboard/user-verification/" element={< ClientUserVerification/>} />
                 <Route path="/dashboard/user-verification/upload/" element={< ClientUploadUserVerification/>} />
+
+
+                {/* Investment */}
+                <Route path="/dashboard/investment/plan/" element={< ClientInvestmentPlan/>} />
+                <Route path="/dashboard/investment/buy-plan-amount/" element={< ClientInvestmentAddAmount/>} />
+                <Route path="/dashboard/investment/review-details/" element={< ClientInvestmentReviewDetails/>} />
+                <Route path="/dashboard/investment/successful/" element={< InvestmentFinalPage/>} />
+                <Route path="/dashboard/investment/history/" element={< InvestmentHistory/>} />
+                <Route path="/dashboard/investment/history/:id" element={< ClientIndividualInvestment/>} />
+
+                {/* Insufficinet Balance */}
+                <Route path="/dashboard/insufficient-balance/" element={< ClientInsufficientBalance/>} />
+
+                {/* Payment method */}
+                <Route path="/dashboard/payment-gateway/" element={< ClientPaymetntDetailsOptions/>} />
+                <Route path="/dashboard/payment-gateway/crypto-wallet/add/" element={< ClientAddCrytoWallet/>} />
+                <Route path="/dashboard/payment-gateway/crypto-wallet/:id" element={< ClientEditCrytoWallet/>} />
+                <Route path="/dashboard/payment-gateway/crypto-wallet/" element={< ClientCyptoWallet/>} />
+
+                <Route path="/dashboard/payment-gateway/bank-account/" element={< ClientBankAccount/>} />
+                <Route path="/dashboard/payment-gateway/bank-account/add/" element={< ClientAddBankAccount/>} />
+                <Route path="/dashboard/payment-gateway/bank-account/:id" element={< ClientEditBankAccount/>} />
+
+                <Route path="/dashboard/payment-gateway/bank-card/" element={< ClientBankCard/>} />
+                <Route path="/dashboard/payment-gateway/bank-card/add/" element={< ClientAddBankCard/>} />
+                <Route path="/dashboard/payment-gateway/bank-card/:id" element={< ClientEditBankCard/>} />
                 <Route element={<PrivateRoute requiredRole='ADMIN'/>}>
                   {/* -----------------------------------ADMIN DASHBOARD ---------------------------------- */}
                   <Route path="/dahframe" element={< AdminDashFrame/>} />

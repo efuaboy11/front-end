@@ -39,6 +39,7 @@ export const AddWithdraw1 = () =>{
     copied,
     loader,
     setLoader,
+    roundUp,
 
 
   } = useContext(AuthContext)
@@ -63,7 +64,11 @@ export const AddWithdraw1 = () =>{
       sessionStorage.setItem('amount', amount)
       setLoader(true)
       const timer = setTimeout(() => {
-        navigate('/dashboard/withdraw/payment-options/')
+        if(roundUp(amount) <= roundUp(userProfile.user_balance.balance)){
+          navigate('/dashboard/withdraw/payment-options/')
+        }else{
+          navigate('/dashboard/insufficient-balance/') 
+        }
         setLoader(false)
       }, 3000);
       setDisablebutton(false)
@@ -114,6 +119,18 @@ export const AddWithdraw1 = () =>{
                         <p className="dashboard-header pb-3">Withdraw Funds</p>
                         <h5 className='pb-2'>Secure and Fast Payouts.</h5>
                         <p className="small-text-2 light-text">Request withdrawals directly from your account. Funds will be processed and sent to your designated payment method after approval.</p>
+                      </div>
+
+                      <div className="dashboard-boxes p-3 border-radius-5px  my-3">
+                        <div className="d-flex">
+                          <div className='ps-2 pe-4 d-flex align-items-center height-100'> 
+                            <i class="bi bi-wallet md-text"></i>
+                          </div>
+                          <div>
+                            <p>Current Account Balance</p>
+                            <p className="light-text">Total: {formatCurrency(userProfile?.user_balance.balance)} USD</p>
+                          </div>
+                        </div>
                       </div>
 
                       <form  onSubmit={handleSubmit(onSubmit)}>
