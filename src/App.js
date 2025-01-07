@@ -127,6 +127,12 @@ import { ClientEditBankAccount } from './pages/clientDashboard/userPaymentDetail
 import { ClientBankCard } from './pages/clientDashboard/userPaymentDetails/BankCard/bankCard';
 import { ClientAddBankCard } from './pages/clientDashboard/userPaymentDetails/BankCard/addBankCard';
 import { ClientEditBankCard } from './pages/clientDashboard/userPaymentDetails/BankCard/editBankCard';
+import { ClientUserReferral } from './pages/clientDashboard/refferals/refferals';
+import { ClientBonus } from './pages/clientDashboard/bonus/bonus';
+import { ClientInterest } from './pages/clientDashboard/interest/interest';
+import { ClientComission } from './pages/clientDashboard/commision/commission';
+import { ClientPaymentOptions } from './pages/clientDashboard/paymentOptions/paymentOptions';
+import { MarketChart } from './pages/clientDashboard/marketChart/marketChat';
 
 
 
@@ -200,6 +206,23 @@ function App() {
                 <Route path="/dashboard/payment-gateway/bank-card/" element={< ClientBankCard/>} />
                 <Route path="/dashboard/payment-gateway/bank-card/add/" element={< ClientAddBankCard/>} />
                 <Route path="/dashboard/payment-gateway/bank-card/:id" element={< ClientEditBankCard/>} />
+                {/* User referral */}
+                <Route path="/dashboard/referrals/" element={< ClientUserReferral/>} />
+
+                {/* Bonus */}
+                <Route path="/dashboard/bonus/" element={< ClientBonus/>} />
+
+                {/* Interest */}
+                <Route path="/dashboard/interest/" element={< ClientInterest/>} />
+
+                {/* Commission */}
+                <Route path="/dashboard/comission/" element={< ClientComission/>} />
+
+                {/* ClientPaymentOptions */}
+                <Route path="/dashboard/payment-options/" element={< ClientPaymentOptions/>} />
+
+              {/* NArket chart */}
+                <Route path="/dashboard/market-chart/" element={< MarketChart/>} />
                 <Route element={<PrivateRoute requiredRole='ADMIN'/>}>
                   {/* -----------------------------------ADMIN DASHBOARD ---------------------------------- */}
                   <Route path="/dahframe" element={< AdminDashFrame/>} />
@@ -326,6 +349,8 @@ function App() {
                   <Route path="/admin/send-email/" element={<SendEmail2/>} />
                   <Route path="/admin/send-bulk-email/" element={<SendBulkEmail/>} />
                   <Route path="/admin/email-messages/" element={<EmailMessage/>} />
+
+                  
                 </Route>
               </Route>
             </Routes>

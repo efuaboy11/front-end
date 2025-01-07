@@ -10,6 +10,7 @@ import FloatingAlert from '../../../component/alert';
 import spin from '../../../img/Spin.gif'
 import AllDataContext from '../../../context/Alldata';
 import { useForm } from 'react-hook-form';
+import { DashboardFooter } from '../../../component/dashbaordFooter';
 
 export const AllInterest = () =>{
   const { authTokens, 
@@ -338,6 +339,10 @@ export const AllInterest = () =>{
 
           </section>
         </div>
+      </div>
+
+      <div className='mt-5 py-3'>
+        <DashboardFooter/>
       </div>
 
 
