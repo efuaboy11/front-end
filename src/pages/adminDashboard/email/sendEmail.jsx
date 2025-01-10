@@ -107,8 +107,6 @@ export const SendEmail2 = () =>{
   }
 
 
-  
-
   const ClearInput = () =>{
     setEmailMessage('')
     setSubject('')

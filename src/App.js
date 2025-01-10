@@ -133,6 +133,11 @@ import { ClientInterest } from './pages/clientDashboard/interest/interest';
 import { ClientComission } from './pages/clientDashboard/commision/commission';
 import { ClientPaymentOptions } from './pages/clientDashboard/paymentOptions/paymentOptions';
 import { MarketChart } from './pages/clientDashboard/marketChart/marketChat';
+import { FAQs } from './pages/clientDashboard/FAQ/FAQ';
+import { Supports } from './pages/clientDashboard/support/support';
+import { ClientChangePassowrd1 } from './pages/clientDashboard/changePassword/step1';
+import { ClientChangePassowrd2 } from './pages/clientDashboard/changePassword/step2';
+import { ClientChangePassowrd3 } from './pages/clientDashboard/changePassword/step3';
 
 
 
@@ -221,8 +226,18 @@ function App() {
                 {/* ClientPaymentOptions */}
                 <Route path="/dashboard/payment-options/" element={< ClientPaymentOptions/>} />
 
-              {/* NArket chart */}
+                {/* NArket chart */}
                 <Route path="/dashboard/market-chart/" element={< MarketChart/>} />
+                {/* FAQs */}
+                <Route path="/dashboard/FAQs/" element={< FAQs/>} />
+                {/* Supports */}
+                <Route path="/dashboard/support-center/" element={< Supports/>} />
+
+                {/* Change Password */}
+                <Route path="/dashboard/change-password/step-1/" element={< ClientChangePassowrd1/>} />
+                <Route path="/dashboard/change-password/step-2/" element={< ClientChangePassowrd2/>} />
+                <Route path="/dashboard/change-password/step-3/" element={< ClientChangePassowrd3/>} />
+
                 <Route element={<PrivateRoute requiredRole='ADMIN'/>}>
                   {/* -----------------------------------ADMIN DASHBOARD ---------------------------------- */}
                   <Route path="/dahframe" element={< AdminDashFrame/>} />

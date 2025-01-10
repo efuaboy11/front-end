@@ -976,7 +976,7 @@ export const ClientDashboard = () =>{
 
                         <div className='col-md-3'>
                           <div className="d-flex align-items-center height-100">
-                            <Link className="dashboard-btn-2 px-4 py-2">Get Support Now</Link>
+                            <Link to='/dashboard/support-center/' className="dashboard-btn-2 px-4 py-2">Get Support Now</Link>
                           </div>
                           
                         </div>

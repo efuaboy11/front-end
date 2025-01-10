@@ -91,6 +91,8 @@ ul,  li{
 }
 
 
+
+
 .blue-bg{
   background-color: #6482AD;
 }
@@ -472,6 +474,13 @@ ul,  li{
   transform: rotate(90deg);
 }
 
+.rotate-180deg{
+  transition: transform 0.6s ease;
+  transform: rotate(180deg);
+}
+.li-disc{
+  list-style-type: disc;
+}
 .position-sticky{
   position: sticky;
   top: 0;

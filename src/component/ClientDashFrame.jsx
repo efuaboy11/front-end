@@ -461,16 +461,16 @@ export const ClientDashFrame = () =>{
 
                   <div>
                     <ul className={` dropdown-bg ${supportDropdown ? "slide-in" : "slide-out"}`}>
-                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link ${isActiveDashLink("/dashboard/FAQs/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/FAQs/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 py-2">
                             <p>FAQs</p> 
                           </div>
                         </Link>
                       </li>
 
-                      <li className={`dashboard-sidebar-dropdown-link  ${isActiveDashLink("/admin/KYC/verified") ?"active-dash-link": ""}`}>
-                        <Link className='dashboard-link' to="/admin/KYC/verified" onClick={OnbodyClick}>
+                      <li className={`dashboard-sidebar-dropdown-link  ${isActiveDashLink("/dashboard/support-center/") ?"active-dash-link": ""}`}>
+                        <Link className='dashboard-link' to="/dashboard/support-center/" onClick={OnbodyClick}>
                           <div className="d-flex ps-5 pb-2">
                             <p>Help</p> 
                           </div>
@@ -568,7 +568,7 @@ export const ClientDashFrame = () =>{
                           <p><span className='light-text'>Interest: </span> {formatCurrency(interestTotal)} USD</p>
 
                           <div className="pt-2">
-                            <Link className='light-link'>Withdraw <i class="ps-2 bi bi-box-arrow-right"></i></Link>
+                            <Link to='/dashboard/add-withdraw/' className='light-link'>Withdraw <i class="ps-2 bi bi-box-arrow-right"></i></Link>
                           </div>
                         </div>
                         
@@ -601,7 +601,7 @@ export const ClientDashFrame = () =>{
                           </li>
 
                           <li className='pb-3'>
-                            <Link to='/admin/change-password/step-1/' className='light-link'>
+                            <Link to='/dashboard/referrals/' className='light-link'>
                               <div className="d-flex">
                                 <i class="bi bi-link-45deg pe-2"></i>
                                 <p className=''>Referral Link </p>
@@ -610,7 +610,7 @@ export const ClientDashFrame = () =>{
                           </li>
 
                           <li className='pb-3'>
-                            <Link to='/admin/change-password/step-1/' className='light-link'>
+                            <Link to='/dashboard/change-password/step-1/' className='light-link'>
                               <div className="d-flex">
                                 <i class="bi bi-gear pe-2"></i>
                                 <p className=''>Change Password </p>
